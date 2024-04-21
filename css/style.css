@@ -19,13 +19,68 @@ footer {
     width: 100%;
   }
 
-header {
+/* styling for h1 and h2 */
+h1, h2 {
     color: #8B4BA9;
     font-size: 25px;
     font-weight: bold;
     margin: 0 10px 0 10px;
 }
 
+/* shopping cart header */
+#shopCartHead {
+    color: #8B4BA9;
+    font-size: 25px;
+    font-weight: bold;
+    margin: 0 10px 0 10px;
+    margin-top: auto;
+}
+
+/* Items in shopping cart */
+#my-items {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* boxes of the item itself */
+.item {
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 1rem;
+    text-align: center;
+}
+
+/* */
+.items-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    grid-gap: 1rem;
+}
+
+/* order summary box */
+#order-summary {
+    border: 2px solid black;
+    padding: 20px; 
+    background-color: #fff; 
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
+    margin-bottom: 1rem;
+    margin-left: 1rem;
+    margin-right: 1rem;
+}
+
+/*  */
+.order-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    grid-gap: 1rem;
+}
 
 .top-group {
   display: flex;
@@ -40,6 +95,18 @@ header {
   align-items: center;
 }
 
+/* changes img proportions */
+.item img {
+    width: 100%;
+    height: auto;
+    border-radius: 5px;
+    margin-bottom: 0.5rem;
+}
+
+/* Total styling */
+h2 p {
+    color: blue;
+}
 
 .menu-button span, .login a {
   cursor: pointer;
@@ -49,7 +116,7 @@ header {
   font-size: 20px;
 }
 
-/* This block of code is for the List An Item, Login button */
+/* the List An Item, Login button */
 .container a {
     font-size: 12px;
     font-weight: bold;
