@@ -10,6 +10,23 @@ nav {
   padding: 10px 20px;
 }
 
+footer {
+    background-color: #8B4BA9;
+    color: white;
+    text-align: center;
+    padding: 10px;
+    margin: 0;
+    width: 100%;
+  }
+
+header {
+    color: #8B4BA9;
+    font-size: 25px;
+    font-weight: bold;
+    margin: 0 10px 0 10px;
+}
+
+
 .top-group {
   display: flex;
   justify-content: space-between;
@@ -23,12 +40,6 @@ nav {
   align-items: center;
 }
 
-header {
-  color: #8B4BA9;
-  font-size: 25px;
-  font-weight: bold;
-  margin: 0 10px 0 10px;
-}
 
 .menu-button span, .login a {
   cursor: pointer;
@@ -38,16 +49,18 @@ header {
   font-size: 20px;
 }
 
-.login a {
-  font-size: 12px;
-  font-weight: bold;
-  text-decoration: none;
-
-  color: black;
-  margin: 10px;
-  width: 100%;
-
+/* This block of code is for the List An Item, Login button */
+.container a {
+    font-size: 12px;
+    font-weight: bold;
+    text-decoration: none;
+    color: black;
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+    padding: 1rem;
 }
+
 .search-bar {
   display: flex;
   align-items: center;
@@ -67,14 +80,6 @@ header {
   cursor: pointer;
 }
 
-footer {
-  background-color: #8B4BA9;
-  color: white;
-  text-align: center;
-  padding: 10px;
-  margin: 0;
-  width: 100%;
-}
 
 @media (max-width: 600px) {
   nav {
