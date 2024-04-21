@@ -1,14 +1,25 @@
-body {
-    font-size: 16px;
-    font-family: "Roboto", Arial, Helvetica, sans-serif;
+nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #f4f4f4;
+  padding: 10px 20px;
 }
-
-h1, h2 {
-    color: #342d1b;
-    text-align: center;
+h1 {
+  color: purple;
+  margin: 0 20px;
 }
-
-li {
-    line-height: 1;
-    margin-bottom: 1rem;
+.menu-button span, .login a {
+  font-size: 20px;
+  cursor: pointer;
+}
+.search-bar {
+  display: flex;
+}
+.search-bar input[type="text"] {
+  padding: 5px;
+  margin-right: 10px;
+}
+.search-bar button {
+  padding: 5px 10px;
 }
