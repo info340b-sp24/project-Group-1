@@ -193,6 +193,10 @@ h2 p {
   cursor: pointer;
 }
 
+nav a {
+    text-decoration: none; 
+}
+
 
 @media (max-width: 650px) {
   nav {
