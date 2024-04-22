@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="Shaaz Charania, Taran Bains, Amanda Chin, Tristan Khieu">
+    <meta name="description" content="description of your page">
+    <link rel="stylesheet" href="css/post-listing.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+    <title>Post Listing</title>
+</head>
+<body>
+
+    <div class="container">
+        <header class="header">
+            <span>UW MarketPlace</span>
+            <button class="close-button"></button>
+        </header>
+        
+        <div class="post-item">
+            <h1>Post an Item</h1>
+            
+            <div class="image-upload">
+                <div class="cover-photo">
+                    <img src="img/textbook.jpg" alt="Cover photo">
+                </div>
+                <div class="add-photo-container">
+                    <div class="add-photo">
+                        <span>+</span>
+                        <p>Add photo</p>
+                    </div>
+                    <p>Using 4/12 images</p>
+                </div>
+            </div>
+        </div>
+
+    <div class="photo-gallery">
+        <div class="photo" tabindex="0">
+            <img src="img/textbook.jpg" alt="Physical Science Book Cover">
+        </div>
+        <div class="photo" tabindex="0">
+            <img src="img/textbook.jpg" alt="Physical Science Book Cover">
+        </div>
+        <div class="photo" tabindex="0">
+            <img src="img/textbook.jpg" alt="Physical Science Book Cover">
+        </div>
+    </div>
+    <div class="photo-instructions">
+        <p><span class="edit-icon"></span> Tap photo to edit</p>
+        <p><span class="rearrange-icon"></span> Double tap photo to rearrange</p>
+    </div>
+        
+            
+            
+        <form class="form-container">
+            <div class="form-group">
+                <label for="title">Title</label>
+                <input type="text" id="title" placeholder="For example: Brand, model, color">
+            </div>
+                
+            <div class="form-group">
+                <label for="location">Location</label>
+                <input type="text" id="location">
+            </div>
+                
+            <div class="form-group">
+                <label for="price">Price</label>
+                <input type="text" id="price">
+            </div>
+                
+            <div class="form-group">
+                <label for="phone">Phone Number</label>
+                <input type="tel" id="phone">
+            </div>
+                
+            <div class="buttons">
+                <button type="submit" class="post-button">Post</button>
+                <button type="button" class="cancel-button">Cancel</button>
+            </div>
+        </form>
+    </div>
+</div>
+    
+</body>
+</html>
