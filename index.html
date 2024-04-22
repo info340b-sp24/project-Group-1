@@ -4,12 +4,14 @@
       <meta charset="UTF-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
       <meta name="Author" content="Tristan Khieu, Amanda Chin, Taran Bains, Shaaz Charania">
+      <meta name="description" content="Main page of a marketplace for students to buy and sell textbooks.">
       <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
       <link rel="stylesheet" href="css/style.css">
+      <link rel="icon" href="img/favicon.png">
       <title>Home Page</title>
   </head>
-<body>
+  <body>
     <main>
       <nav>
         <div class="top-group">
@@ -17,32 +19,57 @@
                 <div class="menu-button">
                     <span>&#9776;</span>
                 </div>
-                    <header>
-                      <h1>UW MarketPlace</h1>
-                    </header>
-                </div>
-                    <section id="listAnItem">
-                        <div class="container">
-                            <a href="#">List an Item</a>
-                        </div> 
-                    </section>
-                    <section id="logn">
-                        <div class="container">
-                            <a href="#">Log In</a>
-                        </div>
-                    </section>
-                </div>
-                <div class="right-group">
-                    <form class="search-bar">
-                    <button type="button" class="search-icon"><i class="fa fa-search"></i></button>
-                    <input type="text" placeholder="Search">
-                    </form>
-                </div>
-            </nav>
-        </main>
-      <footer>
-        <p>&copy; 2024 UW MarketPlace</p>
-      </footer>
+                <header>
+                    <h1>UW MarketPlace</h1>
+                </header>
+            </div>
+            <div class="container">
+                <a href="shoppingCart.html">My Cart</a>
+            </div>
+            <div class="container">
+                <a href="view.html">My Listings</a>
+            </div>
+        </div>
+        <div class="right-group">
+            <form class="search-bar">
+            <button type="button" class="search-icon"><i class="fa fa-search"></i></button>
+            <input type="text" placeholder="Search">
+            </form>
+        </div>
+      </nav>
+      <section id="all-items">
+        <h3>Items Near You</h3>
+        <section class="items-container">
+            <div class="item">
+                <img src="img/textbook.jpg" alt="Textbook">
+                <p class="title">PEARSON SCIENCE TEXTBOOK</p>
+                <p class="price">$90</p>
+                <p class="location">University District</p>
+            </div>
+            <div class="item">
+                <img src="img/textbook.jpg" alt="Textbook">
+                <p class="title">PEARSON SCIENCE TEXTBOOK</p>
+                <p class="price">$90</p>
+                <p class="location">University District</p>
+            </div>
+            <div class="item">
+                <img src="img/textbook.jpg" alt="Textbook">
+                <p class="title">PEARSON SCIENCE TEXTBOOK</p>
+                <p class="price">$90</p>
+                <p class="location">University District</p>
+            </div>
+            <div class="item">
+                <img src="img/textbook.jpg" alt="Textbook">
+                <p class="title">PEARSON SCIENCE TEXTBOOK</p>
+                <p class="price">$90</p>
+                <p class="location">University District</p>
+            </div>
+        </section>
+    </section>
+    </main>
+    <footer>
+      <p>&copy; 2024 UW MarketPlace</p>
+    </footer>
   </body>
 </html>
 

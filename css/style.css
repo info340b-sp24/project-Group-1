@@ -27,8 +27,16 @@ h1, h2 {
     margin: 0 10px 0 10px;
 }
 
+/* Near you */
+h3 {
+  font-size: 20px;
+  color: #8B4BA9;
+  margin: 0 10px 0 10px;
+
+}
+
 /* shopping cart header */
-#shopCartHead {
+.shopCartHead {
     color: #8B4BA9;
     font-size: 25px;
     font-weight: bold;
@@ -37,7 +45,7 @@ h1, h2 {
 }
 
 /* Items in shopping cart */
-#my-items {
+.my-items {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -64,12 +72,12 @@ h1, h2 {
 }
 
 /* order summary box */
-#order-summary {
+.order-summary {
     border: 2px solid black;
-    padding: 20px; 
-    background-color: #fff; 
+    padding: 20px;
+    background-color: #fff;
     border-radius: 10px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     margin-bottom: 1rem;
     margin-left: 1rem;
     margin-right: 1rem;
@@ -95,17 +103,55 @@ h1, h2 {
   align-items: center;
 }
 
+.item {
+  text-align: left;
+  margin: 10px 0 10px 0;
+}
+
+.checkout-btn {
+    background-color: #212529;
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-decoration: none;
+    margin: auto;
+}
+
+.order {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: column; 
+}
+
+.order-details {
+    margin-bottom: 10px; 
+}
+
+.checkout-btn-container {
+    align-self: flex-start; 
+    margin-top: 10px; 
+}
+
+.checkout-btn:hover {
+    background-color: #343a40;
+}
+
+.item:hover {
+  transform: scale(1.05);
+  transition: 0.3s;
+}
+
 /* changes img proportions */
 .item img {
     width: 100%;
-    height: auto;
     border-radius: 5px;
     margin-bottom: 0.5rem;
 }
 
 /* Total styling */
 h2 p {
-    color: blue;
+    color: black;
 }
 
 .menu-button span, .login a {
@@ -147,8 +193,12 @@ h2 p {
   cursor: pointer;
 }
 
+nav a {
+    text-decoration: none; 
+}
 
-@media (max-width: 600px) {
+
+@media (max-width: 650px) {
   nav {
       flex-direction: column;
   }
