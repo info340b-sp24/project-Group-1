@@ -1,0 +1,193 @@
+body {
+    font-family: 'Inter', sans-serif;
+    margin: 0;
+    padding: 0;
+    background: #f4f4f4;
+}
+
+.container {
+    width: 1200px;
+    margin: 2rem auto;
+    background: #fff;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+
+.header span {
+    font-size: 1.5rem;
+    color: #4e2a84;
+    font-weight: bold;
+}
+
+.close-button {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+.post-item h1 {
+    color: #333;
+    margin-bottom: 1rem;
+}
+
+.image-upload {
+    display: flex;
+    justify-content: start;
+    margin-bottom: 1rem;
+}
+
+
+.cover-photo img {
+    width: 120px;
+    height: 120px;
+    border: 1px solid #ccc;
+    margin-right: 1rem;
+}
+
+.add-photo {
+    border: 2px dashed rgb(158, 19, 232);
+    border-radius: 8px;
+    width: 120px;
+    height: 120px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    margin-right: 1rem;
+}
+
+.add-photo span {
+    font-size: 2rem;
+    color: #4e2a84;
+}
+
+.add-photo p {
+    margin: 0.5rem 0;
+    color: #4e2a84;
+    
+}
+
+.photo-gallery {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 10px; 
+    margin-bottom: 10px;
+}
+
+.photo {
+    padding: 5px; 
+    cursor: pointer; 
+}
+
+.photo img {
+    width: 100px; 
+    height: auto; 
+}
+
+.photo-instructions {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.photo-instructions p {
+    display: flex;
+    align-items: center;
+    margin: 2px 0;
+    font-size: 14px; 
+}
+
+.edit-icon, .rearrange-icon {
+    font-size: 20px; 
+    margin-right: 5px;
+}
+
+.edit-icon:before {
+    content: "\270E";
+}
+
+.rearrange-icon:before {
+    content: "\1F5D2"; 
+}
+
+.form-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 2rem;
+}
+
+.post-button, .cancel-button {
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1rem;
+}
+
+.post-button {
+    background: #4e2a84;
+    color: #fff;
+}
+
+.cancel-button {
+    background: #ccc;
+    color: #333;
+}
+
+@media (max-width: 600px) {
+    .container {
+        width: auto; 
+        padding: 10px; 
+    }
+
+    .photo-gallery {
+        flex-direction: column; 
+    }
+
+    .photo {
+        width: 100%; 
+        margin-bottom: 10px; 
+    }
+
+    .add-photo {
+        width: 100%; 
+        margin-bottom: 10px; 
+    }
+
+    .buttons button {
+        width: 100%; 
+        margin-bottom: 10px;
+    }
+}
