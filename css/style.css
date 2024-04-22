@@ -27,6 +27,7 @@ h1, h2 {
     margin: 0 10px 0 10px;
 }
 
+/* Near you */
 h3 {
   font-size: 20px;
   color: #8B4BA9;
@@ -35,7 +36,7 @@ h3 {
 }
 
 /* shopping cart header */
-#shopCartHead {
+.shopCartHead {
     color: #8B4BA9;
     font-size: 25px;
     font-weight: bold;
@@ -44,7 +45,7 @@ h3 {
 }
 
 /* Items in shopping cart */
-#my-items {
+.my-items {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -71,7 +72,7 @@ h3 {
 }
 
 /* order summary box */
-#order-summary {
+.order-summary {
     border: 2px solid black;
     padding: 20px;
     background-color: #fff;
@@ -107,6 +108,35 @@ h3 {
   margin: 10px 0 10px 0;
 }
 
+.checkout-btn {
+    background-color: #212529;
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-decoration: none;
+    margin: auto;
+}
+
+.order {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: column; 
+}
+
+.order-details {
+    margin-bottom: 10px; 
+}
+
+.checkout-btn-container {
+    align-self: flex-start; 
+    margin-top: 10px; 
+}
+
+.checkout-btn:hover {
+    background-color: #343a40;
+}
+
 .item:hover {
   transform: scale(1.05);
   transition: 0.3s;
@@ -121,7 +151,7 @@ h3 {
 
 /* Total styling */
 h2 p {
-    color: blue;
+    color: black;
 }
 
 .menu-button span, .login a {
@@ -161,6 +191,10 @@ h2 p {
   border: none;
   padding: 5px;
   cursor: pointer;
+}
+
+nav a {
+    text-decoration: none; 
 }
 
 

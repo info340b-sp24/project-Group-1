@@ -16,16 +16,16 @@
                     <div class="menu-button">
                         <span>&#9776;</span>
                     </div>
-                        <h1>UW MarketPlace</h1>
+                    <h1><a href="index.html">UW MarketPlace</a></h1>
                 </div>
                 <section id="listAnItem">
                     <div class="container">
-                        <a href="#">List an Item</a>
+                        <a href="listItem.html" class="list-item-link">List an Item</a>
                     </div> 
                 </section>
-                <section id="logn">
+                <section id="login">
                     <div class="container">
-                        <a href="#">Log In</a>
+                        <a href="login.html" class="login-link">Log In</a>
                     </div>
                 </section>
             </div>
@@ -37,10 +37,10 @@
             </div>
         </nav>
         <header> 
-            <h1 id="shopCartHead">Shopping Cart</h1>
+            <h1 class="shopCartHead">Shopping Cart</h1>
         </header>
         <main>
-            <section id="my-items">
+            <section class="my-items">
                 <div class="items-container">
                     <div class="item">
                         <img src="img/textbook.jpg" alt="Textbook">
@@ -64,16 +64,19 @@
                     </div>
                 </div>
             </section>
-            <section id="order-summary">
+            <section class="order-summary">
                 <div class="order-container">
                     <div class="order">
-                        <h2>
-                            Order Summary
-                        </h2>
-                        <h2>
-                            Total: $360
-                        </h2>
-                        <a class="btn btn-dark" href="#" role="button">CHECKOUT</a>
+                        <div class="order-details">
+                            <h3>Order Summary</h3>
+                            <h3>Total: $360</h3>
+                        </div>
+                        <!-- Buttons -->
+                        <div class="button-container">
+                            <a class="btn btn-dark checkout-btn" href="#" role="button">CHECKOUT</a>
+                            <span class="or-text">or</span>
+                            <a class="btn btn-secondary continue-shopping-btn" href="#" role="button">Continue Shopping</a>
+                        </div>
                     </div>
                 </div>
             </section>
