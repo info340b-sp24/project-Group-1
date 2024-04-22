@@ -27,6 +27,7 @@ h1, h2 {
     margin: 0 10px 0 10px;
 }
 
+/* Near you */
 h3 {
   font-size: 20px;
   color: #8B4BA9;
@@ -107,6 +108,35 @@ h3 {
   margin: 10px 0 10px 0;
 }
 
+.checkout-btn {
+    background-color: #212529;
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-decoration: none;
+    margin: auto;
+}
+
+.order {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: column; /* Display elements vertically */
+}
+
+.order-details {
+    margin-bottom: 10px; /* Adjust as needed */
+}
+
+.checkout-btn-container {
+    align-self: flex-start; /* Align the button to the left */
+    margin-top: 10px; /* Adjust margin to create space between total and button */
+}
+
+.checkout-btn:hover {
+    background-color: #343a40;
+}
+
 .item:hover {
   transform: scale(1.05);
   transition: 0.3s;
@@ -121,7 +151,7 @@ h3 {
 
 /* Total styling */
 h2 p {
-    color: blue;
+    color: black;
 }
 
 .menu-button span, .login a {
