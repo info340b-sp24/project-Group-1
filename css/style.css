@@ -121,16 +121,16 @@ h3 {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    flex-direction: column; /* Display elements vertically */
+    flex-direction: column; 
 }
 
 .order-details {
-    margin-bottom: 10px; /* Adjust as needed */
+    margin-bottom: 10px; 
 }
 
 .checkout-btn-container {
-    align-self: flex-start; /* Align the button to the left */
-    margin-top: 10px; /* Adjust margin to create space between total and button */
+    align-self: flex-start; 
+    margin-top: 10px; 
 }
 
 .checkout-btn:hover {
