@@ -27,6 +27,13 @@ h1, h2 {
     margin: 0 10px 0 10px;
 }
 
+h3 {
+  font-size: 20px;
+  color: #8B4BA9;
+  margin: 0 10px 0 10px;
+
+}
+
 /* shopping cart header */
 #shopCartHead {
     color: #8B4BA9;
@@ -66,10 +73,10 @@ h1, h2 {
 /* order summary box */
 #order-summary {
     border: 2px solid black;
-    padding: 20px; 
-    background-color: #fff; 
+    padding: 20px;
+    background-color: #fff;
     border-radius: 10px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     margin-bottom: 1rem;
     margin-left: 1rem;
     margin-right: 1rem;
@@ -95,10 +102,19 @@ h1, h2 {
   align-items: center;
 }
 
+.item {
+  text-align: left;
+  margin: 10px 0 10px 0;
+}
+
+.item:hover {
+  transform: scale(1.05);
+  transition: 0.3s;
+}
+
 /* changes img proportions */
 .item img {
     width: 100%;
-    height: auto;
     border-radius: 5px;
     margin-bottom: 0.5rem;
 }
@@ -148,7 +164,7 @@ h2 p {
 }
 
 
-@media (max-width: 600px) {
+@media (max-width: 650px) {
   nav {
       flex-direction: column;
   }
