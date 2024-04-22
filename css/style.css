@@ -35,7 +35,7 @@ h3 {
 }
 
 /* shopping cart header */
-#shopCartHead {
+.shopCartHead {
     color: #8B4BA9;
     font-size: 25px;
     font-weight: bold;
@@ -44,7 +44,7 @@ h3 {
 }
 
 /* Items in shopping cart */
-#my-items {
+.my-items {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -71,7 +71,7 @@ h3 {
 }
 
 /* order summary box */
-#order-summary {
+.order-summary {
     border: 2px solid black;
     padding: 20px;
     background-color: #fff;
