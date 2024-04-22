@@ -140,7 +140,7 @@ h2 {
 
 .listing {
     background-color: #fff;
-    border-radius: 10px;
+    border-radius: 5px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     padding: 1rem;
     text-align: center;
@@ -148,7 +148,8 @@ h2 {
 
 .listing img {
     width: 100%;
-    height: auto;
+    height: 200px;
+    object-fit: cover;
     border-radius: 5px;
     margin-bottom: 0.5rem;
 }
@@ -172,4 +173,15 @@ footer {
     padding: 10px;
     margin: 0;
     width: 100%;
+  }
+
+  @media screen and (max-width: 600px) {
+    .my-items {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .items-stats {
+        margin-top: 1rem;
+    }
   }
