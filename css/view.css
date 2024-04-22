@@ -34,6 +34,10 @@ nav {
     margin: 0;
 }
 
+.logo a {
+    text-decoration: none;
+}
+
 .right-group {
     display: flex;
 }
