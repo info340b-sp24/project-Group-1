@@ -7,36 +7,33 @@
       <meta name="description" content="Main page of a marketplace for students to buy and sell textbooks.">
       <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-      <link rel="stylesheet" href="css/style.css">
+      <link rel="stylesheet" href="css/view.css">
       <link rel="icon" href="img/favicon.png">
       <title>Home Page</title>
   </head>
   <body>
     <main>
-      <nav>
-        <div class="top-group">
-            <div class="left-group">
-                <div class="menu-button">
-                    <span>&#9776;</span>
+        <header>
+            <nav>
+                <div class="left-group">
+                    <span class="menu-icon">&#9776;</span>
+                    <h1 class="logo"><a href="index.html">UW MarketPlace</a></h1>
                 </div>
-                <header>
-                    <h1>UW MarketPlace</h1>
-                </header>
-            </div>
-            <div class="container">
-                <a href="shoppingCart.html">My Cart</a>
-            </div>
-            <div class="container">
-                <a href="view.html">My Listings</a>
-            </div>
-        </div>
-        <div class="right-group">
-            <form class="search-bar">
-            <button type="button" class="search-icon"><i class="fa fa-search"></i></button>
-            <input type="text" placeholder="Search">
-            </form>
-        </div>
-      </nav>
+                <div class="middle-group">
+                    <form class="search-bar">
+                    <button type="button" class="search-icon"><i class="fa fa-search"></i></button>
+                    <input type="text" placeholder="Search">
+                    </form>
+                </div>
+                <div class="right-group">
+                    <a href="post-listing.html" class="menu">List an Item</a>
+                    <a href="my-listings.html" class="menu">My Listings</a>
+                    <a href="messages.html" class="menu">My Messages</a>
+                </div>
+            </nav>
+        </header>
+
+
       <section id="all-items">
         <h3>Items Near You</h3>
         <section class="items-container">
