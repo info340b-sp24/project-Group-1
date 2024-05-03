@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="author" content="Shaaz Charania, Taran Bains, Amanda Chin, Tristan Khieu">
     <meta name="description" content="description of your page">
-    <link rel="stylesheet" href="/src/css/post-listing.css">
+    <link rel="stylesheet" href="../src/style.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
     <title>Post Listing</title>
 </head>
@@ -13,8 +13,25 @@
 
     <div class="container">
         <header class="header">
-            <h1><a href="index.html">UW MarketPlace</a></h1>
-            <button class="close-button" aria-label="Close"></button>
+            <header>
+                <nav>
+                    <div class="left-group">
+                        <span class="menu-icon">&#9776;</span>
+                        <h1 class="logo"><a href="index.html">UW MarketPlace</a></h1>
+                    </div>
+                    <div class="middle-group">
+                        <form class="search-bar">
+                        <button type="button" class="search-icon"><i class="fa fa-search"></i></button>
+                        <input type="text" placeholder="Search">
+                        </form>
+                    </div>
+                    <div class="right-group">
+                        <a href="post-listing.html" class="menu">List an Item</a>
+                        <a href="my-listings.html" class="menu">My Listings</a>
+                        <a href="messages.html" class="menu">My Messages</a>
+                    </div>
+                </nav>
+            </header>
         </header>
 
         <div class="post-item">
@@ -22,7 +39,7 @@
 
             <div class="image-upload">
                 <div class="cover-photo">
-                    <img src="/src/img/textbook.jpg" alt="Cover photo of textbook">
+                    <img src="./img/textbook.jpg" alt="Cover photo of textbook">
                 </div>
                 <div class="add-photo-container">
                     <div class="add-photo" role="button" aria-label="Add more photos">
@@ -36,13 +53,13 @@
 
     <div class="photo-gallery">
         <div class="photo" tabindex="0">
-            <img src="/src/img/textbook.jpg" alt="Physical Science Book Cover">
+            <img src="./img/textbook.jpg" alt="Physical Science Book Cover">
         </div>
         <div class="photo" tabindex="0">
-            <img src="/src/img/textbook.jpg" alt="Physical Science Book Cover">
+            <img src="./img/textbook.jpg" alt="Physical Science Book Cover">
         </div>
         <div class="photo" tabindex="0">
-            <img src="/src/img/textbook.jpg" alt="Physical Science Book Cover">
+            <img src="./img/textbook.jpg" alt="Physical Science Book Cover">
         </div>
     </div>
     <div class="photo-instructions">
