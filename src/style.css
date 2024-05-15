@@ -266,7 +266,6 @@ footer {
     margin-bottom: 1rem;
 }
 
-
 .cover-photo img {
     width: 120px;
     height: 120px;
@@ -274,6 +273,7 @@ footer {
     margin-right: 1rem;
 }
 
+/** Post-Listing **/
 .add-photo {
     border: 2px dashed rgb(158, 19, 232);
     border-radius: 8px;
@@ -306,9 +306,17 @@ footer {
     margin-bottom: 10px;
 }
 
+.photo-gallery {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 10px;
+    overflow-x: auto;
+    white-space: nowrap;
+}
+
 .photo {
-    padding: 5px;
-    cursor: pointer;
+    flex: 0 0 auto;
 }
 
 .photo img {

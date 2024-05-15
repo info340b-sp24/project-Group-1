@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="author" content="Shaaz Charania, Taran Bains, Amanda Chin, Tristan Khieu">
-    <meta name="description" content="description of your page">
-    <link rel="stylesheet" href="../src/style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
-    <title>Post Listing</title>
-</head>
-<body>
-
-    <div class="container">
-        <header class="header">
+  <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="Author" content="Tristan Khieu, Amanda Chin, Taran Bains, Shaaz Charania">
+      <meta name="description" content="List a posting of items user wants to sell">
+      <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+      <link rel="stylesheet" href="../src/style.css">
+      <link rel="icon" href="/img/favicon.png">
+      <title>Post Listing</title>
+  </head>
+    <body>
+        <main>
             <header>
                 <nav>
                     <div class="left-group">
@@ -32,71 +32,78 @@
                     </div>
                 </nav>
             </header>
-        </header>
 
-        <div class="post-item">
-            <h1>Post an Item</h1>
-
-            <div class="image-upload">
-                <div class="cover-photo">
-                    <img src="./img/textbook.jpg" alt="Cover photo of textbook">
-                </div>
-                <div class="add-photo-container">
-                    <div class="add-photo" role="button" aria-label="Add more photos">
-                        <span>+</span>
-                        <p>Add photo</p>
+            <section class="all-items">
+                <h2>Post an Item</h2>
+                <div class="items-container">
+                    <div class="item">
+                        <img src="./img/textbook.jpg" alt="Cover photo of textbook">
                     </div>
-                    <p>Using 4/12 images</p>
+                    <div class="item">
+                        <div class="add-photo" role="button" aria-label="Add more photos">
+                            <span>+</span>
+                            <p>Add photo</p>
+                        </div>
+                    </div>
                 </div>
+            </section>
+
+            <section class="all-items">
+                <div class=photo-gallery">
+                    <div class="photo">
+                        <img src="./img/textbook.jpg" alt="Physical Science Book Cover">
+                    </div>
+                    <div class="photo">
+                        <img src="./img/textbook.jpg" alt="Physical Science Book Cover">
+                    </div>
+                    <div class="photo">
+                        <img src="./img/textbook.jpg" alt="Physical Science Book Cover">
+                    </div>
+                </div>
+            </section>
+
+            <section class="all-items">
+                <div class="photo-instructions">
+                    <p><span class="edit-icon" aria-hidden="true"></span> Tap photo to edit</p>
+                    <p><span class="rearrange-icon" aria-hidden="true"></span> Double tap photo to rearrange</p>
+                </div>
+            </section>
+
+            <section class="all-items">
+                <form class="form-container">
+                    <div class="form-group">
+                        <label for="title">Title</label>
+                        <input type="text" id="title" placeholder="For example: Brand, model, color">
+                    </div>
+        
+                    <div class="form-group">
+                        <label for="location">Location</label>
+                        <input type="text" id="location">
+                    </div>
+        
+                    <div class="form-group">
+                        <label for="price">Price</label>
+                        <input type="text" id="price">
+                    </div>
+        
+                    <div class="form-group">
+                        <label for="phone">Phone Number</label>
+                        <input type="tel" id="phone">
+                    </div>
+        
+                    <div class="buttons">
+                        <button type="submit" class="post-button">Post</button>
+                        <button type="button" class="cancel-button">Cancel</button>
+                    </div>
+                </form>
+            </section>
             </div>
         </div>
+    </section>
 
-    <div class="photo-gallery">
-        <div class="photo" tabindex="0">
-            <img src="./img/textbook.jpg" alt="Physical Science Book Cover">
-        </div>
-        <div class="photo" tabindex="0">
-            <img src="./img/textbook.jpg" alt="Physical Science Book Cover">
-        </div>
-        <div class="photo" tabindex="0">
-            <img src="./img/textbook.jpg" alt="Physical Science Book Cover">
-        </div>
-    </div>
-    <div class="photo-instructions">
-        <p><span class="edit-icon" aria-hidden="true"></span> Tap photo to edit</p>
-        <p><span class="rearrange-icon" aria-hidden="true"></span> Double tap photo to rearrange</p>
-    </div>
-
-
-
-        <form class="form-container">
-            <div class="form-group">
-                <label for="title">Title</label>
-                <input type="text" id="title" placeholder="For example: Brand, model, color">
-            </div>
-
-            <div class="form-group">
-                <label for="location">Location</label>
-                <input type="text" id="location">
-            </div>
-
-            <div class="form-group">
-                <label for="price">Price</label>
-                <input type="text" id="price">
-            </div>
-
-            <div class="form-group">
-                <label for="phone">Phone Number</label>
-                <input type="tel" id="phone">
-            </div>
-
-            <div class="buttons">
-                <button type="submit" class="post-button">Post</button>
-                <button type="button" class="cancel-button">Cancel</button>
-            </div>
-        </form>
-    </div>
-</div>
-
-</body>
+    </main>
+    <footer>
+        <p>&copy; 2024 UW MarketPlace</p>
+    </footer>
+    </body>
 </html>
