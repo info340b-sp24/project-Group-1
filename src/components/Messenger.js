@@ -3,7 +3,7 @@ import Header from './Header';
 import Footer from './Footer';
 
 // Make it save chat history
-export default function Messenger() {
+export function Messenger() {
   let [messages, setMessages] = useState([
     { id: '1', username: 'Chris', text: 'I am good with that price', liked: false }
   ]);

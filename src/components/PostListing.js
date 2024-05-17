@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-export default function PostListing() {
+export function PostListing() {
 
   const [condition, setCondition] = useState("");
   const handleConditionChange = (e) => {

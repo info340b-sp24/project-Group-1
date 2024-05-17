@@ -1,3 +1,3 @@
-export default function UserListings() {
+export function UserListings() {
   return <h1>User Listings</h1>;
 }

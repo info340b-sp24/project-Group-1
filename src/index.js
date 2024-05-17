@@ -1,7 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
+import {BrowserRouter} from 'react-router-dom';
 import './style.css';
-import App from './App';
+import App from './components/App';
 
 // FIREBASE CONFIG
 // Import the functions you need from the SDKs you need
@@ -24,8 +25,8 @@ const app = initializeApp(firebaseConfig);
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <React.StrictMode>
+  <BrowserRouter>
     <App />
-  </React.StrictMode>
+  </BrowserRouter>
 );
 
