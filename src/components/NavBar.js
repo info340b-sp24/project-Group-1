@@ -1,16 +1,29 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useNavigation } from './NavScript';
 import '../style.css';
 
-const NavBar = () => {
+// const NavBar = () => {
+//   const { isMenuOpen, toggleMenu } = useNavigation();
+
+//   function handleSearch(e) {
+//     e.preventDefault();
+//     //TODO: pass down event to button/form submit, implement stateful logic to switch to home page
+//     //TODO: and filter displayed items
+//     console.log('Searching...');
+//   }
+const NavBar = ({ searchQuery, setSearchQuery }) => {
   const { isMenuOpen, toggleMenu } = useNavigation();
+  const navigate = useNavigate();
 
   function handleSearch(e) {
     e.preventDefault();
-    //TODO: pass down event to button/form submit, implement stateful logic to switch to home page
-    //TODO: and filter displayed items
-    console.log('Searching...');
+    // Navigate to the home page with the search query
+    navigate(`/?search=${searchQuery}`);
+  }
+
+  function handleSearchChange(e) {
+    setSearchQuery(e.target.value);
   }
 
   return (
