@@ -1,106 +1,107 @@
 import React, { useState } from 'react';
 
-export function PostListing() {
-
+export default function PostListing() {
   const [condition, setCondition] = useState("");
+
   const handleConditionChange = (e) => {
     setCondition(e.target.value);
   };
-  
 
-  return <main>
-    <header>
-      <nav>
-        <div class="left-group">
-          <span class="menu-icon">&#9776;</span>
-          <h1 class="logo"><a href="index.html">UW MarketPlace</a></h1>
-        </div>
-        <div class="middle-group">
-          <form class="search-bar">
-            <button type="button" class="search-icon"><i class="fa fa-search"></i></button>
-            <input type="text" placeholder="Search" />
+  return (
+    <main>
+      <header>
+        <nav>
+          <div className="left-group">
+            <span className="menu-icon">&#9776;</span>
+            <h1 className="logo"><a href="/">UW MarketPlace</a></h1>
+          </div>
+          <div className="middle-group">
+            <form className="search-bar">
+              <button type="button" className="search-icon"><i className="fa fa-search"></i></button>
+              <input type="text" placeholder="Search" />
             </form>
-        </div>
-        <div class="right-group">
-          <a href="post-listing.html" class="menu">List an Item</a>
-          <a href="my-listings.html" class="menu">My Listings</a>
-          <a href="messages.html" class="menu">My Messages</a>
-        </div>
-      </nav>
-    </header>
-
-    <section class="all-items">
-      <h2>Post an Item</h2>
-      <div class="items-container">
-        <div class="item">
-          <img src="./img/textbook.jpg" alt="Cover photo of textbook" />
           </div>
-        <div class="item">
-          <div class="add-photo" role="button" aria-label="Add more photos">
-            <span>+</span>
-            <p>Add photo</p>
+          <div className="right-group">
+            <a href="/post-listing" className="menu">List an Item</a>
+            <a href="/user-listings" className="menu">My Listings</a>
+            <a href="/messenger" className="menu">My Messages</a>
+          </div>
+        </nav>
+      </header>
+
+      <section className="all-items">
+        <h2>Post an Item</h2>
+        <div className="items-container">
+          <div className="item">
+            <img src="/img/textbook.jpg" alt="Cover photo of textbook" />
+          </div>
+          <div className="item">
+            <div className="add-photo" role="button" aria-label="Add more photos">
+              <span>+</span>
+              <p>Add photo</p>
+            </div>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
 
-    <section class="all-items">
-      <div class photo-gallery />
-      <div class="photo">
-        <img src="./img/textbook.jpg" alt="Book Cover" />
-      </div>
-      <div class="photo">
-        <img src="./img/textbook.jpg" alt="Physical Science" />
-      </div>
-      <div class="photo">
-        <img src="./img/textbook.jpg" alt="Physical Science Book Cover" />
-      </div>
-  </section>
-    <section class="all-items">
-      <div class="photo-instructions">
-        <p><span class="edit-icon" aria-hidden="true"></span> Tap photo to edit</p>
-        <p><span class="rearrange-icon" aria-hidden="true"></span> Double tap photo to rearrange</p>
-      </div>
-    </section>
-    <section class="all-items">
-      <form class="form-container">
-        <div class="form-group">
-          <label for="title">Title</label>
-          <input type="text" id="title" placeholder="For example: Brand, model, color" />
+      <section className="all-items">
+        <div className="photo-gallery">
+          <div className="photo">
+            <img src="/img/textbook.jpg" alt="Book Cover" />
+          </div>
+          <div className="photo">
+            <img src="/img/textbook.jpg" alt="Physical Science" />
+          </div>
+          <div className="photo">
+            <img src="/img/textbook.jpg" alt="Physical Science Book Cover" />
+          </div>
         </div>
+      </section>
+      <section className="all-items">
+        <div className="photo-instructions">
+          <p><span className="edit-icon" aria-hidden="true"></span> Tap photo to edit</p>
+          <p><span className="rearrange-icon" aria-hidden="true"></span> Double tap photo to rearrange</p>
+        </div>
+      </section>
+      <section className="all-items">
+        <form className="form-container">
+          <div className="form-group">
+            <label htmlFor="title">Title</label>
+            <input type="text" id="title" placeholder="For example: Brand, model, color" />
+          </div>
 
-        <div class="form-group">
-          <label for="location">Location</label>
-          <input type="text" id="location" />
-        </div>
+          <div className="form-group">
+            <label htmlFor="location">Location</label>
+            <input type="text" id="location" />
+          </div>
 
-        <div class="form-group">
-          <label for="price">Price</label>
-          <input type="text" id="price" />
-        </div>
+          <div className="form-group">
+            <label htmlFor="price">Price</label>
+            <input type="text" id="price" />
+          </div>
 
-        <div>
-          <label htmlFor="condition">Condition:</label>
-          <select id="condition" value={condition} onChange={handleConditionChange}>
-            <option value="">Select condition</option>
-            <option value="New/Never Opened">New/Never Opened</option>
-            <option value="Barely Used">Barely Used</option>
-            <option value="Moderately Used">Moderately Used</option>
-            <option value="Very Used">Very Used</option>
-          </select>
-        </div>
+          <div className="form-group">
+            <label htmlFor="condition">Condition:</label>
+            <select id="condition" value={condition} onChange={handleConditionChange}>
+              <option value="">Select condition</option>
+              <option value="New/Never Opened">New/Never Opened</option>
+              <option value="Barely Used">Barely Used</option>
+              <option value="Moderately Used">Moderately Used</option>
+              <option value="Very Used">Very Used</option>
+            </select>
+          </div>
 
-        <div class="form-group">
-          <label for="phone">Phone Number</label>
-          <input type="tel" id="phone" />
-        </div>
+          <div className="form-group">
+            <label htmlFor="phone">Phone Number</label>
+            <input type="tel" id="phone" />
+          </div>
 
-        <div class="buttons">
-          <button type="submit" class="post-button">Post</button>
-          <button type="button" class="cancel-button">Cancel</button>
-        </div>
-      </form>
-    </section>
-</main>
+          <div className="buttons">
+            <button type="submit" className="post-button">Post</button>
+            <button type="button" className="cancel-button">Cancel</button>
+          </div>
+        </form>
+      </section>
+    </main>
+  );
 }
-

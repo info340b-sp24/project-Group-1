@@ -9,4 +9,3 @@ export const useNavigation = () => {
 
   return { isMenuOpen,toggleMenu };
 };
-

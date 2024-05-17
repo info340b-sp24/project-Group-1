@@ -1,20 +1,18 @@
-import React, { useState } from 'react';
-import { Home } from './Home';
-import NavBar from './Nav/NavBar';
-import { Messenger } from './Messenger';
-import { PostListing } from './PostListing';
-import { UserListings } from './UserListings';
+import React from 'react';
+import { Route, Routes, BrowserRouter, Link} from 'react-router-dom';
+import Home from './Home';
+import Messenger from './Messenger';
+import PostListing from './PostListing';
+import UserListings from './UserListings';
 
-export default function App(props) {
-  const [view, setView] = useState('home');
-
+export default function App() {
   return (
-    <div className="app">
-      <NavBar onNavigate={setView} />
-      {view === 'home' && <Home />}
-      {view === 'messenger' && <Messenger />}
-      {view === 'post-listing' && <PostListing />}
-      {view === 'user-listings' && <UserListings />}
-    </div>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/messenger" element={<Messenger />} />
+          <Route path="/post-listing" element={<PostListing />} />
+          <Route path="/user-listings" element={<UserListings />} />
+          <Route path="*" element={<Home />} /> 
+        </Routes>
   );
 }

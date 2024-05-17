@@ -1,66 +1,70 @@
 import React, { useState } from 'react';
-import Header from './Nav/NavBar';
+import NavBar from './NavBar';
 import Footer from './Footer';
 
-// Make it save chat history
-export function Messenger() {
-  let [messages, setMessages] = useState([
+export default function Messenger(props) {
+  return (
+    <div>
+      <NavBar />
+      <MessengerBox />
+      <Footer />
+    </div>
+  );
+}
+
+function MessengerBox() {
+  const [messages, setMessages] = useState([
     { id: '1', username: 'Chris', text: 'I am good with that price', liked: false }
   ]);
-  let [newMessage, setNewMessage] = useState('');
+  const [newMessage, setNewMessage] = useState('');
 
-  let handleSendMessage = (e) => {
+  const handleSendMessage = (e) => {
     e.preventDefault();
     if (newMessage.trim()) {
-      let newMsg = { id: Math.random().toString(36).substr(2, 9), username: 'You', text: newMessage, liked: false };
+      const newMsg = { id: Math.random().toString(36).substr(2, 9), username: 'You', text: newMessage, liked: false };
       setMessages([...messages, newMsg]);
       setNewMessage('');
     }
   };
 
-  let handleLike = (index) => {
-    let updatedMessages = [...messages];
+  const handleLike = (index) => {
+    const updatedMessages = [...messages];
     updatedMessages[index].liked = !updatedMessages[index].liked;
     setMessages(updatedMessages);
   };
 
   return (
-    <div>
-      <Header />
-      <main>
-        <div className="chat-container">
-          <h2 className="text-center">Messenger</h2>
-          <div className="chat-history">
-            {messages.map((message, index) => (
-              <div key={message.id} className="message">
-                <div className="message-header">
-                  <span className="message-username">{message.username === 'You' ? 'You' : 'Chris'}</span>
-                </div>
-                <p className="message-text">{message.text}</p>
-                <div className="message-actions">
-                  <button className="like-button" onClick={() => handleLike(index)}>
-                    <span style={{ color: message.liked ? 'red' : 'grey' }}>♥</span>
-                  </button>
-                </div>
+    <main>
+      <div className="chat-container">
+        <h2 className="text-center">Messenger</h2>
+        <div className="chat-history">
+          {messages.map((message, index) => (
+            <div key={message.id} className="message">
+              <div className="message-header">
+                <span className="message-username">{message.username === 'You' ? 'You' : 'Chris'}</span>
               </div>
-            ))}
-          </div>
-          <form className="chat-input-container" onSubmit={handleSendMessage}>
-            {/* Single input field for sending messages */}
-            <input
-              type="text"
-              className="chat-input"
-              placeholder="Type your message..."
-              value={newMessage}
-              onChange={(e) => setNewMessage(e.target.value)}
-            />
-            <div className="chat-buttons">
-              <button type="submit" className="button send-button">Send</button>
+              <p className="message-text">{message.text}</p>
+              <div className="message-actions">
+                <button className="like-button" onClick={() => handleLike(index)}>
+                  <span style={{ color: message.liked ? 'red' : 'grey' }}>♥</span>
+                </button>
+              </div>
             </div>
-          </form>
+          ))}
         </div>
-      </main>
-      <Footer />
-    </div>
+        <form className="chat-input-container" onSubmit={handleSendMessage}>
+          <input
+            type="text"
+            className="chat-input"
+            placeholder="Type your message..."
+            value={newMessage}
+            onChange={(e) => setNewMessage(e.target.value)}
+          />
+          <div className="chat-buttons">
+            <button type="submit" className="button send-button">Send</button>
+          </div>
+        </form>
+      </div>
+    </main>
   );
 }
