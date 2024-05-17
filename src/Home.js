@@ -1,5 +1,5 @@
 export default function Home() {
-  return <main>
+  return <><main>
   <header>
       <nav>
           <div class="left-group">
@@ -51,5 +51,8 @@ export default function Home() {
   </div>
 </section>
 </main>
+<footer>
+    <p>&copy; 2024 UW MarketPlace</p>
+</footer>
+</>
 }
-
