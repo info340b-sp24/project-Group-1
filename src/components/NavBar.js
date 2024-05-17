@@ -1,9 +1,17 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useNavigation } from './NavScript';
+import '../style.css';
 
 const NavBar = () => {
   const { isMenuOpen, toggleMenu } = useNavigation();
+
+  function handleSearch(e) {
+    e.preventDefault();
+    //TODO: pass down event to button/form submit, implement stateful logic to switch to home page
+    //TODO: and filter displayed items
+    console.log('Searching...');
+  }
 
   return (
     <>
