@@ -1,14 +1,14 @@
-import Home from './Home';
-import Messenger from './Messenger';
+// import Home from './Home';
+// import Messenger from './Messenger';
 import PostListing from './PostListing';
-import UserListings from './UserListings';
+// import UserListings from './UserListings';
 
 export default function App() {
   return (
     <div>
-      <Home />
+      {/* <Home /> */}
       {/* <Messenger /> */}
-      {/* <PostListing /> */}
+      <PostListing />
       {/* <UserListings /> */}
     </div>
   );

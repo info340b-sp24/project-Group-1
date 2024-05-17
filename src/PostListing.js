@@ -1,4 +1,13 @@
+import React, { useState } from 'react';
+
 export default function PostListing() {
+
+  const [condition, setCondition] = useState("");
+  const handleConditionChange = (e) => {
+    setCondition(e.target.value);
+  };
+  
+
   return <main>
     <header>
       <nav>
@@ -38,10 +47,11 @@ export default function PostListing() {
     <section class="all-items">
       <div class photo-gallery />"{">"}
       <div class="photo">
-        <img src="./img/textbook.jpg" alt="Physical Science Book Cover" />
+      // eslint-disable-next-line
+        <img src="./img/textbook.jpg" alt="Book Cover" />
       </div>
       <div class="photo">
-        <img src="./img/textbook.jpg" alt="Physical Science Book Cover" />
+        <img src="./img/textbook.jpg" alt="Physical Science" />
       </div>
       <div class="photo">
         <img src="./img/textbook.jpg" alt="Physical Science Book Cover" />
@@ -68,6 +78,17 @@ export default function PostListing() {
         <div class="form-group">
           <label for="price">Price</label>
           <input type="text" id="price" />
+        </div>
+
+        <div>
+          <label htmlFor="condition">Condition:</label>
+          <select id="condition" value={condition} onChange={handleConditionChange}>
+            <option value="">Select condition</option>
+            <option value="New/Never Opened">New/Never Opened</option>
+            <option value="Barely Used">Barely Used</option>
+            <option value="Moderately Used">Moderately Used</option>
+            <option value="Very Used">Very Used</option>
+          </select>
         </div>
 
         <div class="form-group">
