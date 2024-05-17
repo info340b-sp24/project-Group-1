@@ -1,7 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useNavigation } from './NavScript';
-import '../style.css';
 
 const NavBar = () => {
   const { isMenuOpen, toggleMenu } = useNavigation();
