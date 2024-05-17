@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import Header from './Header';
+import Header from './Nav/NavBar';
 import Footer from './Footer';
 
 // Make it save chat history
