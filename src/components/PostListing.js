@@ -45,9 +45,8 @@ export default function PostListing() {
     </section>
 
     <section class="all-items">
-      <div class photo-gallery />"{">"}
+      <div class photo-gallery />
       <div class="photo">
-      // eslint-disable-next-line
         <img src="./img/textbook.jpg" alt="Book Cover" />
       </div>
       <div class="photo">
