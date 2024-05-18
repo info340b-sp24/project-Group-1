@@ -17,7 +17,6 @@ import car from '../img/car.jpg';
 export default function UserListings({ listings }) {
   return (
     <>
-      <NavBar />
         <main>
           <section className="my-items">
             <div className="user-info">
@@ -107,7 +106,6 @@ export default function UserListings({ listings }) {
             </div>
           </section>
         </main>
-        <Footer />
       </>
   );
 }

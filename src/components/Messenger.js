@@ -1,6 +1,4 @@
 import React, { useState } from 'react';
-import NavBar from './NavBar';
-import Footer from './Footer';
 
 export default function Messenger({ messages, addMessage, likeMessage }) {
   const [newMessage, setNewMessage] = useState('');
@@ -16,7 +14,6 @@ export default function Messenger({ messages, addMessage, likeMessage }) {
 
   return (
     <>
-      <NavBar />
       <main>
         <div className="chat-container">
           <h2 className="text-center">Messenger</h2>
@@ -49,7 +46,6 @@ export default function Messenger({ messages, addMessage, likeMessage }) {
           </form>
         </div>
       </main>
-      <Footer />
     </>
   );
 }

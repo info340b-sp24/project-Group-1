@@ -4,6 +4,8 @@ import Home from './Home';
 import Messenger from './Messenger';
 import PostListing from './PostListing';
 import UserListings from './UserListings';
+import NavBar from './NavBar';
+import Footer from './Footer';
 
 export default function App() {
   const [messages, setMessages] = useState([
@@ -11,6 +13,8 @@ export default function App() {
   ]);
 
   const [userListings, setUserListings] = useState([]);
+
+  const [searchQuery, setSearchQuery] = useState("");
 
   const addMessage = (message) => {
     setMessages((prevMessages) => [...prevMessages, message]);
@@ -29,8 +33,10 @@ export default function App() {
   };
 
   return (
+    <>
+    <NavBar searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
     <Routes>
-      <Route path="/" element={<Home />} />
+      <Route path="/" element={<Home searchQuery={searchQuery} />} />
       <Route
         path="/messenger"
         element={<Messenger messages={messages} addMessage={addMessage} likeMessage={likeMessage} />}
@@ -38,5 +44,8 @@ export default function App() {
       <Route path="/post-listing" element={<PostListing addNewListing={addNewListing} />} />
       <Route path="/user-listings" element={<UserListings listings={userListings} />} />
     </Routes>
+    <Footer />
+    </>
   );
 }
+

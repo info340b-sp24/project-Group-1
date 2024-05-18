@@ -26,7 +26,7 @@ const NavBar = ({ searchQuery, setSearchQuery }) => {
           </h1>
         </div>
         <div className="middle-group">
-          <form className="search-bar" onSubmit={handleSearch}>
+          <form className="search-bar" onChange={handleSearchChange} onSubmit={handleSearch}>
             <button type="submit" className="search-icon">
               <i className="fa fa-search"></i>
             </button>

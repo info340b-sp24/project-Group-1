@@ -5,7 +5,8 @@
     "price": 90,
     "description": "A comprehensive science textbook for university students.",
     "username": "Alice",
-    "location": "University District"
+    "location": "University District",
+    "image": "public/img/pearson_science_textbook.jpg"
   },
   {
     "id": "2",
@@ -13,7 +14,8 @@
     "price": 120,
     "description": "A sturdy and spacious study desk from IKEA.",
     "username": "Bob",
-    "location": "Capitol Hill"
+    "location": "Capitol Hill",
+    "image": "public/img/ikea_study_desk.jpg"
   },
   {
     "id": "3",
@@ -21,7 +23,8 @@
     "price": 950,
     "description": "A lightly used MacBook Pro with 16GB RAM and 512GB SSD.",
     "username": "Charlie",
-    "location": "Downtown"
+    "location": "Downtown",
+    "image": "public/img/macbook_pro_2019.jpg"
   },
   {
     "id": "4",
@@ -29,7 +32,8 @@
     "price": 60,
     "description": "A compact mini fridge perfect for dorm rooms.",
     "username": "Dana",
-    "location": "University District"
+    "location": "University District",
+    "image": "public/img/dorm_room_mini_fridge.jpg"
   },
   {
     "id": "5",
@@ -37,7 +41,8 @@
     "price": 45,
     "description": "A well-maintained calculus textbook for first-year students.",
     "username": "Eve",
-    "location": "Ravenna"
+    "location": "Ravenna",
+    "image": "public/img/calculus_textbook.jpg"
   },
   {
     "id": "6",
@@ -45,7 +50,8 @@
     "price": 75,
     "description": "An ergonomic office chair with adjustable height and lumbar support.",
     "username": "Frank",
-    "location": "Wallingford"
+    "location": "Wallingford",
+    "image": "public/img/office_chair.jpg"
   },
   {
     "id": "7",
@@ -53,7 +59,8 @@
     "price": 300,
     "description": "A used Samsung Galaxy S10 in good condition.",
     "username": "Grace",
-    "location": "Fremont"
+    "location": "Fremont",
+    "image": "public/img/samsung_galaxy_s10.jpg"
   },
   {
     "id": "8",
@@ -61,7 +68,8 @@
     "price": 80,
     "description": "A detailed organic chemistry textbook for advanced students.",
     "username": "Hank",
-    "location": "Green Lake"
+    "location": "Green Lake",
+    "image": "public/img/organic_chemistry_textbook.jpg"
   },
   {
     "id": "9",
@@ -69,7 +77,8 @@
     "price": 150,
     "description": "A reliable bicycle for commuting around the city.",
     "username": "Ivy",
-    "location": "Ballard"
+    "location": "Ballard",
+    "image": "public/img/bicycle.jpg"
   },
   {
     "id": "10",
@@ -77,6 +86,7 @@
     "price": 200,
     "description": "A pair of high-quality noise-cancelling headphones.",
     "username": "Jack",
-    "location": "Queen Anne"
+    "location": "Queen Anne",
+    "image": "public/img/noise_cancelling_headphones.jpg"
   }
 ]

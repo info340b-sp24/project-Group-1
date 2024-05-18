@@ -32,7 +32,7 @@ export default function PostListing({ addNewListing }) {
       phoneNumber,
       image: URL.createObjectURL(image),
     };
-  
+
     addNewListing(newListing);
     // Reset form fields
     setTitle('');
@@ -61,7 +61,6 @@ export default function PostListing({ addNewListing }) {
 
   return (
     <>
-      <NavBar />
       <main>
       <section className="all-items">
           <div className="items-container">
@@ -172,8 +171,6 @@ export default function PostListing({ addNewListing }) {
           </form>
         </section>
       </main>
-    <Footer />
     </>
   )
 }
- 
