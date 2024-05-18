@@ -1,6 +1,4 @@
 import React, { useState } from 'react';
-import NavBar from './NavBar';
-import Footer from './Footer';
 
 export default function PostListing({ addNewListing }) {
   const [title, setTitle] = useState('');
@@ -69,7 +67,7 @@ export default function PostListing({ addNewListing }) {
               {image ? (
                 <img src={URL.createObjectURL(image)} alt="Uploaded" />
               ) : (
-                <img src="/img/textbook.jpg" alt="Cover photo of textbook" />
+                <img src="/img/textbook.jpg" alt="Cover of textbook" />
               )}
             </div>
             <div className="item">
