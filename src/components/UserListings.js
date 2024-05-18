@@ -14,7 +14,7 @@ import chair2 from '../img/papasan.jpg';
 import car from '../img/car.jpg';
 
 
-export default function UserListings({ listings}) {
+export default function UserListings({ listings }) {
   return (
     <>
       <NavBar />
@@ -51,15 +51,13 @@ export default function UserListings({ listings}) {
           <section className="all-items">
             <h2>My Listings</h2>
             <div className="items-container">
-              {listings.map((listing) => (
-                <div key={listing.id} className="item">
-                  <img src={listing.image} alt={listing.title} />
-                  <p className="title">{listing.title}</p>
-                  <p className="price">{listing.price}</p>
-                </div>
-              ))}
-            </div>
-            <div className="items-container">
+                {listings.map((listing) => (
+                  <div key={listing.id} className="item">
+                    <img src={listing.image} alt={listing.title} />
+                    <p className="title">{listing.title}</p>
+                    <p className="price">{listing.price}</p>
+                  </div>
+                ))}
               <div className="item">
                 <img src={chair} alt="Chair" />
                 <p className="title">USED CHAIR</p>
