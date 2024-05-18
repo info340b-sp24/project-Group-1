@@ -8,12 +8,9 @@ export default function PostListing({ addNewListing }) {
   const [price, setPrice] = useState('');
   const [condition, setCondition] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
-<<<<<<< HEAD
   const [tags, setTags] = useState([]);
   const [inputTag, setInputTag] = useState("");
-=======
   const [image, setImage] = useState(null);
->>>>>>> 9474775a045bf63347a836758b20d4dec77d0d41
 
   const handleConditionChange = (e) => {
     setCondition(e.target.value);
@@ -35,13 +32,7 @@ export default function PostListing({ addNewListing }) {
       phoneNumber,
       image: URL.createObjectURL(image),
     };
-<<<<<<< HEAD
   
-    
-=======
-
-
->>>>>>> 9474775a045bf63347a836758b20d4dec77d0d41
     addNewListing(newListing);
     // Reset form fields
     setTitle('');
