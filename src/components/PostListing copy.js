@@ -2,17 +2,18 @@ import React, { useState } from 'react';
 import NavBar from './NavBar';
 import Footer from './Footer';
 
+// export default function PostListing() {
+//   const [condition, setCondition] = useState("");
+
+
 export default function PostListing({ addNewListing }) {
   const [title, setTitle] = useState('');
   const [location, setLocation] = useState('');
   const [price, setPrice] = useState('');
   const [condition, setCondition] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
-
   const [tags, setTags] = useState([]);
   const [inputTag, setInputTag] = useState("");
-
-  const [image, setImage] = useState(null);
 
   const handleConditionChange = (e) => {
     setCondition(e.target.value);
@@ -34,7 +35,9 @@ export default function PostListing({ addNewListing }) {
       phoneNumber,
       image: URL.createObjectURL(image),
     };
-
+    };
+  
+    
     addNewListing(newListing);
     // Reset form fields
     setTitle('');
@@ -42,7 +45,6 @@ export default function PostListing({ addNewListing }) {
     setPrice('');
     setCondition('');
     setPhoneNumber('');
-    setImage(null);
   };
 
   const handleAddTag = () => {
@@ -68,11 +70,11 @@ export default function PostListing({ addNewListing }) {
       <section className="all-items">
           <div className="items-container">
             <div className="item">
-              {image ? (
+              {/* {image ? (
                 <img src={URL.createObjectURL(image)} alt="Uploaded" />
               ) : (
                 <img src="/img/textbook.jpg" alt="Cover photo of textbook" />
-              )}
+              )} */}
             </div>
             <div className="item">
               <div className="add-photo">
@@ -115,13 +117,7 @@ export default function PostListing({ addNewListing }) {
           <form className="form-container" onSubmit={handleSubmit}>
             <div className="form-group">
               <label htmlFor="title">Title</label>
-              <input
-                type="text"
-                id="title"
-                value={title}
-                onChange={(e) => setTitle(e.target.value)}
-                placeholder="For example: Brand, model, color"
-              />
+              <input type="text" id="title" placeholder="For example: Brand, model, color" />
             </div>
 
             <div className="form-group">
@@ -178,4 +174,3 @@ export default function PostListing({ addNewListing }) {
     </>
   )
 }
- 
