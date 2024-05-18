@@ -8,7 +8,12 @@ export default function PostListing({ addNewListing }) {
   const [price, setPrice] = useState('');
   const [condition, setCondition] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
+<<<<<<< HEAD
+  const [tags, setTags] = useState([]);
+  const [inputTag, setInputTag] = useState("");
+=======
   const [image, setImage] = useState(null);
+>>>>>>> 9474775a045bf63347a836758b20d4dec77d0d41
 
   const handleConditionChange = (e) => {
     setCondition(e.target.value);
@@ -30,8 +35,13 @@ export default function PostListing({ addNewListing }) {
       phoneNumber,
       image: URL.createObjectURL(image),
     };
+<<<<<<< HEAD
+  
+    
+=======
 
 
+>>>>>>> 9474775a045bf63347a836758b20d4dec77d0d41
     addNewListing(newListing);
     // Reset form fields
     setTitle('');
@@ -40,6 +50,21 @@ export default function PostListing({ addNewListing }) {
     setCondition('');
     setPhoneNumber('');
     setImage(null);
+  };
+
+  const handleAddTag = () => {
+    if (inputTag && !tags.includes(inputTag)) {
+      setTags([...tags, inputTag]);
+      setInputTag("");
+    }
+  };
+
+  const handleRemoveTag = (tagToRemove) => {
+    setTags(tags.filter(tag => tag !== tagToRemove));
+  };
+
+  const handleTagInput = (e) => {
+    setInputTag(e.target.value);
   };
 
 
@@ -125,6 +150,23 @@ export default function PostListing({ addNewListing }) {
                 <option value="Moderately Used">Moderately Used</option>
                 <option value="Very Used">Very Used</option>
               </select>
+            </div>
+
+            <div>
+              <input
+              type="text"
+              value={inputTag}
+              onChange={handleTagInput}
+              placeholder="Add a tag"
+              />
+              <button onClick={handleAddTag}>Add Tag</button>
+              <div>
+                {tags.map(tag => (
+                  <span key={tag}>
+                    {tag} <button onClick={() => handleRemoveTag(tag)}>x</button>
+                  </span>
+                ))}
+              </div>
             </div>
 
             <div className="form-group">
