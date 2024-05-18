@@ -8,6 +8,7 @@ export default function PostListing({ addNewListing }) {
   const [price, setPrice] = useState('');
   const [condition, setCondition] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
+
   const [tags, setTags] = useState([]);
   const [inputTag, setInputTag] = useState("");
   const [image, setImage] = useState(null);
@@ -123,12 +124,22 @@ export default function PostListing({ addNewListing }) {
 
             <div className="form-group">
               <label htmlFor="location">Location</label>
-              <input type="text" id="location" />
+              <input
+                type="text"
+                id="location"
+                value={location}
+                onChange={(e) => setLocation(e.target.value)}
+              />
             </div>
 
             <div className="form-group">
               <label htmlFor="price">Price</label>
-              <input type="text" id="price" />
+              <input
+                type="text"
+                id="price"
+                value={price}
+                onChange={(e) => setPrice(e.target.value)}
+              />
             </div>
 
             <div className="form-group">
