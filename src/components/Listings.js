@@ -16,7 +16,7 @@ export function Listings(props) {
   return (
     <div className="items-container">
       {items.map((listing) => (
-        <ListingCard listing={listing}/>
+        <ListingCard key={listing.id} listing={listing}/>
       ))}
     </div>
   )
