@@ -2,16 +2,6 @@ import React from 'react';
 import NavBar from './NavBar';
 import Footer from './Footer';
 
-// images
-import chair from '../img/chair.jpg';
-import couch from '../img/couch.jpg';
-import ipad from '../img/ipad.jpg';
-import labcoat from '../img/labcoat.jpg';
-import shirt from '../img/shirt.jpg';
-import sweats from '../img/uwsweats.jpg';
-import textbook from '../img/textbook.jpg';
-import chair2 from '../img/papasan.jpg';
-import car from '../img/car.jpg';
 
 
 export default function UserListings({ listings }) {
@@ -20,7 +10,7 @@ export default function UserListings({ listings }) {
         <main>
           <section className="my-items">
             <div className="user-info">
-              <img src={car} alt="User Avatar" className="user-avatar" />
+              {/* <img src={car} alt="User Avatar" className="user-avatar" /> */}
               <div className="user-details">
                 <h2 className="username">Henry</h2>
                 <p className="joined-date">Joined Apr 2024</p>
@@ -55,32 +45,27 @@ export default function UserListings({ listings }) {
                     <img src={listing.image} alt={listing.title} />
                     <p className="title">{listing.title}</p>
                     <p className="price">{listing.price}</p>
-                    <p className="location">{listing.location}</p>
                   </div>
                 ))}
               <div className="item">
-                <img src={chair} alt="Chair" />
+                {/* <img src={chair} alt="Chair" /> */}
                 <p className="title">USED CHAIR</p>
                 <p className="price">$5</p>
-                <p className='location'>University District</p>
               </div>
               <div className="item">
-                <img src={couch} alt="Couch" />
+                {/* <img src={couch} alt="Couch" /> */}
                 <p className="title">USED COUCH</p>
                 <p className="price">$90</p>
-                <p className='location'>University District</p>
               </div>
               <div className="item">
-                <img src={textbook} alt="Textbook" />
+                {/* <img src={textbook} alt="Textbook" /> */}
                 <p className="title">PEARSON SCIENCE TEXTBOOK</p>
                 <p className="price">$75</p>
-                <p className='location'>University District</p>
               </div>
               <div className="item">
-                <img src={labcoat} alt="Labcoat" />
+                {/* <img src={labcoat} alt="Labcoat" /> */}
                 <p className="title">USED LABCOAT</p>
                 <p className="price">$10</p>
-                <p className='location'>University District</p>
               </div>
             </div>
           </section>
@@ -89,22 +74,22 @@ export default function UserListings({ listings }) {
             <h2>Sold Items</h2>
             <div className="items-container">
               <div className="item">
-                <img src={shirt} alt="Shirt" />
+                {/* <img src={shirt} alt="Shirt" /> */}
                 <p className="title">UW SHIRT</p>
                 <p className="price">$15</p>
               </div>
               <div className="item">
-                <img src={sweats} alt="Sweats" />
+                {/* <img src={sweats} alt="Sweats" /> */}
                 <p className="title">UW ECON SWEATS</p>
                 <p className="price">$60</p>
               </div>
               <div className="item">
-                <img src={ipad} alt="Ipad" />
+                {/* <img src={ipad} alt="Ipad" /> */}
                 <p className="title">USED 12TH GEN IPAD</p>
                 <p className="price">$90</p>
               </div>
               <div className="item">
-                <img src={chair2} alt="papasan chair" />
+                {/* <img src={chair2} alt="papasan chair" /> */}
                 <p className="title">USED PAPASAN CHAIR</p>
                 <p className="price">$40</p>
               </div>
