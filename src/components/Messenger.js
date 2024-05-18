@@ -38,9 +38,9 @@ export default function Messenger({ messages, addMessage, likeMessage }) {
             </div>
           </div>
         </div>
-        <div className="chat-content-box">
-          <div className="chat-content">
-            <div className="chat-header">
+      <div className="chat-content-box">
+        <div className="chat-content">
+          <div className="chat-header">
             <h2>All Messages</h2>
           </div>
           <div className="chat-history">
@@ -71,7 +71,7 @@ export default function Messenger({ messages, addMessage, likeMessage }) {
             </div>
           </form>
         </div>
-          </div>
+      </div>
           
         <div className="chat-details">
           <div className="chat-details-header">
