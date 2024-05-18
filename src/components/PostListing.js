@@ -12,6 +12,8 @@ export default function PostListing({ addNewListing }) {
   const [price, setPrice] = useState('');
   const [condition, setCondition] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
+  const [tags, setTags] = useState([]);
+  const [inputTag, setInputTag] = useState("");
 
   const handleConditionChange = (e) => {
     setCondition(e.target.value);
@@ -28,6 +30,7 @@ export default function PostListing({ addNewListing }) {
       phoneNumber,
       image: '/public/img/placeholder.jpg', // Replace with the actual image URL
     };
+  
     
     addNewListing(newListing);
     // Reset form fields
@@ -36,6 +39,21 @@ export default function PostListing({ addNewListing }) {
     setPrice('');
     setCondition('');
     setPhoneNumber('');
+  };
+
+  const handleAddTag = () => {
+    if (inputTag && !tags.includes(inputTag)) {
+      setTags([...tags, inputTag]);
+      setInputTag("");
+    }
+  };
+
+  const handleRemoveTag = (tagToRemove) => {
+    setTags(tags.filter(tag => tag !== tagToRemove));
+  };
+
+  const handleTagInput = (e) => {
+    setInputTag(e.target.value);
   };
 
 
@@ -104,6 +122,23 @@ export default function PostListing({ addNewListing }) {
                 <option value="Moderately Used">Moderately Used</option>
                 <option value="Very Used">Very Used</option>
               </select>
+            </div>
+
+            <div>
+              <input
+              type="text"
+              value={inputTag}
+              onChange={handleTagInput}
+              placeholder="Add a tag"
+              />
+              <button onClick={handleAddTag}>Add Tag</button>
+              <div>
+                {tags.map(tag => (
+                  <span key={tag}>
+                    {tag} <button onClick={() => handleRemoveTag(tag)}>x</button>
+                  </span>
+                ))}
+              </div>
             </div>
 
             <div className="form-group">
