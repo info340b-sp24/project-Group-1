@@ -15,6 +15,7 @@ export default function Home({ listings = [] }) {
                   <img src={listing.image} alt={listing.title} />
                   <p className="title">{listing.title}</p>
                   <p className="price">{listing.price}</p>
+                  <p className="location">{listing.location}</p>
                 </div>
               ))}
             <div className="item">

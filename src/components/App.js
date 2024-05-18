@@ -30,7 +30,7 @@ export default function App() {
 
   return (
     <Routes>
-      <Route path="/" element={<Home />} />
+      <Route path="/" element={<Home listings={userListings}/>} />
       <Route
         path="/messenger"
         element={<Messenger messages={messages} addMessage={addMessage} likeMessage={likeMessage} />}

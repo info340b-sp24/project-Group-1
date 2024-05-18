@@ -56,27 +56,32 @@ export default function UserListings({ listings }) {
                     <img src={listing.image} alt={listing.title} />
                     <p className="title">{listing.title}</p>
                     <p className="price">{listing.price}</p>
+                    <p className="location">{listing.location}</p>
                   </div>
                 ))}
               <div className="item">
                 <img src={chair} alt="Chair" />
                 <p className="title">USED CHAIR</p>
                 <p className="price">$5</p>
+                <p className='location'>University District</p>
               </div>
               <div className="item">
                 <img src={couch} alt="Couch" />
                 <p className="title">USED COUCH</p>
                 <p className="price">$90</p>
+                <p className='location'>University District</p>
               </div>
               <div className="item">
                 <img src={textbook} alt="Textbook" />
                 <p className="title">PEARSON SCIENCE TEXTBOOK</p>
                 <p className="price">$75</p>
+                <p className='location'>University District</p>
               </div>
               <div className="item">
                 <img src={labcoat} alt="Labcoat" />
                 <p className="title">USED LABCOAT</p>
                 <p className="price">$10</p>
+                <p className='location'>University District</p>
               </div>
             </div>
           </section>
