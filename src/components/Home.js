@@ -2,7 +2,7 @@ import React from 'react';
 import NavBar from './NavBar';
 import Footer from './Footer';
 
-export default function Home() {
+export default function Home({ listings = [] }) {
   return (
     <>
       <NavBar />
@@ -17,6 +17,15 @@ export default function Home() {
               <p className="location">University District</p>
             </div>
           </div>
+          <div className="items-container">
+              {listings.map((listing) => (
+                <div key={listing.id} className="item">
+                  <img src={listing.image} alt={listing.title} />
+                  <p className="title">{listing.title}</p>
+                  <p className="price">{listing.price}</p>
+                </div>
+              ))}
+            </div>
         </section>
       </main>
       <Footer />

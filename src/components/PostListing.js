@@ -2,21 +2,26 @@ import React, { useState } from 'react';
 import NavBar from './NavBar';
 import Footer from './Footer';
 
-// export default function PostListing() {
-//   const [condition, setCondition] = useState("");
-
-
 export default function PostListing({ addNewListing }) {
   const [title, setTitle] = useState('');
   const [location, setLocation] = useState('');
   const [price, setPrice] = useState('');
   const [condition, setCondition] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
+<<<<<<< HEAD
   const [tags, setTags] = useState([]);
   const [inputTag, setInputTag] = useState("");
+=======
+  const [image, setImage] = useState(null);
+>>>>>>> 9474775a045bf63347a836758b20d4dec77d0d41
 
   const handleConditionChange = (e) => {
     setCondition(e.target.value);
+  };
+
+  const handleImageUpload = (e) => {
+    const file = e.target.files[0];
+    setImage(file);
   };
 
   const handleSubmit = (e) => {
@@ -28,10 +33,15 @@ export default function PostListing({ addNewListing }) {
       price: `$${price}`,
       condition,
       phoneNumber,
-      image: '/public/img/placeholder.jpg', // Replace with the actual image URL
+      image: URL.createObjectURL(image),
     };
+<<<<<<< HEAD
   
     
+=======
+
+
+>>>>>>> 9474775a045bf63347a836758b20d4dec77d0d41
     addNewListing(newListing);
     // Reset form fields
     setTitle('');
@@ -39,6 +49,7 @@ export default function PostListing({ addNewListing }) {
     setPrice('');
     setCondition('');
     setPhoneNumber('');
+    setImage(null);
   };
 
   const handleAddTag = () => {
@@ -61,21 +72,32 @@ export default function PostListing({ addNewListing }) {
     <>
       <NavBar />
       <main>
-    
-        <section className="all-items">
-          <h2>Post an Item</h2>
+      <section className="all-items">
           <div className="items-container">
             <div className="item">
-              <img src="/img/textbook.jpg" alt="Cover photo of textbook" />
+              {image ? (
+                <img src={URL.createObjectURL(image)} alt="Uploaded" />
+              ) : (
+                <img src="/img/textbook.jpg" alt="Cover photo of textbook" />
+              )}
             </div>
             <div className="item">
-              <div className="add-photo" role="button" aria-label="Add more photos">
-              <span>+</span>
-              <p>Add photo</p>
+              <div className="add-photo">
+                <label htmlFor="image-upload">
+                  <span>+</span>
+                  <p>Add photo</p>
+                </label>
+                <input
+                  id="image-upload"
+                  type="file"
+                  accept="image/*"
+                  onChange={handleImageUpload}
+                  style={{ display: 'none' }}
+                />
+              </div>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
 
       <section className="all-items">
         <div className="photo-gallery">
@@ -100,7 +122,13 @@ export default function PostListing({ addNewListing }) {
           <form className="form-container" onSubmit={handleSubmit}>
             <div className="form-group">
               <label htmlFor="title">Title</label>
-              <input type="text" id="title" placeholder="For example: Brand, model, color" />
+              <input
+                type="text"
+                id="title"
+                value={title}
+                onChange={(e) => setTitle(e.target.value)}
+                placeholder="For example: Brand, model, color"
+              />
             </div>
 
             <div className="form-group">
@@ -157,3 +185,4 @@ export default function PostListing({ addNewListing }) {
     </>
   )
 }
+ 
