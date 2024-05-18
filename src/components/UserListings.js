@@ -2,7 +2,7 @@ import React from 'react';
 import NavBar from './NavBar';
 import Footer from './Footer';
 
-export default function UserListings(props) {
+export default function UserListings({ listings}) {
   return (
     <>
       <NavBar />
@@ -38,6 +38,15 @@ export default function UserListings(props) {
 
           <section className="all-items">
             <h2>My Listings</h2>
+            <div className="items-container">
+              {listings.map((listing) => (
+                <div key={listing.id} className="item">
+                  <img src={listing.image} alt={listing.title} />
+                  <p className="title">{listing.title}</p>
+                  <p className="price">{listing.price}</p>
+                </div>
+              ))}
+            </div>
             <div className="items-container">
               <div className="item">
                 <img src="/public/img/chair.jpg" alt="Chair" />

@@ -2,12 +2,42 @@ import React, { useState } from 'react';
 import NavBar from './NavBar';
 import Footer from './Footer';
 
-export default function PostListing() {
-  const [condition, setCondition] = useState("");
+// export default function PostListing() {
+//   const [condition, setCondition] = useState("");
+
+
+export default function PostListing({ addNewListing }) {
+  const [title, setTitle] = useState('');
+  const [location, setLocation] = useState('');
+  const [price, setPrice] = useState('');
+  const [condition, setCondition] = useState('');
+  const [phoneNumber, setPhoneNumber] = useState('');
 
   const handleConditionChange = (e) => {
     setCondition(e.target.value);
   };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const newListing = {
+      id: Date.now(),
+      title,
+      location,
+      price: `$${price}`,
+      condition,
+      phoneNumber,
+      image: '/public/img/placeholder.jpg', // Replace with the actual image URL
+    };
+    
+    addNewListing(newListing);
+    // Reset form fields
+    setTitle('');
+    setLocation('');
+    setPrice('');
+    setCondition('');
+    setPhoneNumber('');
+  };
+
 
   return (
     <>
@@ -49,7 +79,7 @@ export default function PostListing() {
           </div>
         </section>
         <section className="all-items">
-          <form className="form-container">
+          <form className="form-container" onSubmit={handleSubmit}>
             <div className="form-group">
               <label htmlFor="title">Title</label>
               <input type="text" id="title" placeholder="For example: Brand, model, color" />
