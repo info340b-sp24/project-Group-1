@@ -1,10 +1,34 @@
 import React, { useState, useEffect } from 'react';
 import chats from '../data/chats.json';
 
-export default function Messenger({ messages, addMessage, likeMessage, searchQuery, setSearchQuery }) {
+export default function Messenger({ searchQuery, setSearchQuery }) {
   const [newMessage, setNewMessage] = useState('');
   const [selectedChat, setSelectedChat] = useState(null);
   const [filteredChats, setFilteredChats] = useState(chats);
+  const [userMessages, setUserMessages] = useState({});
+
+  const addMessage = (message) => {
+    if (selectedChat) {
+      setUserMessages((prevMessages) => ({
+        ...prevMessages,
+        [selectedChat.id]: [...(prevMessages[selectedChat.id] || []), message],
+      }));
+    }
+  };
+
+  const likeMessage = (index) => {
+    if (selectedChat) {
+      setUserMessages((prevMessages) => {
+        const userMessages = prevMessages[selectedChat.id] || [];
+        const newMessages = [...userMessages];
+        newMessages[index].liked = !newMessages[index].liked;
+        return {
+          ...prevMessages,
+          [selectedChat.id]: newMessages,
+        };
+      });
+    }
+  };
 
   useEffect(() => {
     const filtered = chats.filter((chat) => {
@@ -43,6 +67,22 @@ export default function Messenger({ messages, addMessage, likeMessage, searchQue
     </div>
   ));
 
+  const chatHistory = selectedChat
+    ? (userMessages[selectedChat.id] || []).map((message, index) => (
+        <div key={message.id} className={`message ${message.username === 'You' ? 'sent' : 'received'}`}>
+          <div className="message-header">
+            <span className="message-username">{message.username}</span>
+          </div>
+          <p className="message-text">{message.text}</p>
+          <div className="message-actions">
+            <button className="like-button" onClick={() => likeMessage(index)}>
+              <span style={{ color: message.liked ? 'red' : 'grey' }}>♥</span>
+            </button>
+          </div>
+        </div>
+      ))
+    : null;
+
   return (
     <main>
       <div className='.messages-container'>
@@ -69,19 +109,7 @@ export default function Messenger({ messages, addMessage, likeMessage, searchQue
                   <h2>All Messages</h2>
                 </div>
                 <div className="chat-history">
-                  {selectedChat.messages.map((message, index) => (
-                    <div key={message.id} className={`message ${message.username === 'You' ? 'sent' : 'received'}`}>
-                      <div className="message-header">
-                        <span className="message-username">{message.username}</span>
-                      </div>
-                      <p className="message-text">{message.text}</p>
-                      <div className="message-actions">
-                        <button className="like-button" onClick={() => likeMessage(index)}>
-                          <span style={{ color: message.liked ? 'red' : 'grey' }}>♥</span>
-                        </button>
-                      </div>
-                    </div>
-                  ))}
+                  {chatHistory}
                 </div>
                 <form className="chat-input-container" onSubmit={handleSendMessage}>
                   <input
