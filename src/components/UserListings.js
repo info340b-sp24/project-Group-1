@@ -1,8 +1,29 @@
 import React from 'react';
 
+export default function UserListings({ searchQuery, listings }) {
+
+  const filteredItems = listings.filter((item) => {
+    if (searchQuery) {
+      return (
+        item.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        item.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        item.location.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        item.username.toLowerCase().includes(searchQuery.toLowerCase())
+      );
+    }
+    return true;
+  });
+
+  const listingElements = listings.map((listing) => (
+    <div key={listing.id} className="item">
+      <img src={listing.image} alt={listing.title} />
+      <p className="title">{listing.title}</p>
+      <p className="price">{listing.price}</p>
+      <p className='location'>{listing.location}</p>
+    </div>
+  ));
 
 
-export default function UserListings({ listings }) {
   return (
     <>
         <main>
@@ -39,13 +60,7 @@ export default function UserListings({ listings }) {
           <section className="all-items">
             <h2>My Listings</h2>
             <div className="items-container">
-                {listings.map((listing) => (
-                  <div key={listing.id} className="item">
-                    <img src={listing.image} alt={listing.title} />
-                    <p className="title">{listing.title}</p>
-                    <p className="price">{listing.price}</p>
-                  </div>
-                ))}
+              {listingElements}
               <div className="item">
                 <img src='/img/chair.jpg' alt="Chair" />
                 {/* <img src={chair} alt="Chair" /> */}

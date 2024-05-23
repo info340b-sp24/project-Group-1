@@ -33,7 +33,6 @@ export default function PostListing({ addNewListing }) {
     };
 
     addNewListing(newListing);
-    // Reset form fields
     setTitle('');
     setLocation('');
     setPrice('');

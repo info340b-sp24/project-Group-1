@@ -12,7 +12,7 @@ export default function App() {
     { id: '1', username: 'Chris', text: 'I am good with that price', liked: false }
   ]);
 
-  const [userListings, setUserListings] = useState([]);
+  const [listings, setListings] = useState([]);
 
   const [searchQuery, setSearchQuery] = useState("");
 
@@ -29,20 +29,20 @@ export default function App() {
   };
 
   const addNewListing = (newListing) => {
-    setUserListings([...userListings, newListing]);
+    setListings([...listings, newListing]);
   };
 
   return (
     <>
     <NavBar searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
     <Routes>
-      <Route path="/" element={<Home searchQuery={searchQuery} />} />
+      <Route path="/" element={<Home searchQuery={searchQuery} listings={listings} />} />
       <Route
         path="/messenger"
         element={<Messenger messages={messages} addMessage={addMessage} likeMessage={likeMessage} />}
       />
       <Route path="/post-listing" element={<PostListing addNewListing={addNewListing} />} />
-      <Route path="/user-listings" element={<UserListings listings={userListings} />} />
+      <Route path="/user-listings" element={<UserListings searchQuery={searchQuery} listings={listings} />} />
     </Routes>
     <Footer />
     </>

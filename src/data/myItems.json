@@ -1,0 +1,39 @@
+[
+    {
+      "id": "11",
+      "title": "USED CHAIR",
+      "price": "$5",
+      "description": "...",
+      "username": "Alice",
+      "location": "University District",
+      "image": "/img/chair.jpg"
+    },
+    {
+      "id": "12",
+      "title": "USED COUCH",
+      "price": "$90",
+      "description": "...",
+      "username": "Alice",
+      "location": "University District",
+      "image": "/img/couch.jpg"
+    },
+    {
+        "id": "13",
+        "title": "PEARSON SCIENCE TEXTBOOK",
+        "price": "$75",
+        "description": "...",
+        "username": "Alice",
+        "location": "University District",
+        "image": "/img/textbook.jpg"
+      },
+      {
+        "id": "14",
+        "title": "USED LABCOAT",
+        "price": "$10",
+        "description": "...",
+        "username": "Alice",
+        "location": "University District",
+        "image": "/img/labcoat.jpg"
+      }
+]
+
