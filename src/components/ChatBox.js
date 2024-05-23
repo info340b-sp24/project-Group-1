@@ -14,12 +14,16 @@ const ChatBox = () => {
     }
   };
 
+  const renderMessages = () => {
+    return messages.map((msg, index) => (
+      <p key={index}><strong>{msg.from}:</strong> {msg.text}</p>
+    ));
+  };
+
   return (
     <section className="messages">
       <div className="message-container">
-        {messages.map((msg, index) => (
-          <p key={index}><strong>{msg.from}:</strong> {msg.text}</p>
-        ))}
+        {renderMessages()}
       </div>
       <form className="message-form" onSubmit={handleSendMessage}>
         <input

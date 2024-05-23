@@ -39,7 +39,7 @@ export default function App() {
       <Route path="/" element={<Home searchQuery={searchQuery} listings={listings} />} />
       <Route
         path="/messenger"
-        element={<Messenger messages={messages} addMessage={addMessage} likeMessage={likeMessage} />}
+        element={<Messenger messages={messages} addMessage={addMessage} likeMessage={likeMessage} searchQuery={searchQuery} setSearchQuery={setSearchQuery} />}
       />
       <Route path="/post-listing" element={<PostListing addNewListing={addNewListing} />} />
       <Route path="/user-listings" element={<UserListings searchQuery={searchQuery} listings={listings} />} />
@@ -48,4 +48,3 @@ export default function App() {
     </>
   );
 }
-

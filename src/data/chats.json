@@ -1,0 +1,14 @@
+[
+    {
+      "id": "1",
+      "name": "John Smith",
+      "lastMessage": "Hey there! How are you?",
+      "lastMessageTime": "10:30 AM"
+    },
+    {
+      "id": "2",
+      "name": "Jane Doe",
+      "lastMessage": "Can we schedule a meeting for tomorrow?",
+      "lastMessageTime": "09:15 AM"
+    }
+  ]
