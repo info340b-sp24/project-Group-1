@@ -56,11 +56,18 @@ export default function PostListing({ addNewListing }) {
     setInputTag(e.target.value);
   };
 
+  const renderTags = () => {
+    return tags.map(tag => (
+      <span key={tag}>
+        {tag} <button onClick={() => handleRemoveTag(tag)}>x</button>
+      </span>
+    ));
+  };
 
   return (
     <>
       <main>
-      <section className="all-items">
+        <section className="all-items">
           <div className="items-container">
             <div className="item">
               {image ? (
@@ -87,12 +94,12 @@ export default function PostListing({ addNewListing }) {
           </div>
         </section>
 
-      <section className="all-items">
-        <div className="photo-gallery">
-          <div className="photo">
-            <img src="/img/textbook.jpg" alt="Book Cover" />
-          </div>
-          <div className="photo">
+        <section className="all-items">
+          <div className="photo-gallery">
+            <div className="photo">
+              <img src="/img/textbook.jpg" alt="Book Cover" />
+            </div>
+            <div className="photo">
               <img src="/img/textbook.jpg" alt="Physical Science" />
             </div>
             <div className="photo">
@@ -152,18 +159,14 @@ export default function PostListing({ addNewListing }) {
 
             <div>
               <input
-              type="text"
-              value={inputTag}
-              onChange={handleTagInput}
-              placeholder="Add a tag"
+                type="text"
+                value={inputTag}
+                onChange={handleTagInput}
+                placeholder="Add a tag"
               />
               <button onClick={handleAddTag}>Add Tag</button>
               <div>
-                {tags.map(tag => (
-                  <span key={tag}>
-                    {tag} <button onClick={() => handleRemoveTag(tag)}>x</button>
-                  </span>
-                ))}
+                {renderTags()}
               </div>
             </div>
 
@@ -180,5 +183,5 @@ export default function PostListing({ addNewListing }) {
         </section>
       </main>
     </>
-  )
+  );
 }
