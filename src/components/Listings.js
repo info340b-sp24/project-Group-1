@@ -13,11 +13,11 @@ function ListingCard({listing}) {
 }
 
 export function Listings(props) {
-  const { items = [] } = props.items;
+  const { items } = props;
 
   const listingCards = items.map((listing) => (
     <ListingCard key={listing.id} listing={listing}/>
-  ))
+  ));
 
   return (
     <div className="items-container">

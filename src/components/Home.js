@@ -22,7 +22,7 @@ export default function Home({ searchQuery, listings }) {
         <section className="all-items">
           <h2>Items Near You</h2>
             <div className='item-container'>
-            <Listings items={filteredItems}/>
+              <Listings items={filteredItems}/>
             </div>
         </section>
       </main>
