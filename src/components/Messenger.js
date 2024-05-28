@@ -85,7 +85,7 @@ export default function Messenger({ searchQuery, setSearchQuery }) {
 
   return (
     <main>
-      <div className='.messages-container'>
+      <div className='messages-container'>
         <div className="chat-container">
           <div className="chat-sidebar">
             <div className="customer-chat">

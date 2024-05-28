@@ -401,10 +401,11 @@ footer {
     padding: 1rem;
 }
 
+/* flexbox */
 .chat-container {
     display: flex;
-    margin-left: 1rem;
-    margin-right: 1rem;;
+    flex: 1;
+    margin: 1rem;
   }
   
   .chat-sidebar {
@@ -464,6 +465,10 @@ footer {
     }
 
     .chat-content-box {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        margin-left: 1rem;
         background-color: white;
     }
 
@@ -620,6 +625,19 @@ footer {
     .item-stats {
         margin-top: 1rem;
     }
+    .chat-container {
+        flex-direction: column;
+    }
+
+    .chat-sidebar,
+    .chat-details {
+        flex: 1;
+        margin: 0;
+    }
+
+    .chat-content-box {
+        margin-top: 1rem;
+    }
 }
 
 @media screen and (min-width: 600px) {
@@ -632,5 +650,22 @@ footer {
     .item-stats {
         margin-top: 0;
     }
+    
+    .chat-container {
+        flex-direction: row;
+    }
 
+    .chat-sidebar {
+        flex: 0 0 300px;
+        margin-right: 1rem;
+    }
+
+    .chat-content-box {
+        flex: 1;
+    }
+
+    .chat-details {
+        flex: 0 0 200px;
+        margin-left: 1rem;
+    }
 }
