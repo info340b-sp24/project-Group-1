@@ -6,9 +6,10 @@ import PostListing from './PostListing';
 import UserListings from './UserListings';
 import NavBar from './NavBar';
 import Footer from './Footer';
+import items from '../data/items.json';
 
 export default function App() {
-  const [listings, setListings] = useState([]);
+  const [listings, setListings] = useState(items);
   const [searchQuery, setSearchQuery] = useState("");
 
   const addNewListing = (newListing) => {
