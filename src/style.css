@@ -475,14 +475,6 @@ footer {
     margin-bottom: 20px;
   }
   
-  .side-menu-footer {
-    margin-top: auto;
-    margin-left: 0;
-    border-top: 1px solid #ccc;
-    text-align: center;
-    font-size: 14px;
-    color: #ffffff;
-  }
 /** **/
 
 /* flexbox */
@@ -719,7 +711,7 @@ footer {
       .search-bar {
         margin-left: auto;
       }
-      
+
     .all-items {
         flex-direction: column;
         align-items: flex-start;
