@@ -4,26 +4,26 @@ import { StyledFirebaseAuth } from 'react-firebaseui';
 import { GoogleAuthProvider, EmailAuthProvider, getAuth } from 'firebase/auth'
 
 
-const configObj = {
-  signInOptions: [
-    {
-      provider: EmailAuthProvider.PROVIDER_ID,
-      requireDisplayName: true,
-    },
-    {
-      provider: GoogleAuthProvider.PROVIDER_ID
-    }
-  ],
-  signInFlow: 'popup',
-  callbacks: {
-    signInSuccessWithAuthResult: () => false //don't do anything special on signin
-  },
-  credentialHelper: 'none'
-}
 
 export default function SignInPage(props) {
-  const currentUser = props.currentUser;
-  const loginFunction = props.loginCallback;
+  const { currentUser, loginFunction } = props;
+
+  const configObj = {
+    signInOptions: [
+      {
+        provider: EmailAuthProvider.PROVIDER_ID,
+        requireDisplayName: true,
+      },
+      {
+        provider: GoogleAuthProvider.PROVIDER_ID
+      }
+    ],
+    signInFlow: 'popup',
+    callbacks: {
+      signInSuccessWithAuthResult: () => false
+    },
+    credentialHelper: 'none'
+  }
 
   const auth = getAuth(); //the authenticator
 
@@ -35,7 +35,6 @@ export default function SignInPage(props) {
     <div className="card bg-light">
       <div className="container card-body">
         <StyledFirebaseAuth uiConfig={configObj} firebaseAuth={auth} />
-
       </div>
     </div>
   )

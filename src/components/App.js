@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Route, Routes, Navigate, Outlet, useNavigate } from 'react-router-dom';
-import { getAuth, onAuthStateChanged } from 'firebase/auth';
+
+import { getAuth, onAuthStateChanged, EmailAuthProvider, GoogleAuthProvider } from 'firebase/auth';
+
 import Home from './Home';
 import Messenger from './Messenger';
 import PostListing from './PostListing';
@@ -23,6 +25,9 @@ export default function App() {
     // loginUser(DEFAULT_USERS[1])
 
     const auth = getAuth();
+
+
+
     onAuthStateChanged(auth, (firebaseUser) => {
       if(firebaseUser) {
         console.log("signing in as", firebaseUser.displayName)
@@ -38,8 +43,6 @@ export default function App() {
         setCurrentUser(DEFAULT_USERS[0]);
       }
     })
-
-
   }, []);
 
   const loginUser = (userObj) => {
@@ -60,7 +63,7 @@ export default function App() {
       <NavBar searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
       <Routes>
         <Route path="/" element={<Home searchQuery={searchQuery} listings={listings} />} />
-        <Route path="/signin" element={<SignInPage />} />
+        <Route path="/signin" element={<SignInPage currentUser={currentUser} loginFunction={loginUser}/>} />
         <Route element={<ProtectedPage currentUser={currentUser} />}>
           <Route
             path="/messenger"
