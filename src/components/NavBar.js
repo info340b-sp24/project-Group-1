@@ -45,6 +45,19 @@ const NavBar = ({ searchQuery, setSearchQuery }) => {
           <Link to="/user-listings" className="menu">My Profile</Link>
         </div>
       </nav>
+      {isMenuOpen && (
+        <div className="side-menu">
+          <div className="menu-items">
+            <Link to="/" className="menu" onClick={toggleMenu}>Home</Link>
+            <Link to="/messenger" className="menu" onClick={toggleMenu}>My Messages</Link>
+            <Link to="/post-listing" className="menu" onClick={toggleMenu}>Post Listings</Link>
+            <Link to="/user-listings" className="menu" onClick={toggleMenu}>My Profile</Link>
+          </div>
+          <footer className="side-menu-footer">
+            <p>&copy; 2023 UW MarketPlace. All rights reserved.</p>
+          </footer>
+        </div>
+      )}
     </header>
   );
 };
