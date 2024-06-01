@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Route, Routes, Navigate, Outlet, useNavigate } from 'react-router-dom';
 
-import { getAuth, onAuthStateChanged, EmailAuthProvider, GoogleAuthProvider } from 'firebase/auth';
+import { getAuth, onAuthStateChanged, updateProfile, EmailAuthProvider, GoogleAuthProvider } from 'firebase/auth';
 
 import Home from './Home';
 import Messenger from './Messenger';
 import PostListing from './PostListing';
-import UserListings from './UserListings';
+import MyProfile from './MyProfile';
 import SignInPage from './SignInPage';
 import NavBar from './NavBar';
 import Footer from './Footer';
@@ -45,14 +45,21 @@ export default function App() {
     })
   }, []);
 
-  const loginUser = (userObj) => {
+  const loginUser = async (userObj) => {
     console.log("logging in as", userObj.userName);
     setCurrentUser(userObj);
 
-    if(userObj.userId !== null){
+    if (userObj.userId !== null) {
       navigateTo('/user-listings');
+
+      // Update Firebase user profile
+      const auth = getAuth();
+      await updateProfile(auth.currentUser, {
+        displayName: userObj.userName,
+        photoURL: userObj.userImg,
+      });
     }
-  }
+  };
 
   const addNewListing = (newListing) => {
     setListings([...listings, newListing]);
@@ -70,7 +77,7 @@ export default function App() {
             element={<Messenger searchQuery={searchQuery} setSearchQuery={setSearchQuery} />}
           />
           <Route path="/post-listing" element={<PostListing addNewListing={addNewListing} />} />
-          <Route path="/user-listings" element={<UserListings searchQuery={searchQuery} listings={listings} />} />
+          <Route path="/user-listings" element={<MyProfile currentUser={currentUser} setCurrentUser={setCurrentUser} searchQuery={searchQuery} listings={listings} />} />
         </Route>
       </Routes>
       <Footer />

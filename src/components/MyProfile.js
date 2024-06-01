@@ -1,6 +1,17 @@
-import React from 'react';
+import React, { useState } from 'react';
+import EditProfileMenu from './EditProfileMenu';
 
-export default function UserListings({ searchQuery, listings }) {
+export default function MyProfile({ currentUser, setCurrentUser, searchQuery, listings }) {
+  const [EditMenuOpen, setEditMenuOpen] = useState(false);
+
+  const toggleEditMenu = () => {
+    setEditMenuOpen(!EditMenuOpen);
+  }
+
+  const handleProfileUpdate = (updatedUser) => {
+    setCurrentUser(updatedUser);
+    setEditMenuOpen(false);
+  }
 
   const filteredItems = listings.filter((item) => {
     if (searchQuery) {
@@ -23,18 +34,17 @@ export default function UserListings({ searchQuery, listings }) {
     </div>
   ));
 
-
   return (
     <>
         <main>
           <section className="my-items">
             <div className="user-info">
-              <img src='./img/car.jpg' alt="User Avatar" className="user-avatar" />
-              {/* <img src={car} alt="User Avatar" className="user-avatar" /> */}
+            <img src={currentUser.userImg} alt="User Avatar" className="user-avatar" />
               <div className="user-details">
                 <h2 className="username">Henry</h2>
                 <p className="joined-date">Joined Apr 2024</p>
                 <p className="location">Seattle, WA</p>
+                <button onClick={toggleEditMenu}>Edit Profile</button>
               </div>
             </div>
             <div className="item-stats">
@@ -63,25 +73,21 @@ export default function UserListings({ searchQuery, listings }) {
               {listingElements}
               <div className="item">
                 <img src='/img/chair.jpg' alt="Chair" />
-                {/* <img src={chair} alt="Chair" /> */}
                 <p className="title">USED CHAIR</p>
                 <p className="price">$5</p>
               </div>
               <div className="item">
                 <img src='/img/couch.jpg' alt="Couch" />
-                {/* <img src={couch} alt="Couch" /> */}
                 <p className="title">USED COUCH</p>
                 <p className="price">$90</p>
               </div>
               <div className="item">
                 <img src='/img/textbook.jpg' alt="Textbook" />
-                {/* <img src={textbook} alt="Textbook" /> */}
                 <p className="title">PEARSON SCIENCE TEXTBOOK</p>
                 <p className="price">$75</p>
               </div>
               <div className="item">
                 <img src='/img/labcoat.jpg' alt="Labcoat" />
-                {/* <img src={labcoat} alt="Labcoat" /> */}
                 <p className="title">USED LABCOAT</p>
                 <p className="price">$10</p>
               </div>
@@ -93,31 +99,33 @@ export default function UserListings({ searchQuery, listings }) {
             <div className="items-container">
               <div className="item">
                 <img src='/img/shirt.jpg' alt="Shirt" />
-                {/* <img src={shirt} alt="Shirt" /> */}
                 <p className="title">UW SHIRT</p>
                 <p className="price">$15</p>
               </div>
               <div className="item">
                 <img src='/img/uwsweats.jpg' alt="Sweats" />
-                {/* <img src={sweats} alt="Sweats" /> */}
                 <p className="title">UW ECON SWEATS</p>
                 <p className="price">$60</p>
               </div>
               <div className="item">
                 <img src='/img/ipad.jpg' alt="Ipad" />
-                {/* <img src={ipad} alt="Ipad" /> */}
                 <p className="title">USED 12TH GEN IPAD</p>
                 <p className="price">$90</p>
               </div>
               <div className="item">
                 <img src='/img/papasan.jpg' alt="papasan chair" />
-                {/* <img src={chair2} alt="papasan chair" /> */}
                 <p className="title">USED PAPASAN CHAIR</p>
                 <p className="price">$40</p>
               </div>
             </div>
           </section>
         </main>
+        {EditMenuOpen && (
+          <EditProfileMenu 
+            currentUser={currentUser}
+            onProfileUpdate={handleProfileUpdate}
+          />
+        )}
       </>
   );
 }

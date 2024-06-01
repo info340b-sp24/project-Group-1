@@ -42,7 +42,7 @@ const NavBar = ({ searchQuery, setSearchQuery }) => {
           <Link to="/" className="menu">Home</Link>
           <Link to="/messenger" className="menu">My Messages</Link>
           <Link to="/post-listing" className="menu">Post Listings</Link>
-          <Link to="/user-listings" className="menu">My Listings</Link>
+          <Link to="/user-listings" className="menu">My Profile</Link>
         </div>
       </nav>
     </header>
