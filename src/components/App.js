@@ -67,7 +67,7 @@ export default function App() {
 
   return (
     <>
-      <NavBar searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
+      <NavBar searchQuery={searchQuery} setSearchQuery={setSearchQuery} currentUser={currentUser} />
       <Routes>
         <Route path="/" element={<Home searchQuery={searchQuery} listings={listings} />} />
         <Route path="/signin" element={<SignInPage currentUser={currentUser} loginFunction={loginUser}/>} />
