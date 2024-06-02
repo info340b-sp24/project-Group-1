@@ -3,9 +3,16 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useNavigation } from './NavScript';
 import '../style.css';
 
-const NavBar = ({ searchQuery, setSearchQuery }) => {
+const NavBar = ({ searchQuery, setSearchQuery, currentUser, onSignOut }) => {
   const { isMenuOpen, toggleMenu } = useNavigation();
   const navigate = useNavigate();
+
+  const SignOutButton = ({ currentUser }) => {
+    if (currentUser.userId) {
+      return <button className="menu" onClick={onSignOut}>Sign Out</button>;
+    }
+    return null;
+  };
 
   function handleSearch(e) {
     e.preventDefault();
@@ -43,6 +50,7 @@ const NavBar = ({ searchQuery, setSearchQuery }) => {
           <Link to="/messenger" className="menu">My Messages</Link>
           <Link to="/post-listing" className="menu">Post Listings</Link>
           <Link to="/user-listings" className="menu">My Profile</Link>
+          <SignOutButton currentUser={currentUser} />
         </div>
       </nav>
       {isMenuOpen && (
@@ -52,6 +60,7 @@ const NavBar = ({ searchQuery, setSearchQuery }) => {
             <Link to="/messenger" className="menu" onClick={toggleMenu}>My Messages</Link>
             <Link to="/post-listing" className="menu" onClick={toggleMenu}>Post Listings</Link>
             <Link to="/user-listings" className="menu" onClick={toggleMenu}>My Profile</Link>
+            <SignOutButton currentUser={currentUser} />
           </div>
         </div>
       )}

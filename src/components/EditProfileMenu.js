@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-export default function EditProfileMenu({ currentUser, onProfileUpdate }) {
+export default function EditProfileMenu({ currentUser, setCurrentUser, onProfileUpdate }) {
   const [username, setUsername] = useState(currentUser.userName);
   const [location, setLocation] = useState(currentUser.location || '');
   const [profileImg, setProfileImg] = useState(null);
@@ -13,6 +13,7 @@ export default function EditProfileMenu({ currentUser, onProfileUpdate }) {
       userImg: profileImg ? URL.createObjectURL(profileImg) : currentUser.userImg,
     };
     onProfileUpdate(updatedUser);
+    setCurrentUser(updatedUser);
   };
 
   return (

@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Route, Routes, Navigate, Outlet, useNavigate } from 'react-router-dom';
-import { getAuth, onAuthStateChanged, updateProfile } from 'firebase/auth';
+
+import { getAuth, onAuthStateChanged, updateProfile, signOut } from 'firebase/auth';
+
 import Home from './Home';
 import Messenger from './Messenger';
 import PostListing from './PostListing';
@@ -10,6 +12,7 @@ import NavBar from './NavBar';
 import Footer from './Footer';
 import items from '../data/items.json';
 import DEFAULT_USERS from '../data/users.json';
+import ItemDetails from './ItemDetails';
 
 export default function App() {
   const [currentUser, setCurrentUser] = useState(DEFAULT_USERS[0]);
@@ -23,6 +26,9 @@ export default function App() {
     // loginUser(DEFAULT_USERS[1])
 
     const auth = getAuth();
+
+
+
     onAuthStateChanged(auth, (firebaseUser) => {
       if(firebaseUser) {
         console.log("signing in as", firebaseUser.displayName)
@@ -43,10 +49,10 @@ export default function App() {
   const loginUser = async (userObj) => {
     console.log("logging in as", userObj.userName);
     setCurrentUser(userObj);
-  
+
     if (userObj.userId !== null) {
       navigateTo('/user-listings');
-  
+
       // Update Firebase user profile
       const auth = getAuth();
       await updateProfile(auth.currentUser, {
@@ -56,16 +62,22 @@ export default function App() {
     }
   };
 
+  const signOutUser = () => {
+    console.log("signing out");
+    signOut(getAuth());
+    navigateTo('/signin');
+  };
+
   const addNewListing = (newListing) => {
     setListings([...listings, newListing]);
   };
 
   return (
     <>
-      <NavBar searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
+      <NavBar searchQuery={searchQuery} setSearchQuery={setSearchQuery} currentUser={currentUser} onSignOut={signOutUser} />
       <Routes>
         <Route path="/" element={<Home searchQuery={searchQuery} listings={listings} />} />
-        <Route path="/signin" element={<SignInPage />} />
+        <Route path="/signin" element={<SignInPage currentUser={currentUser} loginFunction={loginUser}/>} />
         <Route element={<ProtectedPage currentUser={currentUser} />}>
           <Route
             path="/messenger"
@@ -73,6 +85,7 @@ export default function App() {
           />
           <Route path="/post-listing" element={<PostListing addNewListing={addNewListing} />} />
           <Route path="/user-listings" element={<MyProfile currentUser={currentUser} setCurrentUser={setCurrentUser} searchQuery={searchQuery} listings={listings} />} />
+          <Route path="/item-details/:itemId" element={<ItemDetails listings={listings} />} />
         </Route>
       </Routes>
       <Footer />

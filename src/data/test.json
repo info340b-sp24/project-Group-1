@@ -1,0 +1,72 @@
+{
+  "listings": {
+    "listingId1": {
+      "title": "Item Title",
+      "description": "Item Description",
+      "price": 100,
+      "category": "Electronics",
+      "images": ["url1", "url2"],
+      "sellerId": "userId1",
+      "location": "City, State",
+      "timestamp": 1718208000,
+      "status": "available"
+    }
+  },
+  "purchases": {
+    "purchaseId1": {
+      "listingId": "listingId1",
+      "buyerId": "userId2",
+      "sellerId": "userId1",
+      "purchaseDate": 1718294400,
+      "paymentMethod": "Credit Card",
+      "status": "completed"
+    }
+  },
+  "users": {
+    "userId1": {
+      "username": "User1",
+      "email": "user1@example.com",
+      "profileImageUrl": "url",
+      "contactInfo": "123-456-7890",
+      "ratings": 4.5,
+      "reviews": ["reviewId1"],
+      "listings": ["listingId1"],
+      "purchaseHistory": ["purchaseId1"]
+    },
+    "userId2": {
+      "username": "User2",
+      "email": "user2@example.com",
+      "profileImageUrl": "url",
+      "contactInfo": "987-654-3210",
+      "ratings": 4.0,
+      "reviews": ["reviewId2"],
+      "listings": [],
+      "purchaseHistory": ["purchaseId1"]
+    }
+  },
+  "messages": {
+    "messageId1": {
+      "senderId": "userId2",
+      "receiverId": "userId1",
+      "listingId": "listingId1",
+      "content": "Is this item still available?",
+      "timestamp": 1718380800
+    }
+  },
+  "reviews": {
+    "reviewId1": {
+      "reviewerId": "userId2",
+      "revieweeId": "userId1",
+      "rating": 5,
+      "comments": "Great seller!",
+      "timestamp": 1718640000
+    },
+    "reviewId2": {
+      "reviewerId": "userId1",
+      "revieweeId": "userId2",
+      "rating": 4,
+      "comments": "Good buyer!",
+      "timestamp": 1718726400
+    }
+  }
+}

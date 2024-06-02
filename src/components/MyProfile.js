@@ -41,9 +41,9 @@ export default function MyProfile({ currentUser, setCurrentUser, searchQuery, li
             <div className="user-info">
             <img src={currentUser.userImg} alt="User Avatar" className="user-avatar" />
               <div className="user-details">
-                <h2 className="username">Henry</h2>
+                <h2 className="username" src={currentUser.userName} alt="UserName">Name</h2>
                 <p className="joined-date">Joined Apr 2024</p>
-                <p className="location">Seattle, WA</p>
+                <p className="location" src={currentUser.location} alt="Location">Location</p>
                 <button onClick={toggleEditMenu}>Edit Profile</button>
               </div>
             </div>
@@ -58,11 +58,11 @@ export default function MyProfile({ currentUser, setCurrentUser, searchQuery, li
               </div>
               <div className="stat">
                 <p className="value">13</p>
-                <p className="label">Followers</p>
+                <p className="label">Listings</p>
               </div>
               <div className="stat">
-                <p className="value">1</p>
-                <p className="label">Following</p>
+                <p className="value">13</p>
+                <p className="label">Another Thing</p>
               </div>
             </div>
           </section>
@@ -121,9 +121,10 @@ export default function MyProfile({ currentUser, setCurrentUser, searchQuery, li
           </section>
         </main>
         {EditMenuOpen && (
-          <EditProfileMenu 
+          <EditProfileMenu
             currentUser={currentUser}
             onProfileUpdate={handleProfileUpdate}
+            setCurrentUser={setCurrentUser}
           />
         )}
       </>
