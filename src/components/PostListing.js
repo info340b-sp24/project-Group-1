@@ -2,17 +2,13 @@ import React, { useState } from 'react';
 
 export default function PostListing({ addNewListing }) {
   const [title, setTitle] = useState('');
-  const [location, setLocation] = useState('');
+  const [category, setCategory] = useState('')
+  const [description, setDescription] = useState('');
   const [price, setPrice] = useState('');
-  const [condition, setCondition] = useState('');
-  const [phoneNumber, setPhoneNumber] = useState('');
-
-  const [tags, setTags] = useState([]);
-  const [inputTag, setInputTag] = useState("");
   const [image, setImage] = useState(null);
 
-  const handleConditionChange = (e) => {
-    setCondition(e.target.value);
+  const handleCategoryChange = (e) => {
+    setCategory(e.target.value);
   };
 
   const handleImageUpload = (e) => {
@@ -25,44 +21,20 @@ export default function PostListing({ addNewListing }) {
     const newListing = {
       id: Date.now(),
       title,
-      location,
+      category,
+      description,
       price: `$${price}`,
-      condition,
-      phoneNumber,
       image: URL.createObjectURL(image),
     };
 
     addNewListing(newListing);
     setTitle('');
-    setLocation('');
+    setCategory('');
+    setDescription('');
     setPrice('');
-    setCondition('');
-    setPhoneNumber('');
     setImage(null);
   };
 
-  const handleAddTag = () => {
-    if (inputTag && !tags.includes(inputTag)) {
-      setTags([...tags, inputTag]);
-      setInputTag("");
-    }
-  };
-
-  const handleRemoveTag = (tagToRemove) => {
-    setTags(tags.filter(tag => tag !== tagToRemove));
-  };
-
-  const handleTagInput = (e) => {
-    setInputTag(e.target.value);
-  };
-
-  const renderTags = () => {
-    return tags.map(tag => (
-      <span key={tag}>
-        {tag} <button onClick={() => handleRemoveTag(tag)}>x</button>
-      </span>
-    ));
-  };
 
   return (
     <>
@@ -122,17 +94,33 @@ export default function PostListing({ addNewListing }) {
                 id="title"
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
-                placeholder="For example: Brand, model, color"
+                placeholder="For example: Brand, model, etc."
               />
             </div>
 
             <div className="form-group">
-              <label htmlFor="location">Location</label>
-              <input
+              <label htmlFor="category">Category of item</label>
+              <select id="category" value={category} onChange={handleCategoryChange}>
+                <option value="">Select Category</option>
+                <option value="New/Never Opened">Electronics</option>
+                <option value="Barely Used">Study Materials & Textbooks</option>
+                <option value="Moderately Used">Dorm & Apartment Essentials</option>
+                <option value="Very Used">Sports & Fitness</option>
+                <option value="Very Used">Hobbies & Entertainment</option>
+                <option value="Very Used">Healthy & Beauty</option>
+                <option value="Very Used">Transportation</option>
+                <option value="Very Used">Other</option>
+              </select>
+            </div>
+
+            <div className='form-group'>
+              <label htmlFor='description'>Description</label>
+              <input 
                 type="text"
-                id="location"
-                value={location}
-                onChange={(e) => setLocation(e.target.value)}
+                id='description'
+                value={description}
+                onChange={(e) => setDescription(e.target.value)}
+                placeholder="For example: Condition of item, color, etc."
               />
             </div>
 
@@ -146,34 +134,6 @@ export default function PostListing({ addNewListing }) {
               />
             </div>
 
-            <div className="form-group">
-              <label htmlFor="condition">Condition:</label>
-              <select id="condition" value={condition} onChange={handleConditionChange}>
-                <option value="">Select condition</option>
-                <option value="New/Never Opened">New/Never Opened</option>
-                <option value="Barely Used">Barely Used</option>
-                <option value="Moderately Used">Moderately Used</option>
-                <option value="Very Used">Very Used</option>
-              </select>
-            </div>
-
-            <div>
-              <input
-                type="text"
-                value={inputTag}
-                onChange={handleTagInput}
-                placeholder="Add a tag"
-              />
-              <button onClick={handleAddTag}>Add Tag</button>
-              <div>
-                {renderTags()}
-              </div>
-            </div>
-
-            <div className="form-group">
-              <label htmlFor="phone">Phone Number</label>
-              <input type="tel" id="phone" />
-            </div>
 
             <div className="buttons">
               <button type="submit" className="post-button">Post</button>

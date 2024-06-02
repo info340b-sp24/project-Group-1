@@ -367,11 +367,14 @@ footer {
 
 .photo {
     flex: 0 0 auto;
+    position: relative;
 }
 
 .photo img {
     width: 100px;
     height: auto;
+    border-radius: 5px;
+    box-sizing: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .photo-instructions {
