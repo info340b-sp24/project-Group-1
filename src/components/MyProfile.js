@@ -58,11 +58,11 @@ export default function MyProfile({ currentUser, setCurrentUser, searchQuery, li
               </div>
               <div className="stat">
                 <p className="value">13</p>
-                <p className="label">Followers</p>
+                <p className="label">Listings</p>
               </div>
               <div className="stat">
-                <p className="value">1</p>
-                <p className="label">Following</p>
+                <p className="value">13</p>
+                <p className="label">Another Thing</p>
               </div>
             </div>
           </section>
