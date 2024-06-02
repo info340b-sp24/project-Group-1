@@ -1,0 +1,95 @@
+{
+  "users": {
+    "userId1": {
+      "username": "user1",
+      "email": "user1@example.com",
+      "location": "University District",
+      "listings": {
+        "listingId1": true
+      },
+      "purchases": {
+        "purchaseId2": true
+      },
+      "reviews": {
+        "reviewId1": true
+      },
+      "conversations": {
+        "conversationId1": true
+      }
+    },
+    "userId2": {
+      "username": "user2",
+      "email": "user2@example.com",
+      "location": "University District",
+      "listings": {
+        "listingId2": true
+      },
+      "purchases": {
+      },
+      "reviews": {
+        "reviewId2": true
+      },
+      "conversations": {
+        "conversationId1": true
+      }
+    }
+  },
+
+  "listings": {
+    "listingId1": {
+      "title": "Item Title",
+      "description": "Item description",
+      "price": 100,
+      "sellerId": "userId1",
+      "status": "available",
+      "date": 1621234567890
+    },
+    "listingId2": {
+      "title": "Item Title",
+      "description": "Item description",
+      "price": 100,
+      "sellerId": "userId2",
+      "status": "purchased",
+      "date": 1621234567890
+    }
+  },
+
+  "purchases": {
+    "purchaseId1": {
+      "listingId": "listingId1",
+      "buyerId": "userId2",
+      "sellerId": "userId1",
+      "date": 1621234567890
+    }
+  },
+
+  "reviews": {
+    "reviewId1": {
+      "reviewerId": "userId2",
+      "revieweeId": "userId1",
+      "rating": 4,
+      "comment": "Great seller!"
+    },
+    "reviewId2": {
+      "reviewerId": "userId1",
+      "revieweeId": "userId2",
+      "rating": 4,
+      "comment": "Great buyer!"
+    }
+  },
+
+  "conversations": {
+    "conversationId1": {
+      "listingId": "listingId1",
+      "buyerId": "userId2",
+      "sellerId": "userId1",
+      "messages": {
+        "messageId1": {
+          "senderId": "userId2",
+          "content": "Is this still available?",
+          "timestamp": 1621234567890
+        }
+      }
+    }
+  }
+}

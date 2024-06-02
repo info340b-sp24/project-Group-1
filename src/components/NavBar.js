@@ -3,13 +3,13 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useNavigation } from './NavScript';
 import '../style.css';
 
-const NavBar = ({ searchQuery, setSearchQuery, currentUser }) => {
+const NavBar = ({ searchQuery, setSearchQuery, currentUser, onSignOut }) => {
   const { isMenuOpen, toggleMenu } = useNavigation();
   const navigate = useNavigate();
 
   const SignOutButton = ({ currentUser }) => {
     if (currentUser.userId) {
-      return <button className="menu">Sign Out</button>;
+      return <button className="menu" onClick={onSignOut}>Sign Out</button>;
     }
     return null;
   };

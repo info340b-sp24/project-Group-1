@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Route, Routes, Navigate, Outlet, useNavigate } from 'react-router-dom';
 
-import { getAuth, onAuthStateChanged, updateProfile, EmailAuthProvider, GoogleAuthProvider } from 'firebase/auth';
+import { getAuth, onAuthStateChanged, updateProfile, signOut } from 'firebase/auth';
 
 import Home from './Home';
 import Messenger from './Messenger';
@@ -61,13 +61,19 @@ export default function App() {
     }
   };
 
+  const signOutUser = () => {
+    console.log("signing out");
+    signOut(getAuth());
+    navigateTo('/signin');
+  };
+
   const addNewListing = (newListing) => {
     setListings([...listings, newListing]);
   };
 
   return (
     <>
-      <NavBar searchQuery={searchQuery} setSearchQuery={setSearchQuery} currentUser={currentUser} />
+      <NavBar searchQuery={searchQuery} setSearchQuery={setSearchQuery} currentUser={currentUser} onSignOut={signOutUser} />
       <Routes>
         <Route path="/" element={<Home searchQuery={searchQuery} listings={listings} />} />
         <Route path="/signin" element={<SignInPage currentUser={currentUser} loginFunction={loginUser}/>} />
