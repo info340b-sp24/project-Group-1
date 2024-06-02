@@ -53,9 +53,6 @@ const NavBar = ({ searchQuery, setSearchQuery }) => {
             <Link to="/post-listing" className="menu" onClick={toggleMenu}>Post Listings</Link>
             <Link to="/user-listings" className="menu" onClick={toggleMenu}>My Profile</Link>
           </div>
-          <footer className="side-menu-footer">
-            <p>&copy; 2023 UW MarketPlace. All rights reserved.</p>
-          </footer>
         </div>
       )}
     </header>
