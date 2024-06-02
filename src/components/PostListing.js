@@ -4,7 +4,6 @@ export default function PostListing({ addNewListing }) {
   const [title, setTitle] = useState('');
   const [category, setCategory] = useState('')
   const [description, setDescription] = useState('');
-  const [location, setLocation] = useState('');
   const [price, setPrice] = useState('');
   const [image, setImage] = useState(null);
 
@@ -24,7 +23,6 @@ export default function PostListing({ addNewListing }) {
       title,
       category,
       description,
-      location,
       price: `$${price}`,
       image: URL.createObjectURL(image),
     };
@@ -33,7 +31,6 @@ export default function PostListing({ addNewListing }) {
     setTitle('');
     setCategory('');
     setDescription('');
-    setLocation('');
     setPrice('');
     setImage(null);
   };
@@ -97,7 +94,7 @@ export default function PostListing({ addNewListing }) {
                 id="title"
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
-                placeholder="For example: Brand, model, color"
+                placeholder="For example: Brand, model, etc."
               />
             </div>
 
@@ -123,16 +120,7 @@ export default function PostListing({ addNewListing }) {
                 id='description'
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
-              />
-            </div>
-
-            <div className="form-group">
-              <label htmlFor="location">Location</label>
-              <input
-                type="text"
-                id="location"
-                value={location}
-                onChange={(e) => setLocation(e.target.value)}
+                placeholder="For example: Condition of item, color, etc."
               />
             </div>
 

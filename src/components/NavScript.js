@@ -7,5 +7,9 @@ export const useNavigation = () => {
     setIsMenuOpen(!isMenuOpen);
   };
 
-  return { isMenuOpen,toggleMenu };
+  const closeMenu = () => {
+    setIsMenuOpen(false);
+  };
+
+  return { isMenuOpen, toggleMenu, closeMenu };
 };
