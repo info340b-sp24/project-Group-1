@@ -141,8 +141,6 @@ export default function Messenger({ searchQuery, setSearchQuery }) {
               <button className="button">Block User</button>
             </div>
             <div className="chat-details-info">
-              <p><strong>Email:</strong> john.smith@example.com</p>
-              <p><strong>Phone:</strong> +1 123-456-7890</p>
               <p><strong>Location:</strong> New York, USA</p>
             </div>
           </div>
