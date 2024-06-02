@@ -12,6 +12,7 @@ import NavBar from './NavBar';
 import Footer from './Footer';
 import items from '../data/items.json';
 import DEFAULT_USERS from '../data/users.json';
+import ItemDetails from './ItemDetails';
 
 export default function App() {
   const [currentUser, setCurrentUser] = useState(DEFAULT_USERS[0]);
@@ -84,6 +85,7 @@ export default function App() {
           />
           <Route path="/post-listing" element={<PostListing addNewListing={addNewListing} />} />
           <Route path="/user-listings" element={<MyProfile currentUser={currentUser} setCurrentUser={setCurrentUser} searchQuery={searchQuery} listings={listings} />} />
+          <Route path="/item-details/:itemId" element={<ItemDetails listings={listings} />} />
         </Route>
       </Routes>
       <Footer />
