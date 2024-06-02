@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Route, Routes, Navigate, Outlet, useNavigate } from 'react-router-dom';
 
 import { getAuth, onAuthStateChanged, updateProfile, signOut } from 'firebase/auth';
+import { ref, update, getDatabase } from 'firebase/database';
 
 import Home from './Home';
 import Messenger from './Messenger';
@@ -21,6 +22,8 @@ export default function App() {
 
   const navigateTo = useNavigate();
 
+  const db = getDatabase();
+
   useEffect(() => {
     //log in a default user
     // loginUser(DEFAULT_USERS[1])
@@ -30,7 +33,7 @@ export default function App() {
 
 
     onAuthStateChanged(auth, (firebaseUser) => {
-      if(firebaseUser) {
+      if (firebaseUser) {
         console.log("signing in as", firebaseUser.displayName)
         console.log("firebaseuser: ", firebaseUser);
         firebaseUser.userId = firebaseUser.uid;
@@ -38,13 +41,19 @@ export default function App() {
         firebaseUser.userImg = firebaseUser.photoURL || "/img/null.png";
         console.log("firebaseuser after adding fields :", firebaseUser)
         setCurrentUser(firebaseUser);
+
+        const userRef = ref(db, `users/${firebaseUser.userId}`);
+        update(userRef, {
+          username: firebaseUser.displayName,
+          email: firebaseUser.email
+        });
       }
       else { //no user
         console.log("signed out");
         setCurrentUser(DEFAULT_USERS[0]);
       }
     })
-  }, []);
+  });
 
   const loginUser = async (userObj) => {
     console.log("logging in as", userObj.userName);
