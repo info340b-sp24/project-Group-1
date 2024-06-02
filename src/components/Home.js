@@ -3,7 +3,6 @@ import { Listings } from './Listings';
 
 export default function Home({ searchQuery, listings }) {
 
-  //TODO: filter based on item object attributes string matching or having string from search query
   const filteredItems = listings.filter((listing) => {
     if (searchQuery) {
       return (
