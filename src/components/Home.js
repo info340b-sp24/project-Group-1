@@ -1,7 +1,34 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Listings } from './Listings';
+import { getDatabase, ref, onValue } from 'firebase/database';
 
-export default function Home({ searchQuery, listings }) {
+export default function Home({ searchQuery }) {
+
+  const [listings, setListings] = useState([]);
+  const db = getDatabase();
+  const listingsRef = ref(db, 'listings');
+
+  useEffect(() => {
+    const unsubscribe = onValue(listingsRef, (snapshot) => {
+      const dbListings = snapshot.val();
+      const dbListingsWithId = Object.keys(dbListings).reduce((acc, listingId) => {
+        if (dbListings[listingId].status === "available") {
+          acc.push({
+            ...dbListings[listingId],
+            id: listingId
+          });
+        }
+        return acc;
+      }, []);
+      setListings(dbListingsWithId);
+    });
+
+    function cleanup() {
+      unsubscribe();
+    }
+
+    return cleanup;
+  }, []);
 
   const filteredItems = listings.filter((listing) => {
     if (searchQuery) {
@@ -15,17 +42,15 @@ export default function Home({ searchQuery, listings }) {
     return true;
   });
 
+
+
   return (
     <>
       <main>
         <section className="all-items">
-          <h2>Items Near You</h2>
-            <div className='item-container'>
-              <Listings items={filteredItems}/>
-            </div>
+          <Listings items={filteredItems} header="Items Near You" />
         </section>
       </main>
     </>
   );
 }
-

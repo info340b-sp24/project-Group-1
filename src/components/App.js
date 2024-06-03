@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Route, Routes, Navigate, Outlet, useNavigate } from 'react-router-dom';
+import { Route, Routes, Navigate, Outlet, useNavigate } from 'react-router-dom';
 
 import { getAuth, onAuthStateChanged, updateProfile, signOut } from 'firebase/auth';
 import { ref, update, getDatabase } from 'firebase/database';
