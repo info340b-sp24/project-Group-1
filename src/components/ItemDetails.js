@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { getDatabase, ref as dbRef, onValue } from 'firebase/database';
 import { getStorage, ref as storageRef, getDownloadURL } from 'firebase/storage';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import nullListing from '../data/nullListing.json';
 
 const useImageCarousel = (images) => {
@@ -22,10 +22,10 @@ const useImageCarousel = (images) => {
   return { currentImageIndex, handlePrevImage, handleNextImage };
 };
 
-export default function ItemDetails({ listings }) {
+export default function ItemDetails({ currentUser }) {
   const { itemId } = useParams();
   const [listing, setListing] = useState(nullListing);
-
+  const navigate = useNavigate();
 
   const { currentImageIndex, handlePrevImage, handleNextImage } = useImageCarousel(
     listing ? listing.images : []
@@ -39,7 +39,7 @@ export default function ItemDetails({ listings }) {
     const unsubscribe = onValue(listingRef, async (snapshot) => {
       const data = snapshot.val();
       const imagePaths = Object.values(data.images);
-  
+
       const imageUrls = await Promise.all(
         imagePaths.map(async (image) => {
           const imageRef = storageRef(storage, `listingImages/${image}`);
@@ -47,34 +47,40 @@ export default function ItemDetails({ listings }) {
           return url;
         })
       );
-  
+
       data.images = imageUrls;
       setListing(data);
     });
-  
-    function cleanup() {
-      unsubscribe();
-    }
-  
-    return cleanup;
-  }, []);
 
-  useEffect(() => {
-    if (listing.sellerId) {
-      console.log(listing.sellerId)
-      const sellerRef = dbRef(db, `users/${listing.sellerId}`);
-      const unsubscribe = onValue(sellerRef, (snapshot) => {
-        const sellerData = snapshot.val();
-        setListing((prevListing) => ({
-          ...prevListing,
-          sellerUsername: sellerData.username,
-          sellerRating: sellerData.rating,
-        }));
-      });
+    return () => unsubscribe();
+  }, [listingRef, storage]);
 
-      return unsubscribe;
+  const handleSendMessage = () => {
+    if (!currentUser) {
+      console.error('No currentUser available');
+      return;
     }
-  }, [listing.sellerId]);
+
+    console.log('Dispatching event with details:', {
+      itemTitle: listing.title,
+      sellerId: listing.sellerId,
+      listingId: itemId,
+      buyerId: currentUser.userId,
+      currentUser: currentUser
+    });
+
+    const event = new CustomEvent('createNewChat', {
+      detail: {
+        itemTitle: listing.title,
+        sellerId: listing.sellerId,
+        listingId: itemId,
+        buyerId: currentUser.userId,
+        currentUser: currentUser
+      }
+    });
+    window.dispatchEvent(event);
+    navigate('/messenger');
+  };
 
   return (
     <div className="item-details-container">
@@ -83,7 +89,7 @@ export default function ItemDetails({ listings }) {
         <div className="image-container">
           <img src={listing.images[currentImageIndex]} alt={listing.title} />
         </div>
-        <button onClick={handleNextImage}>&#8249;</button>
+        <button onClick={handleNextImage}>&#8250;</button>
       </div>
       <div className="item-info">
         <h2>{listing.title}</h2>
@@ -97,7 +103,7 @@ export default function ItemDetails({ listings }) {
         <div className="buttons">
           <button>Buy</button>
           <button>Rent</button>
-          <button>Send Message</button>
+          <button onClick={handleSendMessage}>Send Message</button>
         </div>
       </div>
     </div>
