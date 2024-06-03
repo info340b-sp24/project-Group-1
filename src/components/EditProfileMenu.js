@@ -7,10 +7,10 @@ export default function EditProfileMenu({ currentUser, setCurrentUser, onProfile
   const [profileImg, setProfileImg] = useState(null);
 
   const handleSave = () => {
-    if (!currentUser.id) {
-      console.error('User ID is undefined');
-      return;
-    }
+    // if (!currentUser.id) {
+    //   console.error('User ID is undefined');
+    //   return;
+    // }
 
     const updatedUser = {
       ...currentUser,
@@ -20,7 +20,7 @@ export default function EditProfileMenu({ currentUser, setCurrentUser, onProfile
     };
 
     const db = getDatabase();
-    set(ref(db, 'users/' + currentUser.id), {
+    set(ref(db, 'users/' + currentUser.userId), {
       email: currentUser.email,
       username: username,
       location: location,
