@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { getDatabase, ref as dbRef, onValue } from 'firebase/database';
+import { getDatabase, ref as dbRef, push, onValue } from 'firebase/database';
 import { getStorage, ref as storageRef, getDownloadURL } from 'firebase/storage';
 import { getAuth } from 'firebase/auth';
 
@@ -57,11 +57,7 @@ export default function ItemDetails({ listings }) {
 
     });
 
-    function cleanup() {
-      unsubscribe();
-    }
-
-    return cleanup;
+    return () => unsubscribe();
   }, []);
 
   useEffect(() => {
@@ -83,6 +79,27 @@ export default function ItemDetails({ listings }) {
 
   const handleSendMessage = () => {
 
+  const handleSendMessage = async () => {
+    if (!currentUser) {
+      console.error('No currentUser available');
+      return;
+    }
+
+    const newConversation = {
+      buyerId: currentUser.userId,
+      sellerId: listing.sellerId,
+      listingId: itemId,
+      messages: {}
+    };
+
+    try {
+      const conversationRef = dbRef(db, 'conversations');
+      const newConversationRef = await push(conversationRef, newConversation);
+
+      navigate('/messenger', { state: { conversationId: newConversationRef.key } });
+    } catch (error) {
+      console.error('Error creating new conversation:', error);
+    }
   };
 
   return (
