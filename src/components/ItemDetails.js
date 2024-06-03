@@ -37,19 +37,23 @@ export default function ItemDetails({ currentUser }) {
 
   useEffect(() => {
     const unsubscribe = onValue(listingRef, async (snapshot) => {
-      const data = snapshot.val();
-      const imagePaths = Object.values(data.images);
+      try {
+        const data = snapshot.val();
+        const imagePaths = Object.values(data.images);
 
-      const imageUrls = await Promise.all(
-        imagePaths.map(async (image) => {
-          const imageRef = storageRef(storage, `listingImages/${image}`);
-          const url = await getDownloadURL(imageRef);
-          return url;
-        })
-      );
+        const imageUrls = await Promise.all(
+          imagePaths.map(async (image) => {
+            const imageRef = storageRef(storage, `listingImages/${image}`);
+            const url = await getDownloadURL(imageRef);
+            return url;
+          })
+        );
 
-      data.images = imageUrls;
-      setListing(data);
+        data.images = imageUrls;
+        setListing(data);
+      } catch (error) {
+        console.error('Error fetching listing data:', error);
+      }
     });
 
     return () => unsubscribe();
@@ -61,7 +65,7 @@ export default function ItemDetails({ currentUser }) {
       return;
     }
 
-    console.log('Dispatching event with details:', {
+    console.log('Dispatching createNewChat event with details:', {
       itemTitle: listing.title,
       sellerId: listing.sellerId,
       listingId: itemId,

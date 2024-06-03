@@ -1,38 +1,43 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { getDatabase, ref, onValue, push } from 'firebase/database';
-import { useLocation } from 'react-router-dom';
+import ChatBox from './ChatBox';
 
 export default function Messenger({ searchQuery, setSearchQuery, currentUser }) {
-  const [newMessage, setNewMessage] = useState('');
   const [selectedChat, setSelectedChat] = useState(null);
   const [chats, setChats] = useState([]);
-  const [userMessages, setUserMessages] = useState({});
-  const location = useLocation();
+  const [userMessages, setUserMessages] = useState([]);
   const db = getDatabase();
 
-  // Fetch chats for the current user
   useEffect(() => {
     if (!currentUser || !currentUser.userId) return;
     const chatsRef = ref(db, `conversations`);
     onValue(chatsRef, (snapshot) => {
-      const data = snapshot.val();
-      if (data) {
-        const formattedChats = Object.keys(data)
-          .filter(key => data[key].buyerId === currentUser.userId || data[key].sellerId === currentUser.userId)
-          .map(key => ({
-            id: key,
-            ...data[key]
-          }));
-        setChats(formattedChats);
-      } else {
-        setChats([]);
+      try {
+        const data = snapshot.val();
+        if (data) {
+          const formattedChats = Object.keys(data)
+            .filter(key => data[key].buyerId === currentUser.userId || data[key].sellerId === currentUser.userId)
+            .map(key => ({
+              id: key,
+              ...data[key]
+            }));
+          console.log('Fetched chats:', formattedChats); // Log fetched chats
+          setChats(formattedChats);
+        } else {
+          setChats([]);
+        }
+      } catch (error) {
+        console.error('Error fetching chats:', error);
       }
     });
   }, [currentUser, db]);
 
-  // Function to create new chat
   const createNewChat = useCallback((itemTitle, sellerId, listingId, buyerId, currentUser) => {
     if (!itemTitle || !sellerId || !listingId || !buyerId || !currentUser) return;
+
+    console.log('Creating new chat with details:', {
+      itemTitle, sellerId, listingId, buyerId, currentUser
+    });
 
     const chatRef = ref(db, `conversations`);
     const newChat = {
@@ -49,48 +54,57 @@ export default function Messenger({ searchQuery, setSearchQuery, currentUser }) 
     };
     const newChatKey = push(chatRef, newChat).key;
 
+    console.log('New chat created with key:', newChatKey); // Log new chat key
+    setChats((prevChats) => [...prevChats, { id: newChatKey, ...newChat }]);
     setSelectedChat({ id: newChatKey, ...newChat });
   }, [db]);
 
-  // Event listener for creating new chat
   useEffect(() => {
     const handleNewChatEvent = (event) => {
+      console.log('Received createNewChat event with details:', event.detail);
       const { itemTitle, sellerId, listingId, buyerId, currentUser } = event.detail;
       createNewChat(itemTitle, sellerId, listingId, buyerId, currentUser);
     };
 
+    console.log('Registering event listener for createNewChat');
     window.addEventListener('createNewChat', handleNewChatEvent);
 
     return () => {
+      console.log('Removing event listener for createNewChat');
       window.removeEventListener('createNewChat', handleNewChatEvent);
     };
   }, [createNewChat]);
 
-  // Fetch messages for the selected chat
   useEffect(() => {
     if (!selectedChat) return;
+    console.log('Selected chat:', selectedChat); // Log selected chat
     const messagesRef = ref(db, `conversations/${selectedChat.id}/messages`);
     onValue(messagesRef, (snapshot) => {
-      const data = snapshot.val();
-      setUserMessages(data ? Object.values(data) : []);
+      try {
+        const data = snapshot.val();
+        console.log('Fetched messages for selected chat:', data); // Log fetched messages
+        setUserMessages(data ? Object.values(data) : []);
+      } catch (error) {
+        console.error('Error fetching messages:', error);
+      }
     });
   }, [selectedChat, db]);
 
-  const handleSendMessage = (e) => {
-    e.preventDefault();
-    if (newMessage.trim() && selectedChat) {
+  const handleSendMessage = (message) => {
+    if (message.trim() && selectedChat) {
       const messageRef = ref(db, `conversations/${selectedChat.id}/messages`);
       const newMessageObj = {
-        content: newMessage,
+        content: message,
         senderId: currentUser.userId,
         timestamp: Date.now()
       };
+      console.log('Sending message:', newMessageObj); // Log message being sent
       push(messageRef, newMessageObj);
-      setNewMessage('');
     }
   };
 
   const handleChatSelection = (chat) => {
+    console.log('Chat selected:', chat);
     setSelectedChat(chat);
   };
 
@@ -107,17 +121,6 @@ export default function Messenger({ searchQuery, setSearchQuery, currentUser }) 
       <div className="chat-item-time">{new Date(chat.messages[Object.keys(chat.messages)[0]].timestamp).toLocaleString()}</div>
     </div>
   ));
-
-  const chatHistory = selectedChat
-    ? userMessages.map((message, index) => (
-        <div key={index} className={`message ${message.senderId === currentUser.userId ? 'sent' : 'received'}`}>
-          <div className="message-header">
-            <span className="message-username">{message.senderId}</span>
-          </div>
-          <p className="message-text">{message.content}</p>
-        </div>
-      ))
-    : null;
 
   return (
     <main>
@@ -145,18 +148,8 @@ export default function Messenger({ searchQuery, setSearchQuery, currentUser }) 
                   <h2>All Messages</h2>
                 </div>
                 <div className="chat-history">
-                  {chatHistory}
+                  <ChatBox messages={userMessages} sendMessage={handleSendMessage} />
                 </div>
-                <form className="chat-input-container" onSubmit={handleSendMessage}>
-                  <input
-                    type="text"
-                    className="chat-input"
-                    placeholder="Type your message..."
-                    value={newMessage}
-                    onChange={(e) => setNewMessage(e.target.value)}
-                  />
-                  <button type="submit" className="send-button">Send</button>
-                </form>
               </div>
             ) : (
               <div className="no-chat-selected">
