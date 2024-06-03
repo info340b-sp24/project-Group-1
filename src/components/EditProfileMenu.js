@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { getDatabase, ref, set } from 'firebase/database';
 
 export default function EditProfileMenu({ currentUser, setCurrentUser, onProfileUpdate }) {
   const [username, setUsername] = useState(currentUser.userName);
@@ -6,12 +7,30 @@ export default function EditProfileMenu({ currentUser, setCurrentUser, onProfile
   const [profileImg, setProfileImg] = useState(null);
 
   const handleSave = () => {
+    if (!currentUser.id) {
+      console.error('User ID is undefined');
+      return;
+    }
+
     const updatedUser = {
       ...currentUser,
       userName: username,
       location: location,
       userImg: profileImg ? URL.createObjectURL(profileImg) : currentUser.userImg,
     };
+
+    const db = getDatabase();
+    set(ref(db, 'users/' + currentUser.id), {
+      email: currentUser.email,
+      username: username,
+      location: location,
+      userImg: updatedUser.userImg,
+    }).then(() => {
+      console.log('User data updated in Firebase');
+    }).catch((error) => {
+      console.error('Error updating user data in Firebase:', error);
+    });
+
     onProfileUpdate(updatedUser);
     setCurrentUser(updatedUser);
   };
