@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { ref, onValue, push } from 'firebase/database';
-import { db } from '../index';
+import { getDatabase, ref, onValue, push } from 'firebase/database';
 
 export default function Messenger({ searchQuery, setSearchQuery, currentUser }) {
   const [newMessage, setNewMessage] = useState('');
   const [selectedChat, setSelectedChat] = useState(null);
   const [chats, setChats] = useState([]);
   const [userMessages, setUserMessages] = useState({});
+
+  const db = getDatabase();
 
   // Fetch chats for the current user
   useEffect(() => {
