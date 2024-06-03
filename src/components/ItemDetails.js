@@ -39,23 +39,23 @@ export default function ItemDetails({ listings }) {
     const unsubscribe = onValue(listingRef, async (snapshot) => {
       const data = snapshot.val();
       const imagePaths = Object.values(data.images);
-
-      const imageUrls = await Promise.all(imagePaths.map(async (image) => {
-        const imageRef = storageRef(storage, `listingImages/${image}`);
-        const url = getDownloadURL(imageRef);
-        return url;
-      }));
-
+  
+      const imageUrls = await Promise.all(
+        imagePaths.map(async (image) => {
+          const imageRef = storageRef(storage, `listingImages/${image}`);
+          const url = await getDownloadURL(imageRef);
+          return url;
+        })
+      );
+  
       data.images = imageUrls;
-      console.log(data)
       setListing(data);
-
     });
-
+  
     function cleanup() {
       unsubscribe();
     }
-
+  
     return cleanup;
   }, []);
 
