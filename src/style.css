@@ -289,15 +289,15 @@ footer {
     flex-direction: column;
     overflow-y: auto;
   }
-  
+
   .edit-profile-menu.open {
     right: 0;
   }
-  
+
   .edit-profile-menu h2 {
     margin-top: 0;
   }
-  
+
   .edit-profile-menu input[type="text"],
   .edit-profile-menu input[type="file"] {
     margin-bottom: 10px;
@@ -305,7 +305,7 @@ footer {
     border: 1px solid #ccc;
     border-radius: 4px;
   }
-  
+
   .edit-profile-menu button {
     padding: 10px;
     background-color: #8b4ba9;
@@ -315,7 +315,7 @@ footer {
     cursor: pointer;
     margin-top: 20px;
   }
-  
+
   .edit-profile-menu-content {
     flex: 1;
     overflow-y: auto;
@@ -448,6 +448,12 @@ footer {
     color: #333;
 }
 
+.post-button:disabled {
+    background: #ccc;
+    color: #333;
+    cursor: not-allowed;
+}
+
 /* messages*/
 .messages-container {
     display: flex;
@@ -468,16 +474,16 @@ footer {
     flex-direction: column;
     justify-content: space-between;
   }
-  
+
   .menu-items {
     display: flex;
     flex-direction: column;
   }
-  
+
   .side-menu .menu {
     margin-bottom: 20px;
   }
-  
+
 /** **/
 
 /* flexbox */
@@ -486,28 +492,28 @@ footer {
     flex: 1;
     margin: 1rem;
   }
-  
+
   .chat-sidebar {
     flex: 0 0 300px;
     background-color: #f5f5f5;
     margin-right: 1rem;
 
   }
-  
+
   .customer-chat h2 {
     margin-bottom: 10px;
   }
-  
+
   .search-input {
     width: 92%;
     padding: 10px;
     margin-bottom: 20px;
   }
-  
+
   .chat-list {
     overflow-y: auto;
   }
-  
+
   .chat-item {
     display: flex;
     justify-content: space-between;
@@ -515,30 +521,30 @@ footer {
     padding: 10px;
     cursor: pointer;
   }
-  
+
   .chat-item.active {
     background-color: #e0e0e0;
   }
-  
+
   .chat-item-content h3 {
     margin: 0;
   }
-  
+
   .chat-item-content p {
     margin: 5px 0;
   }
-  
+
   .chat-item-time {
     color: #888;
   }
-  
+
     .chat-content {
         display: flex;
         flex-direction: column;
         margin-left: 1rem;
         padding-right: 1rem;;
         padding-bottom: 1rem;
-        height: 70vh; 
+        height: 70vh;
         position: relative;
         background-color: white;
     }
@@ -561,7 +567,7 @@ footer {
     .chat-history {
         flex: 1;
         overflow-y: auto;
-        padding-right: 1rem; 
+        padding-right: 1rem;
     }
 
     .message {
@@ -585,18 +591,18 @@ footer {
         height: 70vh;
         background-color: white;
       }
-      
+
       .chat-content-box {
         background-color: white;
       }
-      
+
       .chat-history {
         flex: 1;
         overflow-y: auto;
         padding-right: 1rem;
         margin-bottom: 1rem; /* Add margin bottom to create space for input container */
       }
-      
+
       .chat-input-container {
         display: flex;
         align-items: center;
@@ -612,7 +618,7 @@ footer {
         padding: 10px;
         border: 1px solid #ccc;
         border-radius: 4px;
-        margin-right: 10px; 
+        margin-right: 10px;
     }
 
     .send-button {
@@ -636,21 +642,21 @@ footer {
     margin-top: 1rem;
     margin-bottom: 20px;
   }
-  
+
   .chat-details-header h3 {
     margin: 0 0 20px;
   }
-  
+
   .chat-details-header p {
     margin: 5px 0;
     margin-bottom: 0.5rem;
     color: #888;
   }
-  
+
   .chat-details-actions {
     margin-bottom: 20px;
   }
-  
+
   .chat-details-actions .button {
     padding: 10px;
     background-color: #8b4ba9;
@@ -661,7 +667,7 @@ footer {
     margin-bottom: 20px;
     cursor: pointer;
   }
-  
+
   .chat-details-info p {
     margin: 5px 0;
   }
@@ -672,50 +678,58 @@ footer {
     justify-content: space-between;
     margin: 2rem;
   }
-  
+
   .image-carousel {
     display: flex;
     align-items: center;
   }
-  
+
   .image-container {
     width: 400px;
     height: 400px;
     margin: 0 1rem;
   }
-  
+
   .image-container img {
     width: 100%;
     height: 100%;
     object-fit: cover;
   }
-  
+
   .item-info {
     flex: 1;
     margin-left: 2rem;
   }
-  
+
   .seller-info {
     margin-bottom: 1rem;
   }
-  
+
   .description {
     margin-bottom: 1rem;
   }
-  
+
   .pricing {
     margin-bottom: 1rem;
   }
-  
+
   .buttons button {
     margin-right: 1rem;
+  }
+
+  .alert {
+    margin: 1rem;
+    padding: 1rem;
+    border: 1px solid #b03232;
+    border-radius: 4px;
+    background-color: #ff9f9f;
   }
   /**end items details page **/
 
 
 @media (max-width: 598px) {
     #hamburger-menu {
-      display: none; 
+      display: none;
     }
 
     .right-group {
@@ -753,11 +767,11 @@ footer {
     .right-group {
         display: none;
       }
-    
+
       .middle-group {
         margin-right: 0;
       }
-    
+
       .search-bar {
         margin-left: auto;
       }

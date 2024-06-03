@@ -42,6 +42,7 @@ export default function Home({ searchQuery }) {
     return true;
   });
 
+  console.log(filteredItems);
 
 
   return (

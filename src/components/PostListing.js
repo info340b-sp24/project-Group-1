@@ -1,28 +1,71 @@
 import React, { useState, useEffect } from 'react';
 import { getDatabase, ref, push, onValue, remove } from 'firebase/database';
-import { getStorage, ref as storageRef, uploadBytes, deleteObject } from 'firebase/storage';
+import { getStorage, ref as storageRef, uploadBytes, deleteObject, getDownloadURL } from 'firebase/storage';
+import { getAuth } from 'firebase/auth';
 
-export default function PostListing({ addNewListing }) {
+import Alert from './Alert';
+
+
+export default function PostListing() {
   const [title, setTitle] = useState('');
   const [category, setCategory] = useState('');
   const [description, setDescription] = useState('');
-  const [price, setPrice] = useState('');
+  const [price, setPrice] = useState(0);
   const [images, setImages] = useState([]);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [location, setLocation] = useState(null);
 
+  const [error, setError] = useState(null);
+
+  const isFormValid = title && category && description && price && images.length > 0;
+
+  const user = getAuth();
   const db = getDatabase();
   const storage = getStorage();
+  const userRef = ref(db, `users/${user.currentUser.uid}`);
+  const draftRef = ref(db, `users/${user.currentUser.uid}/listingDraft`);
 
   useEffect(() => {
-    const listingRef = ref(db, 'listings');
-    onValue(listingRef, (snapshot) => {
-      const listings = snapshot.val();
-      if (listings) {
-        const listingImages = Object.values(listings).map((listing) => listing.images);
-        setImages(listingImages.flat());
+    const unsubscribe = onValue(draftRef, async (snapshot) => {
+      const data = snapshot.val();
+
+      console.log(data)
+      let imageUrls = [];
+      if (data) {
+        const imagePaths = Object.values(data);
+        const imageKeys = Object.keys(data);
+        imageUrls = await Promise.all(
+          imagePaths.map(async (image, index) => {
+            const imageRef = storageRef(storage, `listingImages/${image}`);
+            const url = await getDownloadURL(imageRef);
+            return {
+              key: imageKeys[index],
+              name: image,
+              url
+            };
+          })
+        );
       }
+
+      console.log(imageUrls)
+      setImages(imageUrls);
     });
+
+    function cleanup() {
+      unsubscribe();
+    }
+
+    return cleanup;
   }, [db]);
+
+  useEffect(() => {
+    const unsubscribe = onValue(userRef, (snapshot) => {
+      const user = snapshot.val();
+      setLocation(user.location);
+    });
+
+    return unsubscribe;
+  }, [userRef]);
 
   const handleCategoryChange = (e) => {
     setCategory(e.target.value);
@@ -30,34 +73,51 @@ export default function PostListing({ addNewListing }) {
 
   const handleImageUpload = async (e) => {
     const files = Array.from(e.target.files);
-    const uploadedImages = await Promise.all(
+    await Promise.all(
       files.map(async (file) => {
         const imageRef = storageRef(storage, `listingImages/${file.name}`);
         await uploadBytes(imageRef, file);
+        await push(draftRef, file.name);
         return file.name;
       })
     );
-    setImages((prevImages) => [...prevImages, ...uploadedImages]);
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const newListing = {
-      title,
-      category,
-      description,
-      price: `$${price}`,
-      images,
-    };
+    if (title && category && description && price && images.length > 0) {
+      if (location) {
+        const newListing = {
+          title,
+          category,
+          description,
+          price,
+          images: images.map((image) => image.name),
+          status: 'available',
+          date: new Date().getTime(),
+          location,
+          sellerId: user.currentUser.uid
+        };
 
-    const listingRef = ref(db, 'listings');
-    await push(listingRef, newListing);
-
-    setTitle('');
-    setCategory('');
-    setDescription('');
-    setPrice('');
-    setImages([]);
+        const listingRef = ref(db, 'listings');
+        const newListingRef = await push(listingRef, newListing);
+        // Delete draft
+        await remove(draftRef);
+        // Add listingId to user's listings
+        const userListingsRef = ref(db, `users/${user.currentUser.uid}/listings`);
+        await push(userListingsRef, {
+          [newListingRef.key]: true
+        });
+        setTitle('');
+        setCategory('');
+        setDescription('');
+        setPrice('');
+      } else {
+        setError('Set location for user');
+      }
+    } else {
+      setError('Missing fields');
+    }
   };
 
   const handlePrevImage = () => {
@@ -72,10 +132,13 @@ export default function PostListing({ addNewListing }) {
     );
   };
 
-  const handleDeleteImage = async (imageName) => {
-    const imageRef = storageRef(storage, `listingImages/${imageName}`);
-    await deleteObject(imageRef);
-    setImages((prevImages) => prevImages.filter((image) => image !== imageName));
+  const handleDeleteImage = async (imageName, imageKey) => {
+    const imageDbRef = ref(db, `users/${user.currentUser.uid}/listingDraft/${imageKey}`);
+    const imageStorageRef = storageRef(storage, `listingImages/${imageName}`);
+    setImages((prevImages) => prevImages.filter((image) => image.key !== imageKey));
+    await remove(imageDbRef);
+    console.log(imageStorageRef)
+    await deleteObject(imageStorageRef);
   };
 
   return (
@@ -88,18 +151,18 @@ export default function PostListing({ addNewListing }) {
               <div className="image-container">
                 {images.length > 0 ? (
                   <img
-                    src={`https://firebasestorage.googleapis.com/v0/b/your-project.appspot.com/o/listingImages%2F${images[currentImageIndex]}?alt=media`}
+                    src={images[currentImageIndex].url}
                     alt={`Uploaded ${currentImageIndex}`}
                   />
                 ) : (
-                  <img src="/img/photo.jpeg" alt="Upload Photo Here" />
+                  <img src="/img/photo.jpeg" alt="Upload Here" />
                 )}
               </div>
               <button onClick={handleNextImage}>&#8250;</button>
             </div>
             <div className="item">
               <label htmlFor="image-upload">
-                <img src="/img/photo.jpeg" alt="Upload Photo Here" />
+                <img src="/img/photo.jpeg" alt="Upload Here" />
               </label>
               <input
                 id="image-upload"
@@ -115,10 +178,10 @@ export default function PostListing({ addNewListing }) {
             {images.map((image, index) => (
               <div key={index} className="uploaded-image">
                 <img
-                  src={`https://firebasestorage.googleapis.com/v0/b/(put our project website here).appspot.com/o/listingImages%2F${image}?alt=media`}
+                  src={image.url}
                   alt={`Uploaded ${index}`}
                 />
-                <button onClick={() => handleDeleteImage(image)}>Delete</button>
+                <button onClick={() => handleDeleteImage(image.name, image.key)}>Delete</button>
               </div>
             ))}
           </div>
@@ -146,20 +209,20 @@ export default function PostListing({ addNewListing }) {
               <label htmlFor="category">Category of item</label>
               <select id="category" value={category} onChange={handleCategoryChange}>
                 <option value="">Select Category</option>
-                <option value="New/Never Opened">Electronics</option>
-                <option value="Barely Used">Study Materials & Textbooks</option>
-                <option value="Moderately Used">Dorm & Apartment Essentials</option>
-                <option value="Very Used">Sports & Fitness</option>
-                <option value="Very Used">Hobbies & Entertainment</option>
-                <option value="Very Used">Healthy & Beauty</option>
-                <option value="Very Used">Transportation</option>
-                <option value="Very Used">Other</option>
+                <option value="Electronics">Electronics</option>
+                <option value="Study Materials & Textbooks">Study Materials & Textbooks</option>
+                <option value="Dorm & Apartment Essentials">Dorm & Apartment Essentials</option>
+                <option value="Sports & Fitness">Sports & Fitness</option>
+                <option value="Hobbies & Entertainment">Hobbies & Entertainment</option>
+                <option value="Healthy & Beauty">Healthy & Beauty</option>
+                <option value="Transportation">Transportation</option>
+                <option value="Other">Other</option>
               </select>
             </div>
 
             <div className='form-group'>
               <label htmlFor='description'>Description</label>
-              <input 
+              <input
                 type="text"
                 id='description'
                 value={description}
@@ -180,9 +243,10 @@ export default function PostListing({ addNewListing }) {
 
 
             <div className="buttons">
-              <button type="submit" className="post-button">Post</button>
+              <button type="submit" className="post-button" disabled={!isFormValid}>Post</button>
               <button type="button" className="cancel-button">Cancel</button>
             </div>
+            {error && <Alert message={error} />}
           </form>
         </section>
       </main>

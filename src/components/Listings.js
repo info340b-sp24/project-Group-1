@@ -6,7 +6,7 @@ import { getDatabase, ref as dbRef, onValue } from 'firebase/database';
 function ListingCard({listing}) {
 
   const storage = getStorage();
-  const pathRef = storageRef(storage, `listingImages/${listing.images.image1}`);
+  const pathRef = storageRef(storage, `listingImages/${listing.images[0]}`);
   const [imageUrl, setImageUrl] = useState(null);
 
   const db = getDatabase();
@@ -20,7 +20,6 @@ function ListingCard({listing}) {
   useEffect(() => {
     const unsubscribe = onValue(locationRef, (snapshot) => {
       setLocation(snapshot.val());
-      console.log(snapshot.val());
     });
 
     function cleanup() {
@@ -30,12 +29,6 @@ function ListingCard({listing}) {
   }, [locationRef]);
 
   return (
-    // <div key={listing.id} className="item">
-    //   <img src={listing.image} alt={listing.title} />
-    //   <p className="title">{listing.title}</p>
-    //   <p className="price">{listing.price}</p>
-    //   <p className="location">{listing.location}</p>
-    // </div>
     <div className="item">
       <Link to={`/item-details/${listing.id}`}>
         <img src={imageUrl} alt={listing.title} />

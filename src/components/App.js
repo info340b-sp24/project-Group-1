@@ -2,7 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { Route, Routes, Navigate, Outlet, useNavigate } from 'react-router-dom';
 
 import { getAuth, onAuthStateChanged, updateProfile, signOut } from 'firebase/auth';
-import { ref, update, getDatabase } from 'firebase/database';
+import { ref, update, getDatabase, onValue } from 'firebase/database';
+
+
 
 import Home from './Home';
 import Messenger from './Messenger';
@@ -19,6 +21,7 @@ export default function App() {
   const [currentUser, setCurrentUser] = useState(DEFAULT_USERS[0]);
   const [listings, setListings] = useState(items);
   const [searchQuery, setSearchQuery] = useState("");
+
 
   const navigateTo = useNavigate();
 
@@ -55,6 +58,8 @@ export default function App() {
     })
   });
 
+
+
   const loginUser = async (userObj) => {
     console.log("logging in as", userObj.userName);
     setCurrentUser(userObj);
@@ -77,10 +82,6 @@ export default function App() {
     navigateTo('/signin');
   };
 
-  const addNewListing = (newListing) => {
-    setListings([...listings, newListing]);
-  };
-
   return (
     <>
       <NavBar searchQuery={searchQuery} setSearchQuery={setSearchQuery} currentUser={currentUser} onSignOut={signOutUser} />
@@ -93,7 +94,7 @@ export default function App() {
             path="/messenger"
             element={<Messenger searchQuery={searchQuery} setSearchQuery={setSearchQuery} />}
           />
-          <Route path="/post-listing" element={<PostListing addNewListing={addNewListing} />} />
+          <Route path="/post-listing" element={<PostListing/>} />
           <Route path="/user-listings" element={<MyProfile currentUser={currentUser} setCurrentUser={setCurrentUser} searchQuery={searchQuery} listings={listings} />} />
         </Route>
       </Routes>
