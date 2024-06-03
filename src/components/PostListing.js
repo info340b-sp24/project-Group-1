@@ -1,82 +1,126 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { getDatabase, ref, push, onValue, remove } from 'firebase/database';
+import { getStorage, ref as storageRef, uploadBytes, deleteObject } from 'firebase/storage';
 
 export default function PostListing({ addNewListing }) {
   const [title, setTitle] = useState('');
-  const [category, setCategory] = useState('')
+  const [category, setCategory] = useState('');
   const [description, setDescription] = useState('');
   const [price, setPrice] = useState('');
-  const [image, setImage] = useState(null);
+  const [images, setImages] = useState([]);
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+
+  const db = getDatabase();
+  const storage = getStorage();
+
+  useEffect(() => {
+    const listingRef = ref(db, 'listings');
+    onValue(listingRef, (snapshot) => {
+      const listings = snapshot.val();
+      if (listings) {
+        const listingImages = Object.values(listings).map((listing) => listing.images);
+        setImages(listingImages.flat());
+      }
+    });
+  }, [db]);
 
   const handleCategoryChange = (e) => {
     setCategory(e.target.value);
   };
 
-  const handleImageUpload = (e) => {
-    const file = e.target.files[0];
-    setImage(file);
+  const handleImageUpload = async (e) => {
+    const files = Array.from(e.target.files);
+    const uploadedImages = await Promise.all(
+      files.map(async (file) => {
+        const imageRef = storageRef(storage, `listingImages/${file.name}`);
+        await uploadBytes(imageRef, file);
+        return file.name;
+      })
+    );
+    setImages((prevImages) => [...prevImages, ...uploadedImages]);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const newListing = {
-      id: Date.now(),
       title,
       category,
       description,
       price: `$${price}`,
-      image: URL.createObjectURL(image),
+      images,
     };
 
-    addNewListing(newListing);
+    const listingRef = ref(db, 'listings');
+    await push(listingRef, newListing);
+
     setTitle('');
     setCategory('');
     setDescription('');
     setPrice('');
-    setImage(null);
+    setImages([]);
   };
 
+  const handlePrevImage = () => {
+    setCurrentImageIndex((prevIndex) =>
+      prevIndex === 0 ? images.length - 1 : prevIndex - 1
+    );
+  };
+
+  const handleNextImage = () => {
+    setCurrentImageIndex((prevIndex) =>
+      prevIndex === images.length - 1 ? 0 : prevIndex + 1
+    );
+  };
+
+  const handleDeleteImage = async (imageName) => {
+    const imageRef = storageRef(storage, `listingImages/${imageName}`);
+    await deleteObject(imageRef);
+    setImages((prevImages) => prevImages.filter((image) => image !== imageName));
+  };
 
   return (
     <>
       <main>
         <section className="all-items">
           <div className="items-container">
-            <div className="item">
-              {image ? (
-                <img src={URL.createObjectURL(image)} alt="Uploaded" />
-              ) : (
-                <img src="/img/textbook.jpg" alt="Cover of textbook" />
-              )}
+            <div className="image-carousel">
+              <button onClick={handlePrevImage}>&#8249;</button>
+              <div className="image-container">
+                {images.length > 0 ? (
+                  <img
+                    src={`https://firebasestorage.googleapis.com/v0/b/your-project.appspot.com/o/listingImages%2F${images[currentImageIndex]}?alt=media`}
+                    alt={`Uploaded ${currentImageIndex}`}
+                  />
+                ) : (
+                  <img src="/img/photo.jpeg" alt="Upload Photo Here" />
+                )}
+              </div>
+              <button onClick={handleNextImage}>&#8250;</button>
             </div>
             <div className="item">
-              <div className="add-photo">
-                <label htmlFor="image-upload">
-                  <span>+</span>
-                  <p>Add photo</p>
-                </label>
-                <input
-                  id="image-upload"
-                  type="file"
-                  accept="image/*"
-                  onChange={handleImageUpload}
-                  style={{ display: 'none' }}
-                />
-              </div>
+              <label htmlFor="image-upload">
+                <img src="/img/photo.jpeg" alt="Upload Photo Here" />
+              </label>
+              <input
+                id="image-upload"
+                type="file"
+                accept="image/*"
+                onChange={handleImageUpload}
+                multiple
+                style={{ display: 'none' }}
+              />
             </div>
           </div>
-        </section>
-
-        <section className="all-items">
-          <div className="photo-gallery">
-            <div className="photo">
-              <img src="/img/textbook.jpg" alt="Book Cover" />
-            </div>
-            <div className="photo">
-              <img src="/img/textbook.jpg" alt="Physical Science" />
-            </div>
-            <div className="photo">
-              <img src="/img/textbook.jpg" alt="Physical Science Book Cover" />
-            </div>
+          <div className="uploaded-images">
+            {images.map((image, index) => (
+              <div key={index} className="uploaded-image">
+                <img
+                  src={`https://firebasestorage.googleapis.com/v0/b/(put our project website here).appspot.com/o/listingImages%2F${image}?alt=media`}
+                  alt={`Uploaded ${index}`}
+                />
+                <button onClick={() => handleDeleteImage(image)}>Delete</button>
+              </div>
+            ))}
           </div>
         </section>
         <section className="all-items">
