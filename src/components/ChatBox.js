@@ -1,22 +1,20 @@
 import React, { useState } from 'react';
 
-const ChatBox = () => {
-  const [messages, setMessages] = useState([
-    { text: "I'm good with that price", from: 'Chris' }
-  ]);
+const ChatBox = ({ messages, sendMessage }) => {
   const [newMessage, setNewMessage] = useState('');
 
   const handleSendMessage = (e) => {
     e.preventDefault();
     if (newMessage.trim()) {
-      setMessages([...messages, { text: newMessage, from: 'You' }]);
+      console.log('Sending message:', newMessage); // Log message before sending
+      sendMessage(newMessage);
       setNewMessage('');
     }
   };
 
   const renderMessages = () => {
     return messages.map((msg, index) => (
-      <p key={index}><strong>{msg.from}:</strong> {msg.text}</p>
+      <p key={index}><strong>{msg.senderId}:</strong> {msg.content}</p>
     ));
   };
 

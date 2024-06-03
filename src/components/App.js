@@ -24,16 +24,10 @@ export default function App() {
 
 
   const navigateTo = useNavigate();
-
   const db = getDatabase();
 
   useEffect(() => {
-    //log in a default user
-    // loginUser(DEFAULT_USERS[1])
-
     const auth = getAuth();
-
-
 
     onAuthStateChanged(auth, (firebaseUser) => {
       if (firebaseUser) {
@@ -50,13 +44,12 @@ export default function App() {
           username: firebaseUser.displayName,
           email: firebaseUser.email
         });
-      }
-      else { //no user
+      } else { //no user
         console.log("signed out");
         setCurrentUser(DEFAULT_USERS[0]);
       }
-    })
-  });
+    });
+  }, [db]);
 
 
 
@@ -88,11 +81,12 @@ export default function App() {
       <Routes>
         <Route path="/" element={<Home searchQuery={searchQuery} listings={listings} />} />
         <Route path="/signin" element={<SignInPage currentUser={currentUser} loginFunction={loginUser}/>} />
-        <Route path="/item-details/:itemId" element={<ItemDetails listings={listings} />} />
+        {/* Pass currentUser prop to ItemDetails */}
+        <Route path="/item-details/:itemId" element={<ItemDetails listings={listings} currentUser={currentUser} />} />
         <Route element={<ProtectedPage currentUser={currentUser} />}>
           <Route
             path="/messenger"
-            element={<Messenger searchQuery={searchQuery} setSearchQuery={setSearchQuery} />}
+            element={<Messenger searchQuery={searchQuery} setSearchQuery={setSearchQuery} currentUser={currentUser} />} // Pass currentUser prop to Messenger
           />
           <Route path="/post-listing" element={<PostListing/>} />
           <Route path="/user-listings" element={<MyProfile currentUser={currentUser} setCurrentUser={setCurrentUser} searchQuery={searchQuery} listings={listings} />} />
