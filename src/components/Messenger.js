@@ -1,50 +1,51 @@
 import React, { useState, useEffect } from 'react';
-import chats from '../data/chats.json';
+import { ref, onValue, push } from 'firebase/database';
+import { db } from '../index';
 
-export default function Messenger({ searchQuery, setSearchQuery }) {
+export default function Messenger({ searchQuery, setSearchQuery, currentUser }) {
   const [newMessage, setNewMessage] = useState('');
   const [selectedChat, setSelectedChat] = useState(null);
-  const [filteredChats, setFilteredChats] = useState(chats);
+  const [chats, setChats] = useState([]);
   const [userMessages, setUserMessages] = useState({});
 
-  const addMessage = (message) => {
-    if (selectedChat) {
-      setUserMessages((prevMessages) => ({
-        ...prevMessages,
-        [selectedChat.id]: [...(prevMessages[selectedChat.id] || []), message],
-      }));
-    }
-  };
-
-  const likeMessage = (index) => {
-    if (selectedChat) {
-      setUserMessages((prevMessages) => {
-        const userMessages = prevMessages[selectedChat.id] || [];
-        const newMessages = [...userMessages];
-        newMessages[index].liked = !newMessages[index].liked;
-        return {
-          ...prevMessages,
-          [selectedChat.id]: newMessages,
-        };
-      });
-    }
-  };
-
+  // Fetch chats for the current user
   useEffect(() => {
-    const filtered = chats.filter((chat) => {
-      if (searchQuery) {
-        return chat.name.toLowerCase().includes(searchQuery.toLowerCase());
+    if (!currentUser || !currentUser.userId) return;
+    const chatsRef = ref(db, `chats/${currentUser.userId}`);
+    onValue(chatsRef, (snapshot) => {
+      const data = snapshot.val();
+      if (data) {
+        const formattedChats = Object.keys(data).map(key => ({
+          id: key,
+          ...data[key]
+        }));
+        setChats(formattedChats);
+      } else {
+        setChats([]);
       }
-      return true;
     });
-    setFilteredChats(filtered);
-  }, [searchQuery]);
+  }, [currentUser]);
+
+  // Fetch messages for the selected chat
+  useEffect(() => {
+    if (!selectedChat) return;
+    const messagesRef = ref(db, `messages/${selectedChat.id}`);
+    onValue(messagesRef, (snapshot) => {
+      const data = snapshot.val();
+      setUserMessages(data ? Object.values(data) : []);
+    });
+  }, [selectedChat]);
 
   const handleSendMessage = (e) => {
     e.preventDefault();
-    if (newMessage.trim()) {
-      const newMsg = { id: Math.random().toString(36).substr(2, 9), username: 'You', text: newMessage, liked: false };
-      addMessage(newMsg);
+    if (newMessage.trim() && selectedChat) {
+      const messageRef = ref(db, `messages/${selectedChat.id}`);
+      const newMessageObj = {
+        text: newMessage,
+        from: currentUser.userName,
+        timestamp: Date.now()
+      };
+      push(messageRef, newMessageObj);
       setNewMessage('');
     }
   };
@@ -53,7 +54,7 @@ export default function Messenger({ searchQuery, setSearchQuery }) {
     setSelectedChat(chat);
   };
 
-  const chatList = filteredChats.map((chat) => (
+  const chatList = chats.map((chat) => (
     <div
       key={chat.id}
       className={`chat-item ${selectedChat?.id === chat.id ? 'active' : ''}`}
@@ -68,17 +69,12 @@ export default function Messenger({ searchQuery, setSearchQuery }) {
   ));
 
   const chatHistory = selectedChat
-    ? (userMessages[selectedChat.id] || []).map((message, index) => (
-        <div key={message.id} className={`message ${message.username === 'You' ? 'sent' : 'received'}`}>
+    ? userMessages.map((message, index) => (
+        <div key={index} className={`message ${message.from === currentUser.userName ? 'sent' : 'received'}`}>
           <div className="message-header">
-            <span className="message-username">{message.username}</span>
+            <span className="message-username">{message.from}</span>
           </div>
           <p className="message-text">{message.text}</p>
-          <div className="message-actions">
-            <button className="like-button" onClick={() => likeMessage(index)}>
-              <span style={{ color: message.liked ? 'red' : 'grey' }}>♥</span>
-            </button>
-          </div>
         </div>
       ))
     : null;
@@ -119,9 +115,7 @@ export default function Messenger({ searchQuery, setSearchQuery }) {
                     value={newMessage}
                     onChange={(e) => setNewMessage(e.target.value)}
                   />
-                  <div className="chat-buttons">
-                    <button type="submit" className="button send-button">Send</button>
-                  </div>
+                  <button type="submit" className="send-button">Send</button>
                 </form>
               </div>
             ) : (
@@ -129,20 +123,6 @@ export default function Messenger({ searchQuery, setSearchQuery }) {
                 <p>Please select a chat to view the messages.</p>
               </div>
             )}
-          </div>
-          <div className="chat-details">
-            <div className="chat-details-header">
-              <h3>{selectedChat?.name}</h3>
-              <img src='./img/car.jpg' alt="User Avatar" className="user-avatar" />
-              <p>Active 10 min ago</p>
-            </div>
-            <div className="chat-details-actions">
-              <button className="button">View Profile</button>
-              <button className="button">Block User</button>
-            </div>
-            <div className="chat-details-info">
-              <p><strong>Location:</strong> New York, USA</p>
-            </div>
           </div>
         </div>
       </div>
