@@ -67,8 +67,7 @@ export default function ItemDetails({ listings }) {
         const sellerData = snapshot.val();
         setListing((prevListing) => ({
           ...prevListing,
-          sellerUsername: sellerData.username,
-          sellerRating: sellerData.rating,
+          sellerUsername: sellerData.username
         }));
       });
 
