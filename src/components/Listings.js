@@ -41,7 +41,7 @@ function ListingCard({listing}) {
 }
 
 export function Listings(props) {
-  const { items } = props;
+  const { items, header } = props;
 
   const listingCards = items.map((listing) => (
     <ListingCard key={listing.id} listing={listing}/>
@@ -49,7 +49,7 @@ export function Listings(props) {
 
   return (
     <div>
-      <h2>{props.header}</h2>
+      <h2>{header}</h2>
       <div className="items-container">
         {listingCards}
       </div>

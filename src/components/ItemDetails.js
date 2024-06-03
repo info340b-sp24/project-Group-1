@@ -3,7 +3,7 @@ import { getDatabase, ref as dbRef, push, onValue } from 'firebase/database';
 import { getStorage, ref as storageRef, getDownloadURL } from 'firebase/storage';
 import { getAuth } from 'firebase/auth';
 
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import nullListing from '../data/nullListing.json';
 
 const useImageCarousel = (images) => {
@@ -27,7 +27,7 @@ const useImageCarousel = (images) => {
 export default function ItemDetails({ listings }) {
   const { itemId } = useParams();
   const [listing, setListing] = useState(nullListing);
-
+  const navigate = useNavigate();
 
   const { currentImageIndex, handlePrevImage, handleNextImage } = useImageCarousel(
     listing ? listing.images : []
@@ -75,9 +75,6 @@ export default function ItemDetails({ listings }) {
       return unsubscribe;
     }
   }, [listing.sellerId]);
-
-
-  const handleSendMessage = () => {
 
   const handleSendMessage = async () => {
     if (!currentUser) {
