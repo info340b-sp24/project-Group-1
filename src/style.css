@@ -36,6 +36,7 @@ nav {
     margin-right: 20px;
 }
 
+
 .menu-icon {
     font-size: 25px;
     margin-right: 1rem;
@@ -62,6 +63,7 @@ nav {
     font-weight: bold;
     font-size: 12px;
 }
+
 
 .breadcrumb {
     padding: 0.5rem 1.5rem;
@@ -483,6 +485,21 @@ footer {
   .side-menu .menu {
     margin-bottom: 20px;
   }
+
+  .sign-out-button {
+    background-color: #8B4BA9; /* Green background */
+    border: none; /* Remove borders */
+    color: white; /* White text */
+    padding: 12px 24px; /* Some padding */
+    text-align: center; /* Center the text */
+    display: inline-block; /* Make the button inline-block */
+    font-size: 12px; /* Increase font size */
+    margin: 4px 2px; /* Some margin */
+    cursor: pointer; /* Pointer/hand icon */
+    border-radius: 8px; /* Rounded corners */
+    margin-left: 1.5rem;
+  }
+  
 
 /** **/
 

@@ -189,7 +189,6 @@ export default function PostListing() {
         <section className="all-items">
           <div className="photo-instructions">
             <p><span className="edit-icon" aria-hidden="true"></span> Tap photo to edit</p>
-            <p><span className="rearrange-icon" aria-hidden="true"></span> Double tap photo to rearrange</p>
           </div>
         </section>
         <section className="all-items">
