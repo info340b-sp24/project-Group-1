@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { getDatabase, ref as dbRef, onValue } from 'firebase/database';
 import { getStorage, ref as storageRef, getDownloadURL } from 'firebase/storage';
-import { useParams, useNavigate } from 'react-router-dom';
+import { getAuth } from 'firebase/auth';
+
+import { useParams } from 'react-router-dom';
 import nullListing from '../data/nullListing.json';
 
 const useImageCarousel = (images) => {
@@ -22,10 +24,10 @@ const useImageCarousel = (images) => {
   return { currentImageIndex, handlePrevImage, handleNextImage };
 };
 
-export default function ItemDetails({ currentUser }) {
+export default function ItemDetails({ listings }) {
   const { itemId } = useParams();
   const [listing, setListing] = useState(nullListing);
-  const navigate = useNavigate();
+
 
   const { currentImageIndex, handlePrevImage, handleNextImage } = useImageCarousel(
     listing ? listing.images : []
@@ -35,55 +37,52 @@ export default function ItemDetails({ currentUser }) {
   const db = getDatabase();
   const listingRef = dbRef(db, `listings/${itemId}`);
 
+  const currentUser = getAuth();
+  const userRef = dbRef(db, `users/${currentUser.userId}`);
+
   useEffect(() => {
     const unsubscribe = onValue(listingRef, async (snapshot) => {
-      try {
-        const data = snapshot.val();
-        const imagePaths = Object.values(data.images);
+      const data = snapshot.val();
+      const imagePaths = Object.values(data.images);
 
-        const imageUrls = await Promise.all(
-          imagePaths.map(async (image) => {
-            const imageRef = storageRef(storage, `listingImages/${image}`);
-            const url = await getDownloadURL(imageRef);
-            return url;
-          })
-        );
+      const imageUrls = await Promise.all(imagePaths.map(async (image) => {
+        const imageRef = storageRef(storage, `listingImages/${image}`);
+        const url = getDownloadURL(imageRef);
+        return url;
+      }));
 
-        data.images = imageUrls;
-        setListing(data);
-      } catch (error) {
-        console.error('Error fetching listing data:', error);
-      }
+      data.images = imageUrls;
+      console.log(data)
+      setListing(data);
+
     });
 
-    return () => unsubscribe();
-  }, [listingRef, storage]);
-
-  const handleSendMessage = () => {
-    if (!currentUser) {
-      console.error('No currentUser available');
-      return;
+    function cleanup() {
+      unsubscribe();
     }
 
-    console.log('Dispatching createNewChat event with details:', {
-      itemTitle: listing.title,
-      sellerId: listing.sellerId,
-      listingId: itemId,
-      buyerId: currentUser.userId,
-      currentUser: currentUser
-    });
+    return cleanup;
+  }, []);
 
-    const event = new CustomEvent('createNewChat', {
-      detail: {
-        itemTitle: listing.title,
-        sellerId: listing.sellerId,
-        listingId: itemId,
-        buyerId: currentUser.userId,
-        currentUser: currentUser
-      }
-    });
-    window.dispatchEvent(event);
-    navigate('/messenger');
+  useEffect(() => {
+    if (listing.sellerId) {
+      console.log(listing.sellerId)
+      const sellerRef = dbRef(db, `users/${listing.sellerId}`);
+      const unsubscribe = onValue(sellerRef, (snapshot) => {
+        const sellerData = snapshot.val();
+        setListing((prevListing) => ({
+          ...prevListing,
+          sellerUsername: sellerData.username
+        }));
+      });
+
+      return unsubscribe;
+    }
+  }, [listing.sellerId]);
+
+
+  const handleSendMessage = () => {
+
   };
 
   return (
@@ -93,7 +92,7 @@ export default function ItemDetails({ currentUser }) {
         <div className="image-container">
           <img src={listing.images[currentImageIndex]} alt={listing.title} />
         </div>
-        <button onClick={handleNextImage}>&#8250;</button>
+        <button onClick={handleNextImage}>&#8249;</button>
       </div>
       <div className="item-info">
         <h2>{listing.title}</h2>
@@ -113,4 +112,3 @@ export default function ItemDetails({ currentUser }) {
     </div>
   );
 }
-
