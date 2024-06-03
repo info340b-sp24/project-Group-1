@@ -87,6 +87,7 @@ export default function App() {
       <Routes>
         <Route path="/" element={<Home searchQuery={searchQuery} listings={listings} />} />
         <Route path="/signin" element={<SignInPage currentUser={currentUser} loginFunction={loginUser}/>} />
+        <Route path="/item-details/:itemId" element={<ItemDetails listings={listings} />} />
         <Route element={<ProtectedPage currentUser={currentUser} />}>
           <Route
             path="/messenger"
@@ -94,7 +95,6 @@ export default function App() {
           />
           <Route path="/post-listing" element={<PostListing addNewListing={addNewListing} />} />
           <Route path="/user-listings" element={<MyProfile currentUser={currentUser} setCurrentUser={setCurrentUser} searchQuery={searchQuery} listings={listings} />} />
-          <Route path="/item-details/:itemId" element={<ItemDetails listings={listings} />} />
         </Route>
       </Routes>
       <Footer />

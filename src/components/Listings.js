@@ -40,9 +40,9 @@ function ListingCard({listing}) {
       <Link to={`/item-details/${listing.id}`}>
         <img src={imageUrl} alt={listing.title} />
         <p className="title">{listing.title}</p>
+        <p className="price">{listing.price}</p>
+        <p className="location">{location}</p>
       </Link>
-      <p className="price">{listing.price}</p>
-      <p className="location">{location}</p>
     </div>
   )
 }

@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from 'react';
+import { getDatabase, ref as dbRef, onValue } from 'firebase/database';
+import { getStorage, ref as storageRef, getDownloadURL } from 'firebase/storage';
 import { useParams } from 'react-router-dom';
+import nullListing from '../data/nullListing.json';
 
 const useImageCarousel = (images) => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
@@ -21,20 +24,57 @@ const useImageCarousel = (images) => {
 
 export default function ItemDetails({ listings }) {
   const { itemId } = useParams();
-  const [listing, setListing] = useState(null);
+  const [listing, setListing] = useState(nullListing);
+
 
   const { currentImageIndex, handlePrevImage, handleNextImage } = useImageCarousel(
     listing ? listing.images : []
   );
 
-  useEffect(() => {
-    const foundListing = listings.find((listing) => listing.id === parseInt(itemId));
-    setListing(foundListing);
-  }, [itemId, listings]);
+  const storage = getStorage();
+  const db = getDatabase();
+  const listingRef = dbRef(db, `listings/${itemId}`);
 
-  if (!listing) {
-    return null;
-  }
+  useEffect(() => {
+    const unsubscribe = onValue(listingRef, async (snapshot) => {
+      const data = snapshot.val();
+      const imagePaths = Object.values(data.images);
+
+      const imageUrls = await Promise.all(imagePaths.map(async (image) => {
+        const imageRef = storageRef(storage, `listingImages/${image}`);
+        const url = getDownloadURL(imageRef);
+        return url;
+      }));
+
+      data.images = imageUrls;
+      console.log(data)
+      setListing(data);
+
+    });
+
+    function cleanup() {
+      unsubscribe();
+    }
+
+    return cleanup;
+  }, []);
+
+  useEffect(() => {
+    if (listing.sellerId) {
+      console.log(listing.sellerId)
+      const sellerRef = dbRef(db, `users/${listing.sellerId}`);
+      const unsubscribe = onValue(sellerRef, (snapshot) => {
+        const sellerData = snapshot.val();
+        setListing((prevListing) => ({
+          ...prevListing,
+          sellerUsername: sellerData.username,
+          sellerRating: sellerData.rating,
+        }));
+      });
+
+      return unsubscribe;
+    }
+  }, [listing.sellerId]);
 
   return (
     <div className="item-details-container">
