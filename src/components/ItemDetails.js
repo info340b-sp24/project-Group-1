@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { getDatabase, ref as dbRef, onValue } from 'firebase/database';
+import { getDatabase, ref as dbRef, push, onValue } from 'firebase/database';
 import { getStorage, ref as storageRef, getDownloadURL } from 'firebase/storage';
 import { useParams, useNavigate } from 'react-router-dom';
 import nullListing from '../data/nullListing.json';
@@ -59,31 +59,27 @@ export default function ItemDetails({ currentUser }) {
     return () => unsubscribe();
   }, [listingRef, storage]);
 
-  const handleSendMessage = () => {
+  const handleSendMessage = async () => {
     if (!currentUser) {
       console.error('No currentUser available');
       return;
     }
 
-    console.log('Dispatching createNewChat event with details:', {
-      itemTitle: listing.title,
+    const newConversation = {
+      buyerId: currentUser.userId,
       sellerId: listing.sellerId,
       listingId: itemId,
-      buyerId: currentUser.userId,
-      currentUser: currentUser
-    });
+      messages: {}
+    };
 
-    const event = new CustomEvent('createNewChat', {
-      detail: {
-        itemTitle: listing.title,
-        sellerId: listing.sellerId,
-        listingId: itemId,
-        buyerId: currentUser.userId,
-        currentUser: currentUser
-      }
-    });
-    window.dispatchEvent(event);
-    navigate('/messenger');
+    try {
+      const conversationRef = dbRef(db, 'conversations');
+      const newConversationRef = await push(conversationRef, newConversation);
+
+      navigate('/messenger', { state: { conversationId: newConversationRef.key } });
+    } catch (error) {
+      console.error('Error creating new conversation:', error);
+    }
   };
 
   return (
@@ -113,4 +109,3 @@ export default function ItemDetails({ currentUser }) {
     </div>
   );
 }
-

@@ -1,3 +1,4 @@
+// ChatBox.js
 import React, { useState } from 'react';
 
 const ChatBox = ({ messages, sendMessage }) => {
@@ -6,7 +7,6 @@ const ChatBox = ({ messages, sendMessage }) => {
   const handleSendMessage = (e) => {
     e.preventDefault();
     if (newMessage.trim()) {
-      console.log('Sending message:', newMessage); // Log message before sending
       sendMessage(newMessage);
       setNewMessage('');
     }
@@ -20,17 +20,9 @@ const ChatBox = ({ messages, sendMessage }) => {
 
   return (
     <section className="messages">
-      <div className="message-container">
-        {renderMessages()}
-      </div>
+      <div className="message-container">{renderMessages()}</div>
       <form className="message-form" onSubmit={handleSendMessage}>
-        <input
-          type="text"
-          className="message-input"
-          placeholder="Type your message..."
-          value={newMessage}
-          onChange={(e) => setNewMessage(e.target.value)}
-        />
+        <input type="text" className="message-input" placeholder="Type your message..." value={newMessage} onChange={(e) => setNewMessage(e.target.value)} />
         <button type="submit" className="send-button">Send</button>
       </form>
     </section>
