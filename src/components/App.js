@@ -67,7 +67,6 @@ export default function App() {
         displayName: userObj.userName,
         photoURL: userObj.userImg,
       });
-      
       setLoading(false)
     }
   };
@@ -85,26 +84,23 @@ export default function App() {
           <ClipLoader color="#3498db" loading={loading} size={150} />
         </div>
       )}
-      {!loading && (
-        <>
-          <NavBar searchQuery={searchQuery} setSearchQuery={setSearchQuery} currentUser={currentUser} onSignOut={signOutUser} />
-          <Routes>
-            <Route path="/" element={<Home searchQuery={searchQuery} listings={listings} />} />
-            <Route path="/signin" element={<SignInPage currentUser={currentUser} loginFunction={loginUser} />} />
-            {/* Pass currentUser prop to ItemDetails */}
-            <Route path="/item-details/:itemId" element={<ItemDetails listings={listings} currentUser={currentUser} />} />
-            <Route element={<ProtectedPage currentUser={currentUser} />}>
-              <Route
-                path="/messenger"
-                element={<Messenger searchQuery={searchQuery} setSearchQuery={setSearchQuery} currentUser={currentUser} />}
-              />
-              <Route path="/post-listing" element={<PostListing />} />
-              <Route path="/user-listings" element={<MyProfile currentUser={currentUser} setCurrentUser={setCurrentUser} searchQuery={searchQuery} listings={listings} />} />
-            </Route>
-          </Routes>
-          <Footer />
-        </>
-      )}
+      <NavBar searchQuery={searchQuery} setSearchQuery={setSearchQuery} currentUser={currentUser} onSignOut={signOutUser} />
+      <Routes>
+        <Route path="/post-listing" element={<PostListing loading={loading} setLoading={setLoading} />} />
+        <Route path="/" element={<Home searchQuery={searchQuery} listings={listings} />} />
+        <Route path="/signin" element={<SignInPage currentUser={currentUser} loginFunction={loginUser}/>} />
+        {/* Pass currentUser prop to ItemDetails */}
+        <Route path="/item-details/:itemId" element={<ItemDetails listings={listings} currentUser={currentUser} />} />
+        <Route element={<ProtectedPage currentUser={currentUser} />}>
+          <Route
+            path="/messenger"
+            element={<Messenger searchQuery={searchQuery} setSearchQuery={setSearchQuery} currentUser={currentUser} />} // Pass currentUser prop to Messenger
+          />
+          <Route path="/post-listing" element={<PostListing/>} />
+          <Route path="/user-listings" element={<MyProfile currentUser={currentUser} setCurrentUser={setCurrentUser} searchQuery={searchQuery} listings={listings} />} />
+        </Route>
+      </Routes>
+      <Footer />
     </>
   );
 }
