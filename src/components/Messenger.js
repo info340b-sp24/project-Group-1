@@ -7,7 +7,7 @@ export default function Messenger({ searchQuery, setSearchQuery, currentUser }) 
   const [selectedChat, setSelectedChat] = useState(null);
   const [chatIds, setChatIds] = useState([]);
   const [chats, setChats] = useState([]);
-  const [messages, setMessages] = useState([]);
+  const [correspondent, setCorrespondent] = useState('');
   const db = getDatabase();
 
   useEffect(() => {
@@ -41,16 +41,16 @@ export default function Messenger({ searchQuery, setSearchQuery, currentUser }) 
           if (chatIndex !== -1) {
             updatedChats[chatIndex] = {
               id: snapshot.key,
-              lastMessage: lastMessage.content,
-              timestamp: lastMessage.timestamp,
+              lastMessage: lastMessage?.content || '',
+              timestamp: lastMessage?.timestamp || Date.now(),
               sellerId: chatData.sellerId,
               buyerId: chatData.buyerId
             };
           } else {
             updatedChats.push({
               id: snapshot.key,
-              lastMessage: lastMessage.content,
-              timestamp: lastMessage.timestamp,
+              lastMessage: lastMessage?.content || '',
+              timestamp: lastMessage?.timestamp || Date.now(),
               sellerId: chatData.sellerId,
               buyerId: chatData.buyerId
             });
@@ -95,7 +95,7 @@ export default function Messenger({ searchQuery, setSearchQuery, currentUser }) 
   const chatList = chats.map((chat) => (
     <div key={chat.id} className={`chat-item ${selectedChat?.id === chat.id ? 'active' : ''}`} onClick={() => handleChatSelection(chat)}>
       <div className="chat-item-content">
-        <h3>{`Chat with ${chat.sellerId === currentUser.userId ? 'buyer' : 'seller'}`}</h3>
+        <h3>{`Chat with ${correspondent}`}</h3>
         <p>{chat.lastMessage}</p>
       </div>
       <div className="chat-item-time">{new Date(chat.timestamp).toLocaleString()}</div>
@@ -117,7 +117,7 @@ export default function Messenger({ searchQuery, setSearchQuery, currentUser }) 
             {selectedChat ? (
               <div className="chat-content">
                 <div className="chat-header"><h2>All Messages</h2></div>
-                <div className="chat-history"><ChatBox selectedChat={selectedChat} sendMessage={handleSendMessage} /></div>
+                <div className="chat-history"><ChatBox selectedChat={selectedChat} sendMessage={handleSendMessage} correspondent={correspondent} setCorrespondent={setCorrespondent} /></div>
               </div>
             ) : (
               <div className="no-chat-selected"><p>Please select a chat to view the messages.</p></div>

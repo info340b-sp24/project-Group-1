@@ -3,10 +3,9 @@ import React, { useState, useEffect } from 'react';
 import { ref, onValue, getDatabase } from 'firebase/database';
 import { getAuth } from 'firebase/auth';
 
-const ChatBox = ({ selectedChat, sendMessage }) => {
+const ChatBox = ({ selectedChat, sendMessage, correspondent, setCorrespondent}) => {
   const [newMessage, setNewMessage] = useState('');
   const [messages, setMessages] = useState([]);
-  const [correspondent, setCorrespondent] = useState('');
 
   const currentUser = getAuth().currentUser;
 

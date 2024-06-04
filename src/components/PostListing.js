@@ -123,8 +123,8 @@ export default function PostListing({ loading, setLoading }) {
       }
     } else {
       setError('Missing fields');
-      setLoading(false);
     }
+    setLoading(false);
   };
 
   const handlePrevImage = () => {
