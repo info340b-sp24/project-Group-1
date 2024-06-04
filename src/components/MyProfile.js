@@ -27,27 +27,6 @@ export default function MyProfile({ currentUser, setCurrentUser, searchQuery, li
     setEditMenuOpen(false);
   }
 
-  const filteredItems = listings.filter((item) => {
-    if (searchQuery) {
-      return (
-        item.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        item.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        item.location.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        item.username.toLowerCase().includes(searchQuery.toLowerCase())
-      );
-    }
-    return true;
-  });
-
-  const listingElements = listings.map((listing) => (
-    <div key={listing.id} className="item">
-      <img src={listing.image} alt={listing.title} />
-      <p className="title">{listing.title}</p>
-      <p className="price">{listing.price}</p>
-      <p className='location'>{listing.location}</p>
-    </div>
-  ));
-
   return (
     <>
         <main>
@@ -59,20 +38,6 @@ export default function MyProfile({ currentUser, setCurrentUser, searchQuery, li
                 <p className="joined-date">Joined Apr 2024</p>
                 <p className="location">{currentUser.location}</p>
                 <button onClick={toggleEditMenu}>Edit Profile</button>
-              </div>
-            </div>
-            <div className="item-stats">
-              <div className="stat">
-                <p className="value">1</p>
-                <p className="label">Bought</p>
-              </div>
-              <div className="stat">
-                <p className="value">4</p>
-                <p className="label">Sold</p>
-              </div>
-              <div className="stat">
-                <p className="value">13</p>
-                <p className="label">Listings</p>
               </div>
             </div>
           </section>
