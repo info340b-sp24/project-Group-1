@@ -9,7 +9,7 @@ const NavBar = ({ searchQuery, setSearchQuery, currentUser, onSignOut }) => {
 
   const SignOutButton = ({ currentUser }) => {
     if (currentUser.userId) {
-      return <button className="menu" onClick={onSignOut}>Sign Out</button>;
+      return <button className="sign-out-button" onClick={onSignOut}>Sign Out</button>;
     }
     return null;
   };
@@ -50,7 +50,7 @@ const NavBar = ({ searchQuery, setSearchQuery, currentUser, onSignOut }) => {
           <Link to="/messenger" className="menu">My Messages</Link>
           <Link to="/post-listing" className="menu">Post Listings</Link>
           <Link to="/user-listings" className="menu">My Profile</Link>
-          <SignOutButton currentUser={currentUser} />
+          <SignOutButton currentUser={currentUser}/>
         </div>
       </nav>
       {isMenuOpen && (
