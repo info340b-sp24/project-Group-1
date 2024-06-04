@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { getDatabase, ref as dbRef, push, onValue } from 'firebase/database';
+import { getDatabase, ref as dbRef, push, onValue, update } from 'firebase/database';
 import { getStorage, ref as storageRef, getDownloadURL } from 'firebase/storage';
 import { getAuth } from 'firebase/auth';
 
@@ -37,8 +37,8 @@ export default function ItemDetails({ listings }) {
   const db = getDatabase();
   const listingRef = dbRef(db, `listings/${itemId}`);
 
-  const currentUser = getAuth();
-  const userRef = dbRef(db, `users/${currentUser.userId}`);
+  const user = getAuth();
+  const currentUser = user.currentUser;
 
   useEffect(() => {
     const unsubscribe = onValue(listingRef, async (snapshot) => {
@@ -62,7 +62,6 @@ export default function ItemDetails({ listings }) {
 
   useEffect(() => {
     if (listing.sellerId) {
-      console.log(listing.sellerId)
       const sellerRef = dbRef(db, `users/${listing.sellerId}`);
       const unsubscribe = onValue(sellerRef, (snapshot) => {
         const sellerData = snapshot.val();
@@ -83,7 +82,7 @@ export default function ItemDetails({ listings }) {
     }
 
     const newConversation = {
-      buyerId: currentUser.userId,
+      buyerId: currentUser.uid,
       sellerId: listing.sellerId,
       listingId: itemId,
       messages: {}
@@ -92,8 +91,15 @@ export default function ItemDetails({ listings }) {
     try {
       const conversationRef = dbRef(db, 'conversations');
       const newConversationRef = await push(conversationRef, newConversation);
-
-      navigate('/messenger', { state: { conversationId: newConversationRef.key } });
+      const userConversationsRef = dbRef(db, `users/${currentUser.uid}/conversationIds`);
+      await update(userConversationsRef, {
+        [newConversationRef.key]: true
+      });
+      const sellerConversationsRef = dbRef(db, `users/${listing.sellerId}/conversationIds`);
+      await update(sellerConversationsRef, {
+          [newConversationRef.key]: true
+      });
+      navigate('/messenger');
     } catch (error) {
       console.error('Error creating new conversation:', error);
     }
