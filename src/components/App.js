@@ -86,7 +86,6 @@ export default function App() {
       )}
       <NavBar searchQuery={searchQuery} setSearchQuery={setSearchQuery} currentUser={currentUser} onSignOut={signOutUser} />
       <Routes>
-        <Route path="/post-listing" element={<PostListing loading={loading} setLoading={setLoading} />} />
         <Route path="/" element={<Home searchQuery={searchQuery} listings={listings} />} />
         <Route path="/signin" element={<SignInPage currentUser={currentUser} loginFunction={loginUser}/>} />
         {/* Pass currentUser prop to ItemDetails */}
@@ -96,7 +95,8 @@ export default function App() {
             path="/messenger"
             element={<Messenger searchQuery={searchQuery} setSearchQuery={setSearchQuery} currentUser={currentUser} />} // Pass currentUser prop to Messenger
           />
-          <Route path="/post-listing" element={<PostListing/>} />
+          {/* <Route path="/post-listing" element={<PostListing/>} /> */}
+          <Route path="/post-listing" element={<PostListing loading={loading} setLoading={setLoading} />} />
           <Route path="/user-listings" element={<MyProfile currentUser={currentUser} setCurrentUser={setCurrentUser} searchQuery={searchQuery} listings={listings} />} />
         </Route>
       </Routes>
