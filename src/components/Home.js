@@ -3,7 +3,6 @@ import { Listings } from './Listings';
 import { getDatabase, ref, onValue } from 'firebase/database';
 
 export default function Home({ searchQuery }) {
-
   const [listings, setListings] = useState([]);
   const db = getDatabase();
   const listingsRef = ref(db, 'listings');
@@ -12,22 +11,15 @@ export default function Home({ searchQuery }) {
     const unsubscribe = onValue(listingsRef, (snapshot) => {
       const dbListings = snapshot.val();
       const dbListingsWithId = Object.keys(dbListings).reduce((acc, listingId) => {
-        if (dbListings[listingId].status === "available") {
-          acc.push({
-            ...dbListings[listingId],
-            id: listingId
-          });
+        if (dbListings[listingId].status === 'available') {
+          acc.push({ ...dbListings[listingId], id: listingId });
         }
         return acc;
       }, []);
       setListings(dbListingsWithId);
     });
 
-    function cleanup() {
-      unsubscribe();
-    }
-
-    return cleanup;
+    return () => unsubscribe();
   }, []);
 
   const filteredItems = listings.filter((listing) => {
@@ -42,16 +34,11 @@ export default function Home({ searchQuery }) {
     return true;
   });
 
-  console.log(filteredItems);
-
-
   return (
-    <>
-      <main>
-        <section className="all-items">
-          <Listings items={filteredItems} header="Items Near You" />
-        </section>
-      </main>
-    </>
+    <main>
+      <section className="all-items">
+        <Listings items={filteredItems} header="Items Near You" />
+      </section>
+    </main>
   );
 }
