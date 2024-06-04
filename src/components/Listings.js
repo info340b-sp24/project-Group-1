@@ -39,14 +39,22 @@ function ListingCard({ listing }) {
 }
 
 export function Listings({ items, header }) {
+  // Chunk items into groups of 3 for each carousel item
+  const chunkedItems = [];
+  for (let i = 0; i < items.length; i += 5) {
+    chunkedItems.push(items.slice(i, i + 5));
+  }
+
   return (
     <div>
       <h2>{header}</h2>
-      <Carousel>
-        {items.map((listing) => (
-          <Carousel.Item key={listing.id}>
+      <Carousel className="carousel-custom">
+        {chunkedItems.map((itemGroup, index) => (
+          <Carousel.Item key={index}>
             <div className="carousel-item-container">
-              <ListingCard listing={listing} />
+              {itemGroup.map((listing) => (
+                <ListingCard key={listing.id} listing={listing} />
+              ))}
             </div>
           </Carousel.Item>
         ))}
