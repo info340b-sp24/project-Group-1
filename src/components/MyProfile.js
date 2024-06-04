@@ -74,10 +74,6 @@ export default function MyProfile({ currentUser, setCurrentUser, searchQuery, li
                 <p className="value">13</p>
                 <p className="label">Listings</p>
               </div>
-              <div className="stat">
-                <p className="value">13</p>
-                <p className="label">Another Thing</p>
-              </div>
             </div>
           </section>
 
