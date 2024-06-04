@@ -16,11 +16,13 @@ import Footer from './Footer';
 import items from '../data/items.json';
 import DEFAULT_USERS from '../data/users.json';
 import ItemDetails from './ItemDetails';
+import ClipLoader from 'react-spinners/ClipLoader';
 
 export default function App() {
   const [currentUser, setCurrentUser] = useState(DEFAULT_USERS[0]);
   const [listings, setListings] = useState(items);
   const [searchQuery, setSearchQuery] = useState("");
+  const [loading, setLoading] = useState(false);
 
 
   const navigateTo = useNavigate();
@@ -51,13 +53,12 @@ export default function App() {
     });
   }, [db]);
 
-
-
   const loginUser = async (userObj) => {
     console.log("logging in as", userObj.userName);
     setCurrentUser(userObj);
 
     if (userObj.userId !== null) {
+      setLoading(true)
       navigateTo('/user-listings');
 
       // Update Firebase user profile
@@ -66,6 +67,8 @@ export default function App() {
         displayName: userObj.userName,
         photoURL: userObj.userImg,
       });
+      
+      setLoading(false)
     }
   };
 
@@ -77,22 +80,31 @@ export default function App() {
 
   return (
     <>
-      <NavBar searchQuery={searchQuery} setSearchQuery={setSearchQuery} currentUser={currentUser} onSignOut={signOutUser} />
-      <Routes>
-        <Route path="/" element={<Home searchQuery={searchQuery} listings={listings} />} />
-        <Route path="/signin" element={<SignInPage currentUser={currentUser} loginFunction={loginUser}/>} />
-        {/* Pass currentUser prop to ItemDetails */}
-        <Route path="/item-details/:itemId" element={<ItemDetails listings={listings} currentUser={currentUser} />} />
-        <Route element={<ProtectedPage currentUser={currentUser} />}>
-          <Route
-            path="/messenger"
-            element={<Messenger searchQuery={searchQuery} setSearchQuery={setSearchQuery} currentUser={currentUser} />} // Pass currentUser prop to Messenger
-          />
-          <Route path="/post-listing" element={<PostListing/>} />
-          <Route path="/user-listings" element={<MyProfile currentUser={currentUser} setCurrentUser={setCurrentUser} searchQuery={searchQuery} listings={listings} />} />
-        </Route>
-      </Routes>
-      <Footer />
+      {loading && (
+        <div className="spinner-container">
+          <ClipLoader color="#3498db" loading={loading} size={150} />
+        </div>
+      )}
+      {!loading && (
+        <>
+          <NavBar searchQuery={searchQuery} setSearchQuery={setSearchQuery} currentUser={currentUser} onSignOut={signOutUser} />
+          <Routes>
+            <Route path="/" element={<Home searchQuery={searchQuery} listings={listings} />} />
+            <Route path="/signin" element={<SignInPage currentUser={currentUser} loginFunction={loginUser} />} />
+            {/* Pass currentUser prop to ItemDetails */}
+            <Route path="/item-details/:itemId" element={<ItemDetails listings={listings} currentUser={currentUser} />} />
+            <Route element={<ProtectedPage currentUser={currentUser} />}>
+              <Route
+                path="/messenger"
+                element={<Messenger searchQuery={searchQuery} setSearchQuery={setSearchQuery} currentUser={currentUser} />}
+              />
+              <Route path="/post-listing" element={<PostListing />} />
+              <Route path="/user-listings" element={<MyProfile currentUser={currentUser} setCurrentUser={setCurrentUser} searchQuery={searchQuery} listings={listings} />} />
+            </Route>
+          </Routes>
+          <Footer />
+        </>
+      )}
     </>
   );
 }
