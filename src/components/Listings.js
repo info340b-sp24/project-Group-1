@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Carousel from 'react-bootstrap/Carousel';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import '../style.css';
 import { getStorage, ref as storageRef, getDownloadURL } from 'firebase/storage';
 import { getDatabase, ref as dbRef, onValue } from 'firebase/database';
 
@@ -39,26 +40,28 @@ function ListingCard({ listing }) {
 }
 
 export function Listings({ items, header }) {
-  // Chunk items into groups of 3 for each carousel item
+  // Chunk items into groups of 5 for each carousel item
   const chunkedItems = [];
   for (let i = 0; i < items.length; i += 5) {
     chunkedItems.push(items.slice(i, i + 5));
   }
 
+  const carouselItems = chunkedItems.map((itemGroup, index) => {
+    const listingCards = itemGroup.map((listing) => (
+      <ListingCard key={listing.id} listing={listing} />
+    ));
+
+    return (
+      <Carousel.Item key={index}>
+        <div className="carousel-item-container">{listingCards}</div>
+      </Carousel.Item>
+    );
+  });
+
   return (
     <div>
       <h2>{header}</h2>
-      <Carousel className="carousel-custom">
-        {chunkedItems.map((itemGroup, index) => (
-          <Carousel.Item key={index}>
-            <div className="carousel-item-container">
-              {itemGroup.map((listing) => (
-                <ListingCard key={listing.id} listing={listing} />
-              ))}
-            </div>
-          </Carousel.Item>
-        ))}
-      </Carousel>
+      <Carousel className="carousel-custom">{carouselItems}</Carousel>
     </div>
   );
 }

@@ -52,6 +52,10 @@ export default function EditProfileMenu({ currentUser, setCurrentUser, onProfile
     setCurrentUser(updatedUser);
   };
 
+  const cityOptions = cities.map((city, index) => (
+    <option key={index} value={city}>{city}</option>
+  ));
+
   return (
     <div className="edit-profile-menu">
       <input 
@@ -65,9 +69,7 @@ export default function EditProfileMenu({ currentUser, setCurrentUser, onProfile
         onChange={(e) => setLocation(e.target.value)}
       >
         <option value="">Select City</option>
-        {cities.map((city, index) => (
-          <option key={index} value={city}>{city}</option>
-        ))}
+        {cityOptions}
       </select>
       <input
         type="file"
