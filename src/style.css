@@ -64,6 +64,19 @@ nav {
     font-size: 12px;
 }
 
+.spinner-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(255, 255, 255, 0.7);
+    z-index: 1000;
+  }
+
 
 .breadcrumb {
     padding: 0.5rem 1.5rem;
@@ -487,21 +500,19 @@ footer {
   }
 
   .sign-out-button {
-    background-color: #8B4BA9; /* Green background */
-    border: none; /* Remove borders */
-    color: white; /* White text */
-    padding: 12px 24px; /* Some padding */
-    text-align: center; /* Center the text */
-    display: inline-block; /* Make the button inline-block */
-    font-size: 12px; /* Increase font size */
-    margin: 4px 2px; /* Some margin */
-    cursor: pointer; /* Pointer/hand icon */
-    border-radius: 8px; /* Rounded corners */
+    background-color: #8B4BA9; 
+    border: none; 
+    color: white; 
+    padding: 12px 24px; 
+    text-align: center; 
+    display: inline-block; 
+    font-size: 12px; 
+    margin: 4px 2px; 
+    cursor: pointer; 
+    border-radius: 8px; 
     margin-left: 1.5rem;
   }
   
-
-/** **/
 
 /* flexbox */
 .chat-container {

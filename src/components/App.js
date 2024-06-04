@@ -16,11 +16,13 @@ import Footer from './Footer';
 import items from '../data/items.json';
 import DEFAULT_USERS from '../data/users.json';
 import ItemDetails from './ItemDetails';
+import ClipLoader from 'react-spinners/ClipLoader';
 
 export default function App() {
   const [currentUser, setCurrentUser] = useState(DEFAULT_USERS[0]);
   const [listings, setListings] = useState(items);
   const [searchQuery, setSearchQuery] = useState("");
+  const [loading, setLoading] = useState(false);
 
 
   const navigateTo = useNavigate();
@@ -56,6 +58,7 @@ export default function App() {
     setCurrentUser(userObj);
 
     if (userObj.userId !== null) {
+      setLoading(true)
       navigateTo('/user-listings');
 
       // Update Firebase user profile
@@ -64,6 +67,7 @@ export default function App() {
         displayName: userObj.userName,
         photoURL: userObj.userImg,
       });
+      setLoading(false)
     }
   };
 
@@ -75,8 +79,14 @@ export default function App() {
 
   return (
     <>
+      {loading && (
+        <div className="spinner-container">
+          <ClipLoader color="#3498db" loading={loading} size={150} />
+        </div>
+      )}
       <NavBar searchQuery={searchQuery} setSearchQuery={setSearchQuery} currentUser={currentUser} onSignOut={signOutUser} />
       <Routes>
+        <Route path="/post-listing" element={<PostListing loading={loading} setLoading={setLoading} />} />
         <Route path="/" element={<Home searchQuery={searchQuery} listings={listings} />} />
         <Route path="/signin" element={<SignInPage currentUser={currentUser} loginFunction={loginUser}/>} />
         {/* Pass currentUser prop to ItemDetails */}
