@@ -6,6 +6,7 @@ import { getAuth } from 'firebase/auth';
 const ChatBox = ({ selectedChat, sendMessage }) => {
   const [newMessage, setNewMessage] = useState('');
   const [messages, setMessages] = useState([]);
+  const [correspondent, setCorrespondent] = useState('');
 
   const currentUser = getAuth().currentUser;
 
@@ -24,6 +25,19 @@ const ChatBox = ({ selectedChat, sendMessage }) => {
     return unsubscribe;
   }, [selectedChat]);
 
+  useEffect(() => {
+    const userIsSeller = selectedChat.sellerId === currentUser.uid;
+    console.log(selectedChat)
+    const correspondentRef = ref(db, `users/${userIsSeller ? selectedChat.buyerId : selectedChat.sellerId}/username`);
+    const unsubscribe = onValue(correspondentRef, (snapshot) => {
+      const data = snapshot.val();
+      console.log(data);
+      const correspondent = data ? data : '';
+      setCorrespondent(correspondent);
+    });
+    return unsubscribe;
+  }, [messages]);
+
   const handleSendMessage = (e) => {
     e.preventDefault();
     if (newMessage.trim()) {
@@ -33,7 +47,7 @@ const ChatBox = ({ selectedChat, sendMessage }) => {
   };
 
   const messageElements = messages.map((msg, index) => (
-    <p key={index}><strong>{msg.senderId === currentUser.uid ? "You" : "Seller"}:</strong> {msg.content}</p>
+    <p key={index}><strong>{msg.senderId === currentUser.uid ? "You" : correspondent}:</strong> {msg.content}</p>
   ));
 
   return (

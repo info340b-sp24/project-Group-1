@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { getDatabase, ref, push, onValue, remove } from 'firebase/database';
+import { getDatabase, ref, push, onValue, remove, update } from 'firebase/database';
 import { getStorage, ref as storageRef, uploadBytes, deleteObject, getDownloadURL } from 'firebase/storage';
 import { getAuth } from 'firebase/auth';
 import ClipLoader from 'react-spinners/ClipLoader';
@@ -111,7 +111,7 @@ export default function PostListing({ loading, setLoading }) {
         await remove(draftRef);
         // Add listingId to user's listings
         const userListingsRef = ref(db, `users/${user.currentUser.uid}/listings`);
-        await push(userListingsRef, {
+        await update(userListingsRef, {
           [newListingRef.key]: true
         });
         setTitle('');
