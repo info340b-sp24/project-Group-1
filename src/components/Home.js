@@ -10,12 +10,15 @@ export default function Home({ searchQuery }) {
   useEffect(() => {
     const unsubscribe = onValue(listingsRef, (snapshot) => {
       const dbListings = snapshot.val();
-      const dbListingsWithId = Object.keys(dbListings).reduce((acc, listingId) => {
-        if (dbListings[listingId].status === 'available') {
-          acc.push({ ...dbListings[listingId], id: listingId });
-        }
-        return acc;
-      }, []);
+      let dbListingsWithId = [];
+      if (dbListings) {
+        dbListingsWithId = Object.keys(dbListings).reduce((acc, listingId) => {
+          if (dbListings[listingId].status === 'available') {
+            acc.push({ ...dbListings[listingId], id: listingId });
+          }
+          return acc;
+        }, []);
+      }
       setListings(dbListingsWithId);
     });
 

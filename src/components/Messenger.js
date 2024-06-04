@@ -42,13 +42,17 @@ export default function Messenger({ searchQuery, setSearchQuery, currentUser }) 
             updatedChats[chatIndex] = {
               id: snapshot.key,
               lastMessage: lastMessage.content,
-              timestamp: lastMessage.timestamp
+              timestamp: lastMessage.timestamp,
+              sellerId: chatData.sellerId,
+              buyerId: chatData.buyerId
             };
           } else {
             updatedChats.push({
               id: snapshot.key,
               lastMessage: lastMessage.content,
-              timestamp: lastMessage.timestamp
+              timestamp: lastMessage.timestamp,
+              sellerId: chatData.sellerId,
+              buyerId: chatData.buyerId
             });
           }
           return updatedChats.sort((a, b) => {
