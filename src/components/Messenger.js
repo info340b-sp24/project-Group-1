@@ -7,12 +7,11 @@ export default function Messenger({ searchQuery, setSearchQuery, currentUser }) 
   const [selectedChat, setSelectedChat] = useState(null);
   const [chatIds, setChatIds] = useState([]);
   const [chats, setChats] = useState([]);
-  const [userMessages, setUserMessages] = useState([]);
+  const [messages, setMessages] = useState([]);
   const db = getDatabase();
 
   useEffect(() => {
     if (!currentUser || !currentUser.userId) return;
-    const chatsRef = ref(db, 'conversations');
     const userChatsRef = ref(db, `users/${currentUser.userId}/conversationIds`);
     onValue(userChatsRef, (snapshot) => {
       let chatIds = [];
@@ -32,15 +31,29 @@ export default function Messenger({ searchQuery, setSearchQuery, currentUser }) 
     const unsubscribes = chatRefs.map(chatRef =>
       onValue(chatRef, (snapshot) => {
         const chatData = snapshot.val();
+        const messages = chatData.messages || {};
+        const lastMessageKey = Object.keys(messages).pop();
+        const lastMessage = messages[lastMessageKey];
+
         setChats(prevChats => {
           const updatedChats = [...prevChats];
           const chatIndex = updatedChats.findIndex(chat => chat.id === snapshot.key);
           if (chatIndex !== -1) {
-            updatedChats[chatIndex] = { id: snapshot.key, ...chatData };
+            updatedChats[chatIndex] = {
+              id: snapshot.key,
+              lastMessage: lastMessage.content,
+              timestamp: lastMessage.timestamp
+            };
           } else {
-            updatedChats.push({ id: snapshot.key, ...chatData });
+            updatedChats.push({
+              id: snapshot.key,
+              lastMessage: lastMessage.content,
+              timestamp: lastMessage.timestamp
+            });
           }
-          return updatedChats;
+          return updatedChats.sort((a, b) => {
+
+          });
         });
       })
     );
@@ -49,6 +62,7 @@ export default function Messenger({ searchQuery, setSearchQuery, currentUser }) 
       unsubscribes.forEach(unsubscribe => unsubscribe());
     };
   }, [chatIds, db]);
+
 
 
   // const handleNewChatEvent = (event) => {
@@ -78,9 +92,9 @@ export default function Messenger({ searchQuery, setSearchQuery, currentUser }) 
     <div key={chat.id} className={`chat-item ${selectedChat?.id === chat.id ? 'active' : ''}`} onClick={() => handleChatSelection(chat)}>
       <div className="chat-item-content">
         <h3>{`Chat with ${chat.sellerId === currentUser.userId ? 'buyer' : 'seller'}`}</h3>
-        <p>{chat.messages && chat.messages[Object.keys(chat.messages)[0]].content}</p>
+        <p>{chat.lastMessage}</p>
       </div>
-      <div className="chat-item-time">{new Date(chat.messages && chat.messages[Object.keys(chat.messages)[0]].timestamp).toLocaleString()}</div>
+      <div className="chat-item-time">{new Date(chat.timestamp).toLocaleString()}</div>
     </div>
   ));
 
@@ -99,7 +113,7 @@ export default function Messenger({ searchQuery, setSearchQuery, currentUser }) 
             {selectedChat ? (
               <div className="chat-content">
                 <div className="chat-header"><h2>All Messages</h2></div>
-                <div className="chat-history"><ChatBox messages={userMessages} sendMessage={handleSendMessage} /></div>
+                <div className="chat-history"><ChatBox selectedChat={selectedChat} sendMessage={handleSendMessage} /></div>
               </div>
             ) : (
               <div className="no-chat-selected"><p>Please select a chat to view the messages.</p></div>

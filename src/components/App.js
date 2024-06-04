@@ -51,8 +51,6 @@ export default function App() {
     });
   }, [db]);
 
-
-
   const loginUser = async (userObj) => {
     console.log("logging in as", userObj.userName);
     setCurrentUser(userObj);
